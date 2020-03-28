@@ -6,3 +6,18 @@
   padding-left: 1.0416666666667%;
   padding-right: 1.0416666666667%;
 }
+
+.horizontalWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 1;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #e2e2e2;
+}
