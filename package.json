@@ -1,0 +1,15 @@
+{
+  "name": "wolf-of-wallstreet-3",
+  "author": "Shreeji Pedhadiya",
+  "license": "ISC",
+  "scripts": {
+    "dev": "next --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^9.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
