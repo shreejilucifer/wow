@@ -140,3 +140,28 @@
   filter: blur(10px);
   background-color: #00000033;
 }
+
+@media only screen and (max-width: 768px) {
+  .name {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .logoContainer {
+    display: none;
+  }
+
+  .timerContainer {
+    width: 50%;
+  }
+  .controlsContainer {
+    width: 50%;
+  }
+  .timer {
+    display: none;
+  }
+  .timerContent {
+    font-size: 30px;
+  }
+}
