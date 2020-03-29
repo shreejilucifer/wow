@@ -20,15 +20,15 @@ const Navbar = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logoContainer}>
-        <img src='/logo.svg' className={styles.logo} />
+        <img src='/icons/logo.svg' className={styles.logo} />
       </div>
       <div className={styles.timerContainer}>
-        <img src='/timer.svg' className={styles.timer} />
+        <img src='/icons/timer.svg' className={styles.timer} />
         <div className={styles.timerContent}>00:00:00</div>
       </div>
       <div className={styles.controlsContainer}>
         <div className={styles.notificationContainer}>
-          <img src='/notification.svg' className={styles.notification} />
+          <img src='/icons/notification.svg' className={styles.notification} />
         </div>
         <div className={styles.userContainer}>
           <img src='/test-user.png' className={styles.user} />
@@ -38,7 +38,7 @@ const Navbar = () => {
           className={styles.dropDownContainer}
           onClick={() => setControls(!controls)}
         >
-          <img src='/caret.svg' className={styles.caret} />
+          <img src='/icons/black_arrow_down.svg' className={styles.caret} />
           {controls ? <Controls /> : null}
         </div>
       </div>

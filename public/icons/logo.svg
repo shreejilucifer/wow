@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52.612" height="52" viewBox="0 0 52.612 52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Logo" transform="translate(1.359 1)">
+    <path id="Path_1" data-name="Path 1" class="cls-1" d="M10,84.322l12.02-21.7,5.422,10.534,7.863-7.9,8.043,7.9,7.591-23.975L59.886,44" transform="translate(-10 -37.978)"/>
+    <rect id="Rectangle_2" data-name="Rectangle 2" class="cls-1" width="50" height="50"/>
+  </g>
+</svg>

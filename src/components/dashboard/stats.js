@@ -1,8 +1,5 @@
 import light from '../../styles/light/dashboardstats.module.css';
-
-function nc(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+import nc from '../../utils/commanumber';
 
 const Card = ({ top, bottom }) => {
   const styles = light;

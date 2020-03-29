@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
         <Sidebar />
         <div className={styles.mainContainer}>{children}</div>
       </div>
-      <div style={{ height: '6.0606060606061%' }}>This is the Stockbar</div>
+      <div style={{ height: '5%' }}>This is the Stockbar</div>
     </div>
   );
 };

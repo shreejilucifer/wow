@@ -35,6 +35,12 @@
   z-index: 1;
 }
 
+.icon {
+  color: white;
+  height: 35px;
+  width: 35px;
+}
+
 @media only screen and (max-width: 768px) {
   .sidebarWrapper {
     display: none;

@@ -8,9 +8,7 @@ const Icon = ({ active, img }) => {
         active ? styles.iconWrapper + ' ' + styles.active : styles.iconWrapper
       }
     >
-      <div className={styles.iconContainer}>
-        <img src={img} />
-      </div>
+      <img src={img} className={styles.icon} />
     </div>
   );
 };
@@ -19,10 +17,10 @@ const Sidebar = () => {
   const styles = light;
   return (
     <div className={styles.sidebarWrapper}>
-      <Icon active img='/dashboard.svg' />
-      <Icon img='/leaderboard.svg' />
-      <Icon img='/howtoplay.svg' />
-      <Icon img='/transactions.svg' />
+      <Icon active img='/icons/home.svg' />
+      <Icon active img='/icons/leaderboard.svg' />
+      <Icon active img='/icons/how_to_play.svg' />
+      <Icon active img='/icons/about_us.svg' />
     </div>
   );
 };
