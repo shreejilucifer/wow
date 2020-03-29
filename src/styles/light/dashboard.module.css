@@ -1,0 +1,9 @@
+.container {
+  height: 79%;
+  max-height: 79;
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+.main {
+}

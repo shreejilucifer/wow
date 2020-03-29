@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import light from '../styles/light/layout.module.css';
 
 import Navbar from '../components/navbar';
@@ -12,9 +14,11 @@ const Layout = ({ children }) => {
         <Sidebar />
         <div className={styles.mainContainer}>{children}</div>
       </div>
-      <div style={{ height: '6.0606060606061%' }}>egge</div>
+      <div style={{ height: '6.0606060606061%' }}>This is the Stockbar</div>
     </div>
   );
 };
 
 export default Layout;
+
+// Use Marquee from 'styled components website'

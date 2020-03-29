@@ -1,0 +1,6 @@
+.container {
+  width: 95%;
+  justify-self: center;
+  border-radius: 10px;
+  background-color: #ececec;
+}
