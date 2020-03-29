@@ -1,6 +1,6 @@
 .wrapper {
-  height: 21%;
-  max-height: 21%;
+  height: 15vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: row;
   flex: 1;

@@ -88,6 +88,27 @@ const WatchList = () => {
           price={1000}
           stock={14300}
         />
+        <Item
+          name='Info'
+          stat='up'
+          percentage='90%'
+          price={1000}
+          stock={14300}
+        />
+        <Item
+          name='Info'
+          stat='up'
+          percentage='90%'
+          price={1000}
+          stock={14300}
+        />
+        <Item
+          name='Info'
+          stat='up'
+          percentage='90%'
+          price={1000}
+          stock={14300}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 .container {
+  height: 5vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  margin-top: 5px;
+  align-items: center;
   margin-left: 10px;
 }
 

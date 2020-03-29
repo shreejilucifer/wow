@@ -3,22 +3,22 @@
   display: flex;
   flex-direction: column;
   background-color: #f8f8f8;
-  padding-left: 1.0416666666667%;
-  padding-right: 1.0416666666667%;
+  padding-left: 1%;
+  padding-right: 1%;
+  overflow: hidden;
 }
 
 .horizontalWrapper {
-  height: 85%;
-  max-height: 85%;
+  height: 85vh;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  width: 100%;
 }
 
 .mainContainer {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
   border-radius: 15px;
   padding: 15px;
   background-color: #e2e2e2;

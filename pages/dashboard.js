@@ -3,6 +3,8 @@ import Layout from '../src/components/layout';
 import Stats from '../src/components/dashboard/stats';
 import WatchList from '../src/components/dashboard/watchlist';
 import Links from '../src/components/dashboard/links';
+import Trade from '../src/components/dashboard/trade';
+
 import light from '../src/styles/light/dashboard.module.css';
 
 const Dashboard = () => {
@@ -15,6 +17,7 @@ const Dashboard = () => {
         <div className={styles.container}>
           <div className={styles.main}>
             <Links />
+            <Trade />
           </div>
           <WatchList />
         </div>

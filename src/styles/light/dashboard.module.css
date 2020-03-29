@@ -1,6 +1,5 @@
 .container {
-  height: 79%;
-  max-height: 79%;
+  height: 60vh;
   display: grid;
   grid-template-columns: 75% 25%;
 }
@@ -8,4 +7,5 @@
 .main {
   display: flex;
   flex-direction: column;
+  height: 70vh;
 }

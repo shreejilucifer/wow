@@ -1,6 +1,5 @@
 .wrapper {
-  height: 10%;
-  max-height: 10%;
+  height: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
