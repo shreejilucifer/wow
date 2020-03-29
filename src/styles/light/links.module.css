@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.linkButtons,
+.active {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  width: 170px;
+  height: 40px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 10px;
+  background: #e2e2e2;
+  box-shadow: 4px 4px 8px #c0c0c0, -4px -4px 8px #ffffff;
+  outline: none;
+  cursor: pointer;
+  color: #404040;
+}
+
+.active {
+  border-radius: 10px;
+  background: #e2e2e2;
+  box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #f9f9f9;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    margin-top: 10px;
+  }
+  .linkButtons,
+  .active {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .linkButtons,
+  .active {
+    width: auto;
+    margin-left: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .linkButtons,
+  .active {
+    width: auto;
+    margin-left: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
