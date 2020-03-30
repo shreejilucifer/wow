@@ -1,0 +1,78 @@
+.container {
+  height: 7vh;
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.linkButtons:nth-child(1) {
+  margin-left: 10px;
+}
+
+.linkButtons,
+.active {
+  width: 15%;
+  margin-right: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #202020;
+  box-shadow: 4px 4px 8px #131313, -4px -4px 8px #2d2d2d;
+  outline: none;
+  cursor: pointer;
+  color: #bcbcbc;
+}
+
+.active {
+  border-radius: 10px;
+  background: #202020;
+  box-shadow: inset 4px 4px 8px #131313, inset -4px -4px 8px #2d2d2d;
+}
+
+.brokerbtn {
+  background-image: linear-gradient(
+    90deg,
+    rgba(123, 202, 255, 0.2) 50%,
+    #202020 51%
+  );
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin-top: 10px;
+  }
+  .linkButtons,
+  .active {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .linkButtons,
+  .active {
+    width: auto;
+    margin-left: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .linkButtons,
+  .active {
+    width: auto;
+    margin-left: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}

@@ -1,20 +1,14 @@
 import light from '../styles/light/stockbar.module.css';
+import dark from '../styles/dark/stockbar.module.css';
 
 const x = [
   { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
   { name: 'Tata Motors (TM)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'down' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'down' }
+  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' }
 ];
 
-const StockbarItem = ({ name, stat }) => {
-  const styles = light;
+const StockbarItem = ({ theme, name, stat }) => {
+  const styles = theme ? light : dark;
   return (
     <div className={styles.itemContainer}>
       <div className={styles.name}>{name}</div>
@@ -29,14 +23,15 @@ const StockbarItem = ({ name, stat }) => {
   );
 };
 
-const Stockbar = () => {
-  const styles = light;
+const Stockbar = ({ theme }) => {
+  const styles = theme ? light : dark;
 
   return (
     <div className={styles.container}>
       <span className={styles.slider1}>
         {x.map((a, index) => (
           <StockbarItem
+            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}
@@ -46,6 +41,7 @@ const Stockbar = () => {
       <span className={styles.slider2}>
         {x.map((a, index) => (
           <StockbarItem
+            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}
@@ -55,6 +51,7 @@ const Stockbar = () => {
       <span className={styles.slider3}>
         {x.map((a, index) => (
           <StockbarItem
+            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}

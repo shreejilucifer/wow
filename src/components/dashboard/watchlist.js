@@ -1,8 +1,9 @@
 import light from '../../styles/light/watchlist.module.css';
+import dark from '../../styles/dark/watchlist.module.css';
 import nc from '../../utils/commanumber';
 
-const Item = ({ name, stat, percentage, price, stock }) => {
-  const styles = light;
+const Item = ({ theme, name, stat, percentage, price, stock }) => {
+  const styles = theme ? light : dark;
 
   const renderName = name => {
     let x = name.length > 10 ? name.toString().substring(0, 10) + '....' : name;
@@ -14,7 +15,12 @@ const Item = ({ name, stat, percentage, price, stock }) => {
       <div className={styles.leftContainer}>
         <div className={styles.nameContainer}>
           <div className={styles.name}>{renderName(name)}</div>
-          <img src='/icons/heart_fill.svg' className={styles.heart} />
+          <img
+            src={
+              theme ? '/icons/heart_fill.svg' : '/icons/heart_fill_white.svg'
+            }
+            className={styles.heart}
+          />
         </div>
         <div className={styles.statContainer}>
           <div className={stat === 'up' ? styles.up : styles.down}>
@@ -47,13 +53,30 @@ const Item = ({ name, stat, percentage, price, stock }) => {
   );
 };
 
-const WatchList = () => {
-  const styles = light;
+const WatchList = ({ theme }) => {
+  const styles = theme ? light : dark;
   return (
     <div className={styles.container}>
       <div className={styles.title}>Watchlist</div>
       <div className={styles.items}>
         <Item
+          theme={theme}
+          name='Info'
+          stat='up'
+          percentage='90%'
+          price={1000}
+          stock={14300}
+        />
+        <Item
+          theme={theme}
+          name='Info'
+          stat='up'
+          percentage='90%'
+          price={1000}
+          stock={14300}
+        />
+        <Item
+          theme={theme}
           name='Info'
           stat='down'
           percentage='90%'
@@ -61,50 +84,57 @@ const WatchList = () => {
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}
         />
         <Item
+          theme={theme}
           name='Info'
-          stat='up'
+          stat='down'
           percentage='90%'
           price={1000}
           stock={14300}

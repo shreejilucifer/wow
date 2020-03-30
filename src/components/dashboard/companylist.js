@@ -1,8 +1,10 @@
 import light from '../../styles/light/companylist.module.css';
+import dark from '../../styles/dark/companylist.module.css';
+
 import { useState } from 'react';
 
-const Company = ({ stat }) => {
-  const styles = light;
+const Company = ({ stat, theme }) => {
+  const styles = theme ? light : dark;
 
   return (
     <div className={styles.companyContainer}>
@@ -36,9 +38,9 @@ const Company = ({ stat }) => {
   );
 };
 
-const Category = ({ categoryName }) => {
+const Category = ({ categoryName, theme }) => {
   const [open, setOpen] = useState(false);
-  const styles = light;
+  const styles = theme ? light : dark;
 
   return (
     <React.Fragment>
@@ -46,32 +48,44 @@ const Category = ({ categoryName }) => {
         <div className={styles.categoryName}>{categoryName}</div>
         <div className={styles.caret} onClick={() => setOpen(!open)}>
           {open ? (
-            <img src='/icons/black_arrow_up.svg' />
+            <img
+              src={
+                theme
+                  ? '/icons/black_arrow_up.svg'
+                  : '/icons/white_arrow_up.svg'
+              }
+            />
           ) : (
-            <img src='/icons/black_arrow_down.svg' />
+            <img
+              src={
+                theme
+                  ? '/icons/black_arrow_down.svg'
+                  : '/icons/white_arrow_down.svg'
+              }
+            />
           )}
         </div>
       </div>
       {open ? (
         <React.Fragment>
-          <Company stat='up' />
-          <Company stat='down' />
-          <Company stat='up' />
-          <Company stat='down' />
+          <Company theme={theme} stat='up' />
+          <Company theme={theme} stat='down' />
+          <Company theme={theme} stat='up' />
+          <Company theme={theme} stat='down' />
         </React.Fragment>
       ) : null}
     </React.Fragment>
   );
 };
 
-const CompanyList = () => {
-  const styles = light;
+const CompanyList = ({ theme }) => {
+  const styles = theme ? light : dark;
 
   return (
     <div className={styles.container}>
       <div className={styles.searchContainer}>
         <div className={styles.searchIcon}>
-          <img src='/icons/search.svg' />
+          <img src={theme ? '/icons/search.svg' : 'icons/search_white.svg'} />
         </div>
         <input
           placeholder='Search for a Category/Company'
@@ -80,24 +94,24 @@ const CompanyList = () => {
         />
       </div>
       <div className={styles.listContainer}>
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software 1' />
-        <Category categoryName='IT Software 2' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software3' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
-        <Category categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software 1' />
+        <Category theme={theme} categoryName='IT Software 2' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software3' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
+        <Category theme={theme} categoryName='IT Software' />
       </div>
     </div>
   );

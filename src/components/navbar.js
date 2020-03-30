@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
 import light from '../styles/light/navbar.module.css';
+import dark from '../styles/dark/navbar.module.css';
 
-const Controls = () => {
-  const styles = light;
+const Controls = ({ theme }) => {
+  const styles = theme ? light : dark;
   return (
     <div className={styles.controlsDropdownContainer}>
       <div className={styles.contentContainer}>
@@ -14,16 +15,22 @@ const Controls = () => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ theme }) => {
   const [controls, setControls] = useState(false);
-  const styles = light;
+  const styles = theme ? light : dark;
   return (
     <div className={styles.wrapper}>
       <div className={styles.logoContainer}>
-        <img src='/icons/logo.svg' className={styles.logo} />
+        <img
+          src={theme ? '/icons/logo.svg' : '/icons/logo_white.svg'}
+          className={styles.logo}
+        />
       </div>
       <div className={styles.timerContainer}>
-        <img src='/icons/timer.svg' className={styles.timer} />
+        <img
+          src={theme ? '/icons/timer.svg' : '/icons/timer_white.svg'}
+          className={styles.timer}
+        />
         <div className={styles.timerContent}>00:00:00</div>
       </div>
       <div className={styles.controlsContainer}>

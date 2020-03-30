@@ -1,4 +1,4 @@
-import light from '../../styles/light/trade.module.css';
+import styles from '../../styles/light/trade.module.css';
 import CompanyList from './companylist';
 import Company from './company';
 
@@ -14,13 +14,12 @@ const company = {
   basePrice: 1200000
 };
 
-const Trade = () => {
-  const styles = light;
+const Trade = ({ theme }) => {
   return (
     <div className={styles.container}>
-      <CompanyList />
+      <CompanyList theme={theme} />
       <div className={styles.main}>
-        <Company company={company} />
+        <Company theme={theme} company={company} />
       </div>
     </div>
   );

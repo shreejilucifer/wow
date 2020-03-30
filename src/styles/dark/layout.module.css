@@ -1,0 +1,44 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  padding-left: 1%;
+  padding-right: 1%;
+  overflow: hidden;
+}
+
+.horizontalWrapper {
+  height: 85vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background-color: #202020;
+}
+
+.main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+.childrenContainer {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.watchlistContainer {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

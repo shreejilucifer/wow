@@ -1,4 +1,6 @@
 import light from '../../styles/light/company.module.css';
+import dark from '../../styles/dark/company.module.css';
+
 import nc from '../../utils/commanumber';
 import {
   LineChart,
@@ -55,8 +57,8 @@ const data = [
   }
 ];
 
-const Card = ({ top, bottom }) => {
-  const styles = light;
+const Card = ({ top, bottom, theme }) => {
+  const styles = theme ? light : dark;
   return (
     <div className={styles.card}>
       <div className={styles.top}>{top}</div>
@@ -66,7 +68,7 @@ const Card = ({ top, bottom }) => {
 };
 
 const Company = ({ company, theme }) => {
-  const styles = light;
+  const styles = theme ? light : dark;
   const {
     short,
     name,
@@ -112,14 +114,22 @@ const Company = ({ company, theme }) => {
         </div>
 
         <div className={styles.heart}>
-          <img src='/icons/heart.svg' />
+          <img src={theme ? '/icons/heart.svg' : '/icons/heart_white.svg'} />
         </div>
       </div>
       <div className={styles.companyCards}>
-        <Card top='Available Volume' bottom={nc(availableVolume)} />
-        <Card top='Bought Volume' bottom={boughtVolume} />
-        <Card top='Current Price' bottom={'₹' + nc(currentPrice)} />
-        <Card top='Base Price' bottom={'₹' + nc(basePrice)} />
+        <Card
+          theme={theme}
+          top='Available Volume'
+          bottom={nc(availableVolume)}
+        />
+        <Card theme={theme} top='Bought Volume' bottom={boughtVolume} />
+        <Card
+          theme={theme}
+          top='Current Price'
+          bottom={'₹' + nc(currentPrice)}
+        />
+        <Card theme={theme} top='Base Price' bottom={'₹' + nc(basePrice)} />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.wrapperLeft}>
@@ -136,12 +146,28 @@ const Company = ({ company, theme }) => {
                   <CartesianGrid strokeDasharray='3 3' />
                   <XAxis
                     dataKey='name'
-                    axisLine={{ stroke: '#404040', strokeWidth: 2 }}
-                    tick={{ fontSize: '9px' }}
+                    axisLine={
+                      theme
+                        ? { stroke: '#404040', strokeWidth: 2 }
+                        : { stroke: '#BCBCBC', strokeWidth: 2 }
+                    }
+                    tick={
+                      theme
+                        ? { fontSize: '9px' }
+                        : { fontSize: '9px', stroke: '#BCBCBC' }
+                    }
                   />
                   <YAxis
-                    axisLine={{ stroke: '#404040', strokeWidth: 2 }}
-                    tick={{ fontSize: '9px' }}
+                    axisLine={
+                      theme
+                        ? { stroke: '#404040', strokeWidth: 2 }
+                        : { stroke: '#BCBCBC', strokeWidth: 2 }
+                    }
+                    tick={
+                      theme
+                        ? { fontSize: '9px' }
+                        : { fontSize: '9px', stroke: '#BCBCBC' }
+                    }
                   />
                   <Tooltip />
                   <Line type='monotone' dataKey='pv' stroke='#6FB353' />

@@ -1,7 +1,9 @@
 import light from '../../styles/light/links.module.css';
+import dark from '../../styles/dark/links.module.css';
 
-const Links = ({ active, onChangeActive }) => {
-  const styles = light;
+const Links = ({ active, onChangeActive, theme }) => {
+  const styles = theme ? light : dark;
+
   return (
     <div className={styles.container}>
       <button
