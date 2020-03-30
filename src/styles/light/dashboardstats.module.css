@@ -3,7 +3,6 @@
   min-height: 15vh;
   display: flex;
   flex-direction: row;
-  flex: 1;
 }
 
 .blockContainer {

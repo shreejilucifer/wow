@@ -1,6 +1,5 @@
 .container {
-  width: 32%;
-  min-width: 32%;
+  height: 58vh;
   background: #dbdbdb;
   border-radius: 10px;
   display: flex;

@@ -1,12 +1,16 @@
 .container {
-  height: 55vh;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
+  height: 60vh;
+  width: 98%;
+  align-self: center;
+  display: grid;
+  grid-template-columns: 25% 75%;
 }
 
 .main {
-  width: 68%;
-  max-width: 68%;
-  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 2%;
+  width: 98%;
+  justify-self: center;
 }
