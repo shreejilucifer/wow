@@ -6,6 +6,7 @@ import Navbar from '../components/navbar';
 import Sidebar from '../components/sidebar';
 import Stats from '../components/dashboard/stats';
 import WatchList from '../components/dashboard/watchlist';
+import Stockbar from './stockbar';
 
 const Layout = ({ children }) => {
   const styles = light;
@@ -24,11 +25,9 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </div>
-      <div style={{ height: '5vh' }}>This is the Stockbar</div>
+      <Stockbar />
     </div>
   );
 };
 
 export default Layout;
-
-// Use Marquee from 'styled components website'

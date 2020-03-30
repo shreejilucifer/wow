@@ -41,6 +41,12 @@
   width: 35px;
 }
 
+@media only screen and (max-width: 1024px) {
+  .sidebarWrapper {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .sidebarWrapper {
     display: none;

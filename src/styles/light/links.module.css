@@ -42,7 +42,8 @@
 .brokerbtn {
   background-image: linear-gradient(90deg, #7bcaff 50%, #e2e2e2 51%);
 }
-@media only screen and (max-width: 768px) {
+
+@media only screen and (max-width: 1024px) {
   .container {
     margin-top: 10px;
   }
