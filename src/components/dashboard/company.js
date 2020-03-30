@@ -130,14 +130,19 @@ const Company = ({ company, theme }) => {
                   data={data}
                   margin={{
                     top: 20,
-                    right: 30,
-                    left: 10,
-                    bottom: 10
+                    right: 20
                   }}
                 >
                   <CartesianGrid strokeDasharray='3 3' />
-                  <XAxis dataKey='name' tick={{ fontSize: '9px' }} />
-                  <YAxis tick={{ fontSize: '9px' }} />
+                  <XAxis
+                    dataKey='name'
+                    axisLine={{ stroke: '#404040', strokeWidth: 2 }}
+                    tick={{ fontSize: '9px' }}
+                  />
+                  <YAxis
+                    axisLine={{ stroke: '#404040', strokeWidth: 2 }}
+                    tick={{ fontSize: '9px' }}
+                  />
                   <Tooltip />
                   <Line type='monotone' dataKey='pv' stroke='#6FB353' />
                 </LineChart>

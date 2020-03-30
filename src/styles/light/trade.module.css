@@ -1,16 +1,15 @@
 .container {
-  height: 60vh;
-  width: 98%;
+  height: 63vh;
+  width: 100%;
   align-self: center;
   display: grid;
   grid-template-columns: 25% 75%;
 }
 
 .main {
+  width: 98%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 2%;
-  width: 98%;
   justify-self: center;
 }

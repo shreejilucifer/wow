@@ -1,11 +1,15 @@
 .container {
-  height: 10vh;
-  width: 98%;
+  height: 7vh;
+  width: 100%;
   align-self: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+
+.linkButtons:nth-child(1) {
+  margin-left: 10px;
 }
 
 .linkButtons,
