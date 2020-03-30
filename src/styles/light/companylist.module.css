@@ -25,7 +25,7 @@
   height: 50px;
   background: none;
   border: none;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 500;
   font-style: italic;
   outline: none;
@@ -34,6 +34,7 @@
 .searchbar::placeholder {
   color: #ababab;
   font-style: italic;
+  font-size: 1rem;
 }
 
 .searchIcon {
@@ -123,7 +124,10 @@
 
 @media only screen and (max-width: 1440px) {
   .searchbar {
-    font-size: 13px;
+    font-size: 1rem;
+  }
+  .searchbar::placeholder {
+    font-size: 0.7rem;
   }
   .companyItems:nth-child(2),
   .companyItems:nth-child(3),
@@ -134,8 +138,12 @@
 
 @media only screen and (max-width: 1024px) {
   .searchbar {
-    font-size: 10px;
+    font-size: 1rem;
   }
+  .searchbar::placeholder {
+    font-size: 0.5rem;
+  }
+
   .companyItems:nth-child(2),
   .companyItems:nth-child(3),
   .companyItems:nth-child(4) {

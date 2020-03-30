@@ -1,15 +1,57 @@
 import light from '../../styles/light/links.module.css';
 
-const Links = () => {
+const Links = ({ active, onChangeActive }) => {
   const styles = light;
   return (
     <div className={styles.container}>
-      <button className={styles.linkButtons + ' ' + styles.active}>
+      <button
+        onClick={() => onChangeActive('trade')}
+        className={
+          active === 'trade'
+            ? styles.linkButtons + ' ' + styles.active
+            : styles.linkButtons
+        }
+      >
         Trade
       </button>
-      <button className={styles.linkButtons}>News</button>
-      <button className={styles.linkButtons}>Transactions</button>
-      <button className={styles.linkButtons}>Your Holdings</button>
+      <button
+        onClick={() => onChangeActive('news')}
+        className={
+          active === 'news'
+            ? styles.linkButtons + ' ' + styles.active
+            : styles.linkButtons
+        }
+      >
+        News
+      </button>
+      <button
+        onClick={() => onChangeActive('transactions')}
+        className={
+          active === 'transactions'
+            ? styles.linkButtons + ' ' + styles.active
+            : styles.linkButtons
+        }
+      >
+        Transactions
+      </button>
+      <button
+        onClick={() => onChangeActive('yourholdings')}
+        className={
+          active === 'yourholdings'
+            ? styles.linkButtons + ' ' + styles.active
+            : styles.linkButtons
+        }
+      >
+        Your Holdings
+      </button>
+      {active === 'news' ? (
+        <button
+          onClick={() => onChangeActive('callbroker')}
+          className={styles.linkButtons + ' ' + styles.brokerbtn}
+        >
+          Call Broker
+        </button>
+      ) : null}
     </div>
   );
 };

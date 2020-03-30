@@ -74,7 +74,7 @@ const CompanyList = () => {
           <img src='/icons/search.svg' />
         </div>
         <input
-          placeholder='Search for a Category or a Company'
+          placeholder='Search for a Category/Company'
           className={styles.searchbar}
           type='text'
         />
