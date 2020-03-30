@@ -82,19 +82,36 @@ const Company = ({ company, theme }) => {
     <React.Fragment>
       <div className={styles.companyName}>{short}</div>
       <div className={styles.companyDetails}>
-        <div>{name}</div>
-        <div className={stat === 'up' ? styles.up : styles.down}>{rate}%</div>
-        <div>
-          {stat === 'up' ? (
-            <img src='/icons/green_arrow.svg' />
-          ) : (
-            <img src='/icons/red_arrow.svg' />
-          )}
+        <div className={styles.companyDetailsLeft}>
+          <div className={styles.name}>{name}</div>
+          <div
+            className={
+              stat === 'up'
+                ? styles.rate + ' ' + styles.up
+                : styles.rate + ' ' + styles.down
+            }
+          >
+            {rate}%
+          </div>
+          <div className={styles.arrow}>
+            {stat === 'up' ? (
+              <img src='/icons/green_arrow.svg' />
+            ) : (
+              <img src='/icons/red_arrow.svg' />
+            )}
+          </div>
+          <div
+            className={
+              stat === 'up'
+                ? styles.rate + ' ' + styles.up
+                : styles.rate + ' ' + styles.down
+            }
+          >
+            ₹{nc(price)}
+          </div>
         </div>
-        <div className={stat === 'up' ? styles.up : styles.down}>
-          ₹{nc(price)}
-        </div>
-        <div>
+
+        <div className={styles.heart}>
           <img src='/icons/heart.svg' />
         </div>
       </div>

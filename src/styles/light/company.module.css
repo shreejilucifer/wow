@@ -12,11 +12,22 @@
 .companyDetails {
   width: 100%;
   height: 3vh;
-  display: grid;
-  grid-template-columns: 55% 5% 3% 10% 27%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* display: grid;
+  grid-template-columns: 55% 5% 3% 10% 27%; */
 }
 
-.companyDetails div:nth-child(1) {
+.companyDetailsLeft {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.name {
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -26,29 +37,26 @@
   color: #404040;
 }
 
-.companyDetails div:nth-child(2) {
+.rate {
+  height: 100%;
+  margin-left: 1%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 2.5vh;
   font-weight: 500;
   font-style: italic;
 }
 
-.companyDetails div:nth-child(3) {
+.arrow {
+  height: 100%;
+  margin-left: 1%;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.companyDetails div:nth-child(4) {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.companyDetails div:nth-child(5) {
+.heart {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -66,7 +74,7 @@
 }
 
 .companyDetails div:nth-child(3) img {
-  height: 10px;
+  height: 12px;
 }
 
 .companyCards {
