@@ -18,9 +18,9 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebarWrapper}>
       <Icon active img='/icons/home.svg' />
-      <Icon active img='/icons/leaderboard.svg' />
-      <Icon active img='/icons/how_to_play.svg' />
-      <Icon active img='/icons/about_us.svg' />
+      <Icon img='/icons/leaderboard.svg' />
+      <Icon img='/icons/how_to_play.svg' />
+      <Icon img='/icons/about_us.svg' />
     </div>
   );
 };
