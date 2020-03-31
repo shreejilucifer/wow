@@ -68,3 +68,31 @@
     font-size: 1.5rem;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+    margin-top: 1vh;
+    height: 20vh;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    column-gap: 1vh;
+    row-gap: 1vh;
+  }
+  .blockContainer {
+    width: 100%;
+    padding: 0px;
+  }
+  .card {
+    align-items: flex-start;
+    padding-left: 10px;
+  }
+  .top {
+    margin: 0px;
+    text-align: left;
+  }
+  .bottom {
+    margin: 0px;
+    text-align: left;
+  }
+}

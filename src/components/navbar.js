@@ -3,18 +3,18 @@ import { useState } from 'react';
 import light from '../styles/light/navbar.module.css';
 import dark from '../styles/dark/navbar.module.css';
 
-const Navbar = ({ theme, onChangeTheme }) => {
+const Navbar = ({ theme, onChangeTheme, name }) => {
   const [controls, setControls] = useState(false);
   const styles = theme ? light : dark;
   return (
     <React.Fragment>
-      <MobileNavbar theme={theme} onChangeTheme={onChangeTheme} />
+      <MobileNavbar theme={theme} onChangeTheme={onChangeTheme} name={name} />
       <div className={styles.wrapper}>
         <Logo theme={theme} />
         <Timer theme={theme} />
         <div className={styles.controlsContainer}>
           <Notification theme={theme} />
-          <User theme={theme} name='Daenerys' img='/test-user.png' />
+          <User theme={theme} name={name} img='/test-user.png' />
           <div
             className={styles.dropDownContainer}
             onClick={() => setControls(!controls)}
@@ -94,7 +94,7 @@ const Notification = ({ theme }) => {
   );
 };
 
-const Hamburger = ({ theme, onChangeTheme }) => {
+const Hamburger = ({ theme, onChangeTheme, name }) => {
   const styles = theme ? light : dark;
   const [open, setOpen] = useState(false);
   return (
@@ -113,7 +113,7 @@ const Hamburger = ({ theme, onChangeTheme }) => {
                 onClick={() => setOpen(false)}
               />
             </div>
-            <User theme={theme} name='Daenerys' img='/test-user.png' />
+            <User theme={theme} name={name} img='/test-user.png' />
           </div>
           <div className={styles.linksContainer}>
             <div>leaderboard</div>
@@ -131,11 +131,11 @@ const Hamburger = ({ theme, onChangeTheme }) => {
   );
 };
 
-const MobileNavbar = ({ theme, onChangeTheme }) => {
+const MobileNavbar = ({ theme, onChangeTheme, name }) => {
   const styles = theme ? light : dark;
   return (
     <div className={styles.mobileWrapper}>
-      <Hamburger theme={theme} onChangeTheme={onChangeTheme} />
+      <Hamburger theme={theme} onChangeTheme={onChangeTheme} name={name} />
       <Timer theme={theme} />
       <Notification theme={theme} />
     </div>

@@ -9,7 +9,7 @@ import UserHoldings from '../src/components/dashboard/userholdings';
 
 const Dashboard = () => {
   const [active, setActive] = useState('trade');
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState(false);
 
   const renderMain = () => {
     switch (active) {
@@ -29,7 +29,11 @@ const Dashboard = () => {
   return (
     <div>
       <Head title='Dashboard' />
-      <Layout theme={theme} updateTheme={() => setTheme(!theme)}>
+      <Layout
+        theme={theme}
+        updateTheme={() => setTheme(!theme)}
+        name={'Daenerys'}
+      >
         <Links
           theme={theme}
           active={active}

@@ -7,12 +7,13 @@ import Stats from '../components/dashboard/stats';
 import WatchList from '../components/dashboard/watchlist';
 import Stockbar from './stockbar';
 
-const Layout = ({ children, theme, updateTheme }) => {
+const Layout = ({ children, theme, updateTheme, name }) => {
   const styles = theme ? light : dark;
 
   return (
     <div className={styles.wrapper}>
-      <Navbar theme={theme} onChangeTheme={updateTheme} />
+      <Navbar theme={theme} onChangeTheme={updateTheme} name={name} />
+      <div className={styles.hiname}>Hi {name}</div>
       <div className={styles.horizontalWrapper}>
         <Sidebar onChangeTheme={() => updateTheme()} theme={theme} />
         <div className={styles.mainContainer}>

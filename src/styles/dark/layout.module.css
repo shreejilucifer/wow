@@ -8,6 +8,10 @@
   overflow: hidden;
 }
 
+.hiname {
+  display: none;
+}
+
 .horizontalWrapper {
   height: 85vh;
   width: 100%;
@@ -44,8 +48,30 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .hiname {
+    height: 3vh;
+    font-size: 2.5vh;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000;
+  }
   .wrapper {
     padding-left: 5%;
     padding-right: 5%;
+  }
+  .horizontalWrapper {
+    height: 87vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .mainContainer {
+    border: none;
+    border-radius: 0px;
+    background: none;
+  }
+  .watchlistContainer {
+    display: none;
   }
 }
