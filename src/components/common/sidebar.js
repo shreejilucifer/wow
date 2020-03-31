@@ -1,5 +1,5 @@
-import light from '../styles/light/sidebar.module.css';
-import dark from '../styles/dark/sidebar.module.css';
+import light from '../../styles/light/sidebar.module.css';
+import dark from '../../styles/dark/sidebar.module.css';
 
 const Icon = ({ active, img, fun, theme }) => {
   const styles = theme ? light : dark;

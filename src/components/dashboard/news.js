@@ -7,7 +7,7 @@ const NewsItem = ({ theme }) => {
   return (
     <div className={styles.newsContainer}>
       <div className={styles.newsTitle}>
-        <span>Fire at Reliance Mumbai Headquaters •</span>
+        <span>Fire at Reliance Mumbai Headquaters</span>
         <span>02:49PM</span>
       </div>
       <div className={styles.divider}></div>
@@ -25,21 +25,25 @@ const NewsItem = ({ theme }) => {
     </div>
   );
 };
+
 const News = ({ theme }) => {
   const styles = theme ? light : dark;
   return (
-    <div className={styles.container}>
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-      <NewsItem theme={theme} />
-    </div>
+    <React.Fragment>
+      <div className={styles.title}>News</div>
+      <div className={styles.container}>
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+        <NewsItem theme={theme} />
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Head from '../src/components/head';
-import Layout from '../src/components/layout';
+import Head from '../src/components/common/head';
+import Layout from '../src/components/common/layout';
 import Links from '../src/components/dashboard/links';
 import Trade from '../src/components/dashboard/trade';
 import News from '../src/components/dashboard/news';
@@ -8,7 +8,7 @@ import Transactions from '../src/components/dashboard/transactions';
 import UserHoldings from '../src/components/dashboard/userholdings';
 
 const Dashboard = () => {
-  const [active, setActive] = useState('trade');
+  const [active, setActive] = useState('news');
   const [theme, setTheme] = useState(true);
 
   const renderMain = () => {

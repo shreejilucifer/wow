@@ -1,10 +1,10 @@
-import light from '../styles/light/layout.module.css';
-import dark from '../styles/dark/layout.module.css';
+import light from '../../styles/light/layout.module.css';
+import dark from '../../styles/dark/layout.module.css';
 
-import Navbar from '../components/navbar';
-import Sidebar from '../components/sidebar';
-import Stats from '../components/dashboard/stats';
-import WatchList from '../components/dashboard/watchlist';
+import Navbar from './navbar';
+import Sidebar from './sidebar';
+import Stats from '../dashboard/stats';
+import WatchList from '../dashboard/watchlist';
 import Stockbar from './stockbar';
 
 const Layout = ({ children, theme, updateTheme, name }) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import light from '../styles/light/navbar.module.css';
-import dark from '../styles/dark/navbar.module.css';
+import light from '../../styles/light/navbar.module.css';
+import dark from '../../styles/dark/navbar.module.css';
 
 const Navbar = ({ theme, onChangeTheme, name }) => {
   const [controls, setControls] = useState(false);

@@ -1,5 +1,5 @@
-import light from '../styles/light/stockbar.module.css';
-import dark from '../styles/dark/stockbar.module.css';
+import light from '../../styles/light/stockbar.module.css';
+import dark from '../../styles/dark/stockbar.module.css';
 
 const x = [
   { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
