@@ -1,7 +1,8 @@
 import light from '../../styles/light/news.module.css';
+import dark from '../../styles/dark/news.module.css';
 
-const NewsItem = () => {
-  const styles = light;
+const NewsItem = ({ theme }) => {
+  const styles = theme ? light : dark;
 
   return (
     <div className={styles.newsContainer}>
@@ -24,20 +25,20 @@ const NewsItem = () => {
     </div>
   );
 };
-const News = () => {
-  const styles = light;
+const News = ({ theme }) => {
+  const styles = theme ? light : dark;
   return (
     <div className={styles.container}>
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
+      <NewsItem theme={theme} />
     </div>
   );
 };

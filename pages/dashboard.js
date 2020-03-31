@@ -6,8 +6,8 @@ import Trade from '../src/components/dashboard/trade';
 import News from '../src/components/dashboard/news';
 
 const Dashboard = () => {
-  const [active, setActive] = useState('trade');
-  const [theme, setTheme] = useState(true);
+  const [active, setActive] = useState('news');
+  const [theme, setTheme] = useState(false);
 
   return (
     <div>
