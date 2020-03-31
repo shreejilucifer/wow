@@ -33,7 +33,7 @@
   color: #404040;
 }
 
-.active {
+.linkButtons:active {
   border-radius: 10px;
   background: #e2e2e2;
   box-shadow: inset 4px 4px 8px #cbcbcb, inset -4px -4px 8px #f9f9f9;
