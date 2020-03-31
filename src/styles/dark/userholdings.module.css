@@ -1,0 +1,165 @@
+.container {
+  height: 60vh;
+  width: 100%;
+}
+
+.header {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: grid;
+  grid-template-columns: 30% 10% 20% 40%;
+  height: 5vh;
+}
+
+.header > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: #bcbcbc;
+  text-transform: capitalize;
+}
+
+.holdings {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+  height: 55vh;
+  overflow-y: auto;
+}
+
+.holdingContainer {
+  display: grid;
+  grid-template-columns: 30% 10% 20% 40%;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+}
+
+.holdingContainer > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 400;
+  color: #bcbcbc;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.buySellContainer {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 50% 50%;
+}
+
+.transactionContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.transactionContainer input {
+  height: 50%;
+  width: 40%;
+  font-size: 20px;
+  border: 1px solid #404040;
+  background: none;
+  border-radius: 3px;
+  text-align: center;
+  outline: none;
+  color: #bcbcbc;
+}
+
+.transactionContainer button {
+  width: 50%;
+  height: 50%;
+  background-color: #1a1a1a;
+  box-shadow: 2px 2px 6px #0d0d0d, -2px -2px 6px #272727;
+  font-size: 10px;
+  border: none;
+  text-transform: uppercase;
+  color: #bcbcbc;
+  font-weight: 500;
+  border-radius: 3px;
+  outline: none;
+}
+
+.transactionContainer button:active {
+  box-shadow: inset 2px 2px 6px #0d0d0d, inset -2px -2px 6px #272727;
+}
+
+.transactionContainer button:hover {
+  cursor: pointer;
+}
+
+.searchBarContainer {
+  position: absolute;
+  right: 0;
+  width: 15%;
+  margin-right: 25%;
+  height: 5vh;
+  transform: translateY(-6vh);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.searchBarContainer img {
+  cursor: pointer;
+  padding-right: 10px;
+  height: 20px;
+  width: 20px;
+}
+
+.searchbar {
+  width: 100%;
+  height: 3vh;
+  border: 2px solid #404040;
+  border-radius: 8px;
+  background: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.searchbar > input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: right;
+  outline: none;
+  padding-right: 10px;
+  background: none;
+}
+
+@media only screen and (max-width: 1440px) {
+  .holdingContainer > div {
+    font-size: 0.9rem;
+  }
+  .header > div {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .holdingContainer > div {
+    font-size: 0.6rem;
+  }
+  .header > div {
+    font-size: 10px;
+  }
+  .holdingContainer {
+    height: 30px;
+  }
+}

@@ -37,9 +37,9 @@ const Links = ({ active, onChangeActive, theme }) => {
         Transactions
       </button>
       <button
-        onClick={() => onChangeActive('yourholdings')}
+        onClick={() => onChangeActive('userholdings')}
         className={
-          active === 'yourholdings'
+          active === 'userholdings'
             ? styles.linkButtons + ' ' + styles.active
             : styles.linkButtons
         }

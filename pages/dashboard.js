@@ -5,10 +5,26 @@ import Links from '../src/components/dashboard/links';
 import Trade from '../src/components/dashboard/trade';
 import News from '../src/components/dashboard/news';
 import Transactions from '../src/components/dashboard/transactions';
+import UserHoldings from '../src/components/dashboard/userholdings';
 
 const Dashboard = () => {
   const [active, setActive] = useState('trade');
   const [theme, setTheme] = useState(true);
+
+  const renderMain = () => {
+    switch (active) {
+      case 'trade':
+        return <Trade theme={theme} />;
+      case 'news':
+        return <News theme={theme} />;
+      case 'transactions':
+        return <Transactions theme={theme} />;
+      case 'userholdings':
+        return <UserHoldings theme={theme} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div>
@@ -19,9 +35,7 @@ const Dashboard = () => {
           active={active}
           onChangeActive={page => setActive(page)}
         />
-        {active === 'trade' ? <Trade theme={theme} /> : null}
-        {active === 'news' ? <News theme={theme} /> : null}
-        {active === 'transactions' ? <Transactions theme={theme} /> : null}
+        {renderMain(active)}
       </Layout>
     </div>
   );
