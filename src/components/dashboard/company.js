@@ -82,7 +82,7 @@ const Company = ({ company, theme }) => {
   } = company;
   return (
     <React.Fragment>
-      <div className={styles.companyName}>{short}</div>
+      <div className={styles.companyName}> {short}</div>
       <div className={styles.companyDetails}>
         <div className={styles.companyDetailsLeft}>
           <div className={styles.name}>{name}</div>
@@ -137,6 +137,7 @@ const Company = ({ company, theme }) => {
             <div className={styles.graph}>
               <ResponsiveContainer>
                 <LineChart
+                  isAbove={false}
                   data={data}
                   margin={{
                     top: 20,
@@ -182,17 +183,22 @@ const Company = ({ company, theme }) => {
               <span>Instant Execution</span>
               <span>Enter amount to buy/sell shares.</span>
             </div>
-            <div className={styles.inputContainer}>
-              <input className={styles.input} type='text' />
+
+            <div className={styles.groupContainer}>
+              <div className={styles.inputContainer}>
+                <input className={styles.input} type='text' />
+              </div>
+              <div className={styles.buttonContainer}>
+                <button className={styles.button}>BUY</button>
+              </div>
             </div>
-            <div className={styles.buttonContainer}>
-              <button className={styles.button}>BUY</button>
-            </div>
-            <div className={styles.inputContainer}>
-              <input className={styles.input} type='text' />
-            </div>
-            <div className={styles.buttonContainer}>
-              <button className={styles.button}>SELL</button>
+            <div className={styles.groupContainer}>
+              <div className={styles.inputContainer}>
+                <input className={styles.input} type='text' />
+              </div>
+              <div className={styles.buttonContainer}>
+                <button className={styles.button}>SELL</button>
+              </div>
             </div>
           </div>
         </div>

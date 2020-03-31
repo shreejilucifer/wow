@@ -171,12 +171,13 @@
   .mobileContainer {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    width: 90%;
-    height: 55vh;
+    position: relative;
+    width: 100%;
   }
 
   .mobileTitle {
+    width: 95%;
+    align-self: center;
     height: 4vh;
     border-radius: 4px;
     background: #f8f8f8;
@@ -185,13 +186,15 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    font-size: 3vh;
+    font-size: 2.5vh;
     font-weight: 600;
     padding-left: 10px;
   }
 
   .mobileWrapper {
     height: 50vh;
+    width: 95%;
+    align-self: center;
     margin-top: 1vh;
     margin-left: 0px;
     background: #f8f8f8 0% 0% no-repeat padding-box;

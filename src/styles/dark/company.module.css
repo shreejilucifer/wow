@@ -98,6 +98,7 @@
   background-color: #292929;
   border-radius: 10px;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .top {
@@ -163,7 +164,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  height: 38vh;
 }
 
 .title {
@@ -171,8 +172,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1.5;
   width: 100%;
+  flex: 1;
 }
 
 .title span:nth-child(1) {
@@ -189,6 +190,12 @@
   color: #bcbcbc;
 }
 
+.groupContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -196,6 +203,7 @@
   align-items: center;
   flex: 1;
   width: 100%;
+  flex: 1;
 }
 
 .input {
@@ -218,6 +226,7 @@
   align-items: center;
   flex: 1;
   width: 100%;
+  flex: 1;
 }
 
 .button {
@@ -257,7 +266,96 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .wrapperLeft {
+  .companyName {
     display: none;
+  }
+  .companyDetails {
+    width: 99%;
+    height: 5vh;
+  }
+  .name {
+    font-size: 2vh;
+  }
+  .rate {
+    margin-left: 2%;
+    font-size: 2vh;
+  }
+  .arrow > img {
+    width: 15px;
+  }
+  .companyCards {
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-left: 0px;
+    height: 15vh;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    column-gap: 1%;
+  }
+
+  .card {
+    margin-top: 0px;
+    width: 100%;
+    height: 95%;
+  }
+
+  .top {
+    margin-top: 2px;
+    font-size: 15px;
+  }
+  .bottom {
+    margin-bottom: 2px;
+    font-size: 20px;
+  }
+  .mainContainer {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 32vh;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .wrapperLeft {
+    height: 28vh;
+  }
+
+  .graphContainer {
+    margin-top: 0px;
+    height: 20vh;
+  }
+
+  .graph {
+    width: 100%;
+    background: none;
+    border-radius: 0px;
+    height: 20vh;
+    z-index: 1;
+  }
+
+  .wrapperRight {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .formContainer {
+    height: 12vh;
+    margin-top: 0px;
+    border-radius: 0px;
+    width: 100%;
+    background: none;
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .groupContainer {
+    height: 100%;
+    flex-direction: column;
   }
 }

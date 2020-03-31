@@ -25,6 +25,7 @@
   }
   .main {
     width: 100%;
-    display: none;
+    height: 57vh;
+    margin-top: 1vh;
   }
 }

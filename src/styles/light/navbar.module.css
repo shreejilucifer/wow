@@ -178,11 +178,11 @@
 
   .sliderContainer {
     position: absolute;
+    z-index: 10;
     top: 0;
     left: 0;
     width: 80%;
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     background: #f8f8f8 0% 0% no-repeat padding-box;
