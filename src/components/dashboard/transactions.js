@@ -1,5 +1,6 @@
 import light from '../../styles/light/transactions.module.css';
 import dark from '../../styles/dark/transactions.module.css';
+import { useState } from 'react';
 
 const TransactionItem = ({ theme, transaction }) => {
   const styles = theme ? light : dark;
@@ -15,11 +16,38 @@ const TransactionItem = ({ theme, transaction }) => {
     </div>
   );
 };
+
+const SearchBar = ({ theme }) => {
+  const styles = theme ? light : dark;
+  const [searchVisible, setSearchVisible] = useState(false);
+
+  return (
+    <div className={styles.searchBarContainer}>
+      {searchVisible ? (
+        <div className={styles.searchbar}>
+          <input type='text' />
+          <img
+            onClick={() => setSearchVisible(!searchVisible)}
+            src={theme ? '/icons/search.svg' : '/icons/search_white.svg'}
+            onClick={() => setSearchVisible(!searchVisible)}
+          />
+        </div>
+      ) : (
+        <img
+          src={theme ? '/icons/search.svg' : '/icons/search_white.svg'}
+          onClick={() => setSearchVisible(!searchVisible)}
+        />
+      )}
+    </div>
+  );
+};
+
 const Transactions = ({ theme }) => {
   const styles = theme ? light : dark;
 
   return (
     <div className={styles.container}>
+      <SearchBar theme={theme} />
       <div className={styles.header}>
         <div>Type</div>
         <div>ID</div>
