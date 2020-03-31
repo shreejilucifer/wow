@@ -354,4 +354,15 @@
     height: 100%;
     flex-direction: column;
   }
+
+  .input {
+    border: 2px solid #707070;
+    border-radius: 4px;
+  }
+
+  .button {
+    background: #f6f6f6 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 6px #0000000f;
+    border-radius: 4px;
+  }
 }
