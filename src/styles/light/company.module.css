@@ -256,7 +256,4 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .wrapperLeft {
-    display: none;
-  }
 }

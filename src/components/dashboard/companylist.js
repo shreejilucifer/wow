@@ -3,11 +3,16 @@ import dark from '../../styles/dark/companylist.module.css';
 
 import { useState } from 'react';
 
-const Company = ({ stat, theme }) => {
+const Company = ({ stat, theme, onSelect }) => {
   const styles = theme ? light : dark;
 
   return (
-    <div className={styles.companyContainer}>
+    <div
+      className={styles.companyContainer}
+      onClick={() => {
+        if (onSelect) onSelect();
+      }}
+    >
       <div className={styles.companyItems}>TCS</div>
       <div
         className={
@@ -38,7 +43,7 @@ const Company = ({ stat, theme }) => {
   );
 };
 
-const Category = ({ categoryName, theme }) => {
+const Category = ({ categoryName, theme, onSelect }) => {
   const [open, setOpen] = useState(false);
   const styles = theme ? light : dark;
 
@@ -66,10 +71,10 @@ const Category = ({ categoryName, theme }) => {
       </div>
       {open ? (
         <React.Fragment>
-          <Company theme={theme} stat='up' />
-          <Company theme={theme} stat='down' />
-          <Company theme={theme} stat='up' />
-          <Company theme={theme} stat='down' />
+          <Company theme={theme} stat='up' onSelect={onSelect} />
+          <Company theme={theme} stat='down' onSelect={onSelect} />
+          <Company theme={theme} stat='up' onSelect={onSelect} />
+          <Company theme={theme} stat='down' onSelect={onSelect} />
         </React.Fragment>
       ) : null}
     </React.Fragment>
@@ -80,37 +85,64 @@ const CompanyList = ({ theme }) => {
   const styles = theme ? light : dark;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.searchContainer}>
-        <div className={styles.searchIcon}>
-          <img src={theme ? '/icons/search.svg' : '/icons/search_white.svg'} />
+    <React.Fragment>
+      <MobileCompanyList theme={theme} />
+      <div className={styles.container}>
+        <SearchBar theme={theme} />
+        <div className={styles.listContainer}>
+          <Category theme={theme} categoryName='IT Software' />
         </div>
-        <input
-          placeholder='Search for a Category/Company'
-          className={styles.searchbar}
-          type='text'
-        />
       </div>
-      <div className={styles.listContainer}>
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software 1' />
-        <Category theme={theme} categoryName='IT Software 2' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software3' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
-        <Category theme={theme} categoryName='IT Software' />
+    </React.Fragment>
+  );
+};
+
+const SearchBar = ({ theme }) => {
+  const styles = theme ? light : dark;
+  return (
+    <div className={styles.searchContainer}>
+      <div className={styles.searchIcon}>
+        <img src={theme ? '/icons/search.svg' : '/icons/search_white.svg'} />
       </div>
+      <input
+        placeholder='Search for a Category/Company'
+        className={styles.searchbar}
+        type='text'
+      />
+    </div>
+  );
+};
+
+const MobileCompanyList = ({ theme }) => {
+  const styles = theme ? light : dark;
+  const [selected, setSelected] = useState(false);
+
+  return (
+    <div className={styles.mobileContainer}>
+      <div
+        onClick={() => setSelected(!selected)}
+        className={styles.mobileTitle}
+      >
+        Select Company
+      </div>
+      {!selected ? (
+        <div className={styles.mobileWrapper}>
+          <SearchBar theme={theme} />
+
+          <div className={styles.listContainer}>
+            <Category
+              theme={theme}
+              categoryName='IT Software'
+              onSelect={() => setSelected(!selected)}
+            />
+            <Category
+              theme={theme}
+              categoryName='IT Software'
+              onSelect={() => setSelected(!selected)}
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

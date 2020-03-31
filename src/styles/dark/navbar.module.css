@@ -170,8 +170,8 @@
   .notificationContainer {
     width: 40px;
     height: 40px;
-    background: #000000 0% 0% no-repeat padding-box;
-    box-shadow: 3px 3px 6px #000000;
+    background: #141414;
+    box-shadow: 5px 5px 10px #080808, -5px -5px 10px #202020;
     border-radius: 4px;
     border: none;
     display: flex;
@@ -187,6 +187,7 @@
 
   .sliderContainer {
     position: absolute;
+    z-index: 10;
     top: 0;
     left: 0;
     width: 80%;
