@@ -12,7 +12,7 @@ const Layout = ({ children, theme, updateTheme }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Navbar theme={theme} />
+      <Navbar theme={theme} onChangeTheme={updateTheme} />
       <div className={styles.horizontalWrapper}>
         <Sidebar onChangeTheme={() => updateTheme()} theme={theme} />
         <div className={styles.mainContainer}>

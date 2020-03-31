@@ -5,6 +5,10 @@
   justify-content: space-between;
 }
 
+.mobileWrapper {
+  display: none;
+}
+
 .logoContainer,
 .timerContainer,
 .controlsContainer {
@@ -127,41 +131,117 @@
   margin-top: 15px;
 }
 
-.bg {
-  position: absolute;
-  z-index: -1;
-  background-color: #344334;
-  height: 100%;
-  width: 100%;
-  -webkit-filter: blur(10px);
-  -moz-filter: blur(10px);
-  -o-filter: blur(10px);
-  -ms-filter: blur(10px);
-  filter: blur(10px);
-  background-color: #00000033;
+.userMobile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
-  .name {
+  .wrapper {
     display: none;
   }
-}
-
-@media only screen and (max-width: 768px) {
-  .logoContainer {
-    display: none;
+  .mobileWrapper {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .timerContainer {
-    width: 50%;
-  }
-  .controlsContainer {
-    width: 50%;
-  }
   .timer {
-    display: none;
+    height: 20px;
   }
+
   .timerContent {
-    font-size: 30px;
+    margin-left: 0px;
+    font-size: 25px;
+  }
+
+  .notificationContainer {
+    width: 40px;
+    height: 40px;
+    background: #f6f6f6 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 6px #0000000f;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .notification {
+    height: 21px;
+    width: 17px;
+  }
+
+  .sliderContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    background: #f8f8f8 0% 0% no-repeat padding-box;
+    box-shadow: 5px 0px 10px #0000000f;
+  }
+
+  .upperContainer {
+    background: #efefef 0% 0% no-repeat padding-box;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .branding {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .userMobile {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .userContainer {
+    margin-left: 0px;
+  }
+
+  .logoContainer {
+    height: 50px;
+    width: 50px;
+  }
+
+  .branding > img {
+    height: 15px;
+    width: 15px;
+  }
+
+  .linksContainer {
+    padding-left: 10%;
+    padding-right: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .linksContainer > div:nth-child(1) {
+    margin-top: 10%;
+  }
+
+  .linksContainer > div {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 5%;
   }
 }
