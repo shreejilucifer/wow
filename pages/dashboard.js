@@ -9,7 +9,7 @@ import UserHoldings from '../src/components/dashboard/userholdings';
 
 const Dashboard = () => {
   const [active, setActive] = useState('trade');
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState(true);
 
   const renderMain = () => {
     switch (active) {

@@ -55,11 +55,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: #000000;
+    color: #bcbcbc;
   }
   .wrapper {
     padding-left: 5%;
     padding-right: 5%;
+    background-color: #141414;
   }
   .horizontalWrapper {
     height: 87vh;

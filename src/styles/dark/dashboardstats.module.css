@@ -86,6 +86,7 @@
   .card {
     align-items: flex-start;
     padding-left: 10px;
+    background-color: #000000;
   }
   .top {
     margin: 0px;
