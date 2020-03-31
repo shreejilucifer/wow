@@ -4,9 +4,10 @@ import Layout from '../src/components/layout';
 import Links from '../src/components/dashboard/links';
 import Trade from '../src/components/dashboard/trade';
 import News from '../src/components/dashboard/news';
+import Transactions from '../src/components/dashboard/transactions';
 
 const Dashboard = () => {
-  const [active, setActive] = useState('news');
+  const [active, setActive] = useState('transactions');
   const [theme, setTheme] = useState(false);
 
   return (
@@ -20,6 +21,7 @@ const Dashboard = () => {
         />
         {active === 'trade' ? <Trade theme={theme} /> : null}
         {active === 'news' ? <News theme={theme} /> : null}
+        {active === 'transactions' ? <Transactions theme={theme} /> : null}
       </Layout>
     </div>
   );
