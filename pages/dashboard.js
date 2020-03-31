@@ -8,7 +8,7 @@ import Transactions from '../src/components/dashboard/transactions';
 import UserHoldings from '../src/components/dashboard/userholdings';
 
 const Dashboard = () => {
-  const [active, setActive] = useState('transactions');
+  const [active, setActive] = useState('userholdings');
   const [theme, setTheme] = useState(true);
 
   const renderMain = () => {

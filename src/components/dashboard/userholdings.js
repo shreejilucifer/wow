@@ -53,6 +53,7 @@ const UserHoldings = ({ theme }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.title}>User Holdings</div>
       <SearchBar theme={theme} />
       <div className={styles.header}>
         <div>Company</div>

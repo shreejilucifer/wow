@@ -44,7 +44,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 400;
   color: #404040;
   text-transform: uppercase;
   font-size: 1.2rem;
@@ -161,5 +160,75 @@
   }
   .holdingContainer {
     height: 30px;
+  }
+}
+
+.title {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    height: 50vh;
+  }
+
+  .title {
+    margin-top: 1vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 3vh;
+    height: 5vh;
+    font-weight: 500;
+  }
+
+  .searchBarContainer {
+    display: none;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .holdings {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    width: 100%;
+    height: 48vh;
+  }
+
+  .holdings::-webkit-scrollbar {
+    display: none;
+  }
+
+  .holdingContainer {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .holdingContainer > div {
+    margin-top: 2px;
+    font-size: 1rem;
+    font-weight: 800;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+  }
+
+  .buySellContainer {
+    height: 10%;
+  }
+
+  .transactionContainer button {
+    height: 4vh;
   }
 }
