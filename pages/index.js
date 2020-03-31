@@ -1,4 +1,4 @@
-import Head from '../src/components/head';
+import Head from '../src/components/common/head';
 import Link from 'next/link';
 
 const Home = () => (
