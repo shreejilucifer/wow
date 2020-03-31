@@ -65,6 +65,11 @@
   font-style: italic;
 }
 
+.heart > img {
+  height: 20px;
+  width: 20px;
+}
+
 .up {
   color: #009528;
 }

@@ -44,6 +44,11 @@
   align-items: center;
 }
 
+.searchIcon > img {
+  height: 20px;
+  width: 20px;
+}
+
 .listContainer {
   overflow: auto;
   width: 95%;

@@ -52,15 +52,13 @@ const Category = ({ categoryName, theme }) => {
               src={
                 theme
                   ? '/icons/black_arrow_up.svg'
-                  : '/icons/white_arrow_up.svg'
+                  : '/icons/arrow_up_white.svg'
               }
             />
           ) : (
             <img
               src={
-                theme
-                  ? '/icons/black_arrow_down.svg'
-                  : '/icons/white_arrow_down.svg'
+                theme ? '/icons/arrow_down.svg' : '/icons/arrow_down_white.svg'
               }
             />
           )}
@@ -85,7 +83,7 @@ const CompanyList = ({ theme }) => {
     <div className={styles.container}>
       <div className={styles.searchContainer}>
         <div className={styles.searchIcon}>
-          <img src={theme ? '/icons/search.svg' : 'icons/search_white.svg'} />
+          <img src={theme ? '/icons/search.svg' : '/icons/search_white.svg'} />
         </div>
         <input
           placeholder='Search for a Category/Company'

@@ -67,6 +67,8 @@
 .searchBarContainer img {
   cursor: pointer;
   padding-right: 10px;
+  height: 20px;
+  width: 20px;
 }
 
 .searchbar {

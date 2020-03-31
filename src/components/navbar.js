@@ -45,7 +45,12 @@ const Navbar = ({ theme }) => {
           className={styles.dropDownContainer}
           onClick={() => setControls(!controls)}
         >
-          <img src='/icons/black_arrow_down.svg' className={styles.caret} />
+          <img
+            src={
+              theme ? '/icons/arrow_down.svg' : '/icons/arrow_down_white.svg'
+            }
+            className={styles.caret}
+          />
           {controls ? <Controls /> : null}
         </div>
       </div>
