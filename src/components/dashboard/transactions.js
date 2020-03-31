@@ -8,7 +8,7 @@ const TransactionItem = ({ theme, transaction }) => {
     <div className={styles.transactionContainer}>
       <div>Buy</div>
       <div>as2313da5fx3</div>
-      <div>Adani petroleum (ADAP)</div>
+      <div>Adani petroleum</div>
       <div>1289</div>
       <div>80</div>
       <div>01:33 pm</div>
@@ -47,6 +47,7 @@ const Transactions = ({ theme }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.title}>Transactions</div>
       <SearchBar theme={theme} />
       <div className={styles.header}>
         <div>Type</div>

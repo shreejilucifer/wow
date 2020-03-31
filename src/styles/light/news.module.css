@@ -57,6 +57,10 @@
   color: #808080;
 }
 
+.newsContainer:nth-child(1) {
+  margin-top: 10px;
+}
+
 .divider {
   width: 50%;
   height: 1px;
@@ -76,7 +80,7 @@
 
 @media only screen and (max-width: 768px) {
   .container {
-    height: 55vh;
+    height: 50vh;
     padding: 0px;
     margin: 0px;
   }
@@ -85,6 +89,7 @@
   }
 
   .title {
+    margin-top: 1vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -113,12 +118,13 @@
     font-size: 19px;
     font-style: normal;
     flex: 1;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-bottom: 10px;
   }
 
   .newsTitle span:nth-child(2) {
     width: 98%;
+    margin-left: 10px;
     font-size: 13px;
     flex: 0.5;
     margin-top: 10px;
