@@ -1,50 +1,44 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/companylist.module.css';
 import dark from '../../styles/dark/companylist.module.css';
 
 import { useState } from 'react';
 
-const Company = ({ stat, theme, onSelect }) => {
+const Company = ({ stat, onSelect }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
+
+  const renderClassName = stat => {
+    let myClassName = styles.companyItems;
+    if (stat === 'up') myClassName += ' ' + styles.up;
+    else myClassName += ' ' + styles.down;
+    return myClassName;
+  };
+
+  const renderArrow = stat => {
+    if (stat === 'up') return <img src='/icons/green_arrow.svg' />;
+    else return <img src='/icons/red_arrow.svg' />;
+  };
 
   return (
     <div
       className={styles.companyContainer}
       onClick={() => {
-        if (onSelect) onSelect();
+        onSelect ? onSelect() : null;
       }}
     >
       <div className={styles.companyItems}>TCS</div>
-      <div
-        className={
-          stat === 'up'
-            ? styles.companyItems + ' ' + styles.up
-            : styles.companyItems + ' ' + styles.down
-        }
-      >
-        4.9%
-      </div>
-      <div className={styles.companyItems}>
-        {stat === 'up' ? (
-          <img src='/icons/green_arrow.svg' />
-        ) : (
-          <img src='/icons/red_arrow.svg' />
-        )}
-      </div>
-      <div
-        className={
-          stat === 'up'
-            ? styles.companyItems + ' ' + styles.up
-            : styles.companyItems + ' ' + styles.down
-        }
-      >
-        ₹1,240
-      </div>
+      <div className={renderClassName(stat)}>4.9%</div>
+      <div className={styles.companyItems}>{renderArrow(stat)}</div>
+      <div className={renderClassName(stat)}>₹1,240</div>
     </div>
   );
 };
 
-const Category = ({ categoryName, theme, onSelect }) => {
+const Category = ({ categoryName, onSelect }) => {
   const [open, setOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
@@ -71,33 +65,35 @@ const Category = ({ categoryName, theme, onSelect }) => {
       </div>
       {open ? (
         <React.Fragment>
-          <Company theme={theme} stat='up' onSelect={onSelect} />
-          <Company theme={theme} stat='down' onSelect={onSelect} />
-          <Company theme={theme} stat='up' onSelect={onSelect} />
-          <Company theme={theme} stat='down' onSelect={onSelect} />
+          <Company stat='up' onSelect={onSelect} />
+          <Company stat='down' onSelect={onSelect} />
+          <Company stat='up' onSelect={onSelect} />
+          <Company stat='down' onSelect={onSelect} />
         </React.Fragment>
       ) : null}
     </React.Fragment>
   );
 };
 
-const CompanyList = ({ theme }) => {
+const CompanyList = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
     <React.Fragment>
-      <MobileCompanyList theme={theme} />
+      <MobileCompanyList />
       <div className={styles.container}>
-        <SearchBar theme={theme} />
+        <SearchBar />
         <div className={styles.listContainer}>
-          <Category theme={theme} categoryName='IT Software' />
+          <Category categoryName='IT Software' />
         </div>
       </div>
     </React.Fragment>
   );
 };
 
-const SearchBar = ({ theme }) => {
+const SearchBar = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.searchContainer}>
@@ -113,7 +109,8 @@ const SearchBar = ({ theme }) => {
   );
 };
 
-const MobileCompanyList = ({ theme }) => {
+const MobileCompanyList = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [selected, setSelected] = useState(false);
 
@@ -127,16 +124,14 @@ const MobileCompanyList = ({ theme }) => {
       </div>
       {!selected ? (
         <div className={styles.mobileWrapper}>
-          <SearchBar theme={theme} />
+          <SearchBar />
 
           <div className={styles.listContainer}>
             <Category
-              theme={theme}
               categoryName='IT Software'
               onSelect={() => setSelected(!selected)}
             />
             <Category
-              theme={theme}
               categoryName='IT Software'
               onSelect={() => setSelected(!selected)}
             />

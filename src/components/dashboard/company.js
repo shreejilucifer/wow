@@ -1,63 +1,13 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/company.module.css';
 import dark from '../../styles/dark/company.module.css';
 
 import nc from '../../utils/commanumber';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts';
+import Graph from './graph';
 
-const data = [
-  {
-    name: '12:00',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: '12:00',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: '12:00',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
-  },
-  {
-    name: '12:00',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
-  },
-  {
-    name: '12:00',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
-  },
-  {
-    name: '12:00',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
-  },
-  {
-    name: '12:00',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  }
-];
-
-const Card = ({ top, bottom, theme }) => {
+const Card = ({ top, bottom }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.card}>
@@ -67,7 +17,8 @@ const Card = ({ top, bottom, theme }) => {
   );
 };
 
-const Company = ({ company, theme }) => {
+const Company = ({ company }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const {
     short,
@@ -118,64 +69,14 @@ const Company = ({ company, theme }) => {
         </div>
       </div>
       <div className={styles.companyCards}>
-        <Card
-          theme={theme}
-          top='Available Volume'
-          bottom={nc(availableVolume)}
-        />
-        <Card theme={theme} top='Bought Volume' bottom={boughtVolume} />
-        <Card
-          theme={theme}
-          top='Current Price'
-          bottom={'₹' + nc(currentPrice)}
-        />
-        <Card theme={theme} top='Base Price' bottom={'₹' + nc(basePrice)} />
+        <Card top='Available Volume' bottom={nc(availableVolume)} />
+        <Card top='Bought Volume' bottom={boughtVolume} />
+        <Card top='Current Price' bottom={'₹' + nc(currentPrice)} />
+        <Card top='Base Price' bottom={'₹' + nc(basePrice)} />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.wrapperLeft}>
-          <div className={styles.graphContainer}>
-            <div className={styles.graph}>
-              <ResponsiveContainer>
-                <LineChart
-                  isAbove={false}
-                  data={data}
-                  margin={{
-                    top: 20,
-                    right: 20
-                  }}
-                >
-                  <CartesianGrid strokeDasharray='3 3' />
-                  <XAxis
-                    dataKey='name'
-                    axisLine={
-                      theme
-                        ? { stroke: '#404040', strokeWidth: 2 }
-                        : { stroke: '#BCBCBC', strokeWidth: 2 }
-                    }
-                    tick={
-                      theme
-                        ? { fontSize: '9px' }
-                        : { fontSize: '9px', stroke: '#BCBCBC' }
-                    }
-                  />
-                  <YAxis
-                    axisLine={
-                      theme
-                        ? { stroke: '#404040', strokeWidth: 2 }
-                        : { stroke: '#BCBCBC', strokeWidth: 2 }
-                    }
-                    tick={
-                      theme
-                        ? { fontSize: '9px' }
-                        : { fontSize: '9px', stroke: '#BCBCBC' }
-                    }
-                  />
-                  <Tooltip />
-                  <Line type='monotone' dataKey='pv' stroke='#6FB353' />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+          <Graph />
         </div>
         <div className={styles.wrapperRight}>
           <div className={styles.formContainer}>

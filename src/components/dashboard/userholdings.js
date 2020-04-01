@@ -1,8 +1,10 @@
+import { useContext, useState } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/userholdings.module.css';
 import dark from '../../styles/dark/userholdings.module.css';
-import { useState } from 'react';
 
-const SearchBar = ({ theme }) => {
+const SearchBar = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [searchVisible, setSearchVisible] = useState(false);
 
@@ -27,7 +29,8 @@ const SearchBar = ({ theme }) => {
   );
 };
 
-const HoldingItem = ({ theme, holding }) => {
+const HoldingItem = ({ holding }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.holdingContainer}>
@@ -48,13 +51,14 @@ const HoldingItem = ({ theme, holding }) => {
   );
 };
 
-const UserHoldings = ({ theme }) => {
+const UserHoldings = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>User Holdings</div>
-      <SearchBar theme={theme} />
+      <SearchBar />
       <div className={styles.header}>
         <div>Company</div>
         <div>Quantity</div>
@@ -62,17 +66,17 @@ const UserHoldings = ({ theme }) => {
         <div>Transaction</div>
       </div>
       <div className={styles.holdings}>
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
-        <HoldingItem theme={theme} />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
+        <HoldingItem />
       </div>
     </div>
   );

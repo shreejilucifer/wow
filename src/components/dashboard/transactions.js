@@ -1,8 +1,11 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/transactions.module.css';
 import dark from '../../styles/dark/transactions.module.css';
 import { useState } from 'react';
 
-const TransactionItem = ({ theme, transaction }) => {
+const TransactionItem = ({ transaction }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.transactionContainer}>
@@ -17,7 +20,8 @@ const TransactionItem = ({ theme, transaction }) => {
   );
 };
 
-const SearchBar = ({ theme }) => {
+const SearchBar = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [searchVisible, setSearchVisible] = useState(false);
 
@@ -42,13 +46,14 @@ const SearchBar = ({ theme }) => {
   );
 };
 
-const Transactions = ({ theme }) => {
+const Transactions = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>Transactions</div>
-      <SearchBar theme={theme} />
+      <SearchBar />
       <div className={styles.header}>
         <div>Type</div>
         <div>ID</div>
@@ -59,17 +64,17 @@ const Transactions = ({ theme }) => {
         <div>Status</div>
       </div>
       <div className={styles.transactions}>
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
-        <TransactionItem theme={theme} />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
+        <TransactionItem />
       </div>
     </div>
   );

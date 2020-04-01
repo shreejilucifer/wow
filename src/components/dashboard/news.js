@@ -1,7 +1,10 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/news.module.css';
 import dark from '../../styles/dark/news.module.css';
 
-const NewsItem = ({ theme }) => {
+const NewsItem = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
@@ -26,22 +29,23 @@ const NewsItem = ({ theme }) => {
   );
 };
 
-const News = ({ theme }) => {
+const News = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <React.Fragment>
       <div className={styles.title}>News</div>
       <div className={styles.container}>
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
-        <NewsItem theme={theme} />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
       </div>
     </React.Fragment>
   );

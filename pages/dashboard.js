@@ -10,20 +10,19 @@ import WatchList from '../src/components/dashboard/watchlist';
 
 const Dashboard = () => {
   const [active, setActive] = useState('trade');
-  const [theme, setTheme] = useState(true);
 
   const renderMain = () => {
     switch (active) {
       case 'trade':
-        return <Trade theme={theme} />;
+        return <Trade />;
       case 'news':
-        return <News theme={theme} />;
+        return <News />;
       case 'transactions':
-        return <Transactions theme={theme} />;
+        return <Transactions />;
       case 'userholdings':
-        return <UserHoldings theme={theme} />;
+        return <UserHoldings />;
       case 'watchlist':
-        return <WatchList theme={theme} />;
+        return <WatchList />;
       default:
         return null;
     }
@@ -32,16 +31,8 @@ const Dashboard = () => {
   return (
     <div>
       <Head title='Dashboard' />
-      <Layout
-        theme={theme}
-        updateTheme={() => setTheme(!theme)}
-        name={'Daenerys'}
-      >
-        <Links
-          theme={theme}
-          active={active}
-          onChangeActive={page => setActive(page)}
-        />
+      <Layout name={'Daenerys'}>
+        <Links active={active} onChangeActive={page => setActive(page)} />
         {renderMain(active)}
       </Layout>
     </div>

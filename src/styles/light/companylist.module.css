@@ -180,8 +180,8 @@
     align-self: center;
     height: 4vh;
     border-radius: 4px;
-    background: #f8f8f8;
-    box-shadow: 5px 5px 10px #ececec, -5px -5px 10px #ffffff;
+    background: #f6f6f6 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 6px #0000000f;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -189,6 +189,11 @@
     font-size: 2.5vh;
     font-weight: 600;
     padding-left: 10px;
+  }
+
+  .mobileTitle:active {
+    background: #e2e2e2;
+    box-shadow: inset 5px 5px 10px #cbcbcb, inset -5px -5px 10px #f9f9f9;
   }
 
   .mobileWrapper {

@@ -1,8 +1,11 @@
+import { useContext, useState } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/watchlist.module.css';
 import dark from '../../styles/dark/watchlist.module.css';
 import nc from '../../utils/commanumber';
 
-const Item = ({ theme, name, stat, percentage, price, stock }) => {
+const Item = ({ name, stat, percentage, price, stock }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   const renderName = name => {
@@ -53,7 +56,8 @@ const Item = ({ theme, name, stat, percentage, price, stock }) => {
   );
 };
 
-const WatchList = ({ theme }) => {
+const WatchList = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <React.Fragment>
@@ -62,7 +66,6 @@ const WatchList = ({ theme }) => {
         <div className={styles.title}>Watchlist</div>
         <div className={styles.items}>
           <Item
-            theme={theme}
             name='Info'
             stat='up'
             percentage='90%'
@@ -70,7 +73,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='up'
             percentage='90%'
@@ -78,7 +80,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -86,7 +87,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -94,7 +94,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -102,7 +101,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -110,7 +108,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -118,7 +115,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -126,7 +122,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'
@@ -134,7 +129,6 @@ const WatchList = ({ theme }) => {
             stock={14300}
           />
           <Item
-            theme={theme}
             name='Info'
             stat='down'
             percentage='90%'

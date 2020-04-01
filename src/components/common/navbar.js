@@ -1,20 +1,22 @@
-import { useState } from 'react';
-
+import { useContext, useState } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/navbar.module.css';
 import dark from '../../styles/dark/navbar.module.css';
 
-const Navbar = ({ theme, onChangeTheme, name }) => {
-  const [controls, setControls] = useState(false);
+const Navbar = ({ name }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
+  const [controls, setControls] = useState(false);
+
   return (
     <React.Fragment>
-      <MobileNavbar theme={theme} onChangeTheme={onChangeTheme} name={name} />
+      <MobileNavbar name={name} />
       <div className={styles.wrapper}>
-        <Logo theme={theme} />
-        <Timer theme={theme} />
+        <Logo />
+        <Timer />
         <div className={styles.controlsContainer}>
-          <Notification theme={theme} />
-          <User theme={theme} name={name} img='/test-user.png' />
+          <Notification />
+          <User name={name} img='/test-user.png' />
           <div
             className={styles.dropDownContainer}
             onClick={() => setControls(!controls)}
@@ -33,7 +35,8 @@ const Navbar = ({ theme, onChangeTheme, name }) => {
   );
 };
 
-const User = ({ theme, img, name }) => {
+const User = ({ img, name }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.userMobile}>
@@ -45,7 +48,8 @@ const User = ({ theme, img, name }) => {
   );
 };
 
-const Logo = ({ theme }) => {
+const Logo = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.logoContainer}>
@@ -57,7 +61,8 @@ const Logo = ({ theme }) => {
   );
 };
 
-const Controls = ({ theme }) => {
+const Controls = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.controlsDropdownContainer}>
@@ -69,7 +74,8 @@ const Controls = ({ theme }) => {
   );
 };
 
-const Timer = ({ theme }) => {
+const Timer = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.timerContainer}>
@@ -82,7 +88,8 @@ const Timer = ({ theme }) => {
   );
 };
 
-const Notification = ({ theme }) => {
+const Notification = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.notificationContainer}>
@@ -94,7 +101,8 @@ const Notification = ({ theme }) => {
   );
 };
 
-const Hamburger = ({ theme, onChangeTheme, name }) => {
+const Hamburger = ({ name }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [open, setOpen] = useState(false);
   return (
@@ -107,19 +115,19 @@ const Hamburger = ({ theme, onChangeTheme, name }) => {
         <div className={styles.sliderContainer}>
           <div className={styles.upperContainer}>
             <div className={styles.branding}>
-              <Logo theme={theme} />
+              <Logo />
               <img
                 src='/icons/close_black.svg'
                 onClick={() => setOpen(false)}
               />
             </div>
-            <User theme={theme} name={name} img='/test-user.png' />
+            <User name={name} img='/test-user.png' />
           </div>
           <div className={styles.linksContainer}>
             <div>leaderboard</div>
             <div>how to play</div>
             <div>about us</div>
-            <div onClick={() => onChangeTheme(!theme)}>
+            <div onClick={() => setTheme(!theme)}>
               {theme ? 'dark mode' : 'light mode'}
             </div>
             <div>logout</div>
@@ -131,13 +139,14 @@ const Hamburger = ({ theme, onChangeTheme, name }) => {
   );
 };
 
-const MobileNavbar = ({ theme, onChangeTheme, name }) => {
+const MobileNavbar = ({ name }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.mobileWrapper}>
-      <Hamburger theme={theme} onChangeTheme={onChangeTheme} name={name} />
-      <Timer theme={theme} />
-      <Notification theme={theme} />
+      <Hamburger name={name} />
+      <Timer />
+      <Notification />
     </div>
   );
 };

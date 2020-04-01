@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/layout.module.css';
 import dark from '../../styles/dark/layout.module.css';
 
@@ -7,15 +9,16 @@ import Stats from '../dashboard/stats';
 import WatchList from '../dashboard/watchlist';
 import Stockbar from './stockbar';
 
-const Layout = ({ children, theme, updateTheme, name }) => {
+const Layout = ({ children, name }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
     <div className={styles.wrapper}>
-      <Navbar theme={theme} onChangeTheme={updateTheme} name={name} />
+      <Navbar name={name} />
       <div className={styles.hiname}>Hi {name}</div>
       <div className={styles.horizontalWrapper}>
-        <Sidebar onChangeTheme={() => updateTheme()} theme={theme} />
+        <Sidebar />
         <div className={styles.mainContainer}>
           <Stats theme={theme} />
           <div className={styles.main}>

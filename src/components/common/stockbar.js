@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/stockbar.module.css';
 import dark from '../../styles/dark/stockbar.module.css';
 
@@ -7,7 +9,8 @@ const x = [
   { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' }
 ];
 
-const StockbarItem = ({ theme, name, stat }) => {
+const StockbarItem = ({ name, stat }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.itemContainer}>
@@ -23,7 +26,8 @@ const StockbarItem = ({ theme, name, stat }) => {
   );
 };
 
-const Stockbar = ({ theme }) => {
+const Stockbar = () => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
@@ -31,7 +35,6 @@ const Stockbar = ({ theme }) => {
       <span className={styles.slider1}>
         {x.map((a, index) => (
           <StockbarItem
-            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}
@@ -41,7 +44,6 @@ const Stockbar = ({ theme }) => {
       <span className={styles.slider2}>
         {x.map((a, index) => (
           <StockbarItem
-            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}
@@ -51,7 +53,6 @@ const Stockbar = ({ theme }) => {
       <span className={styles.slider3}>
         {x.map((a, index) => (
           <StockbarItem
-            theme={theme}
             name={a.name + ' ' + a.percentage}
             stat={a.stat}
             key={index}

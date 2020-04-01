@@ -1,16 +1,15 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/links.module.css';
 import dark from '../../styles/dark/links.module.css';
 
-const Links = ({ active, onChangeActive, theme }) => {
+const Links = ({ active, onChangeActive }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
   return (
     <React.Fragment>
-      <MobileLinks
-        theme={theme}
-        onChangeActive={p => onChangeActive(p)}
-        active={active}
-      />
+      <MobileLinks onChangeActive={p => onChangeActive(p)} active={active} />
       <div className={styles.container}>
         <button
           onClick={() => onChangeActive('trade')}
@@ -65,7 +64,8 @@ const Links = ({ active, onChangeActive, theme }) => {
   );
 };
 
-const MobileLinks = ({ active, onChangeActive, theme }) => {
+const MobileLinks = ({ active, onChangeActive }) => {
+  const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.mobileContainer}>
