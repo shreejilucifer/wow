@@ -26,7 +26,7 @@
 }
 
 .top {
-  font-size: 3rem;
+  font-size: 4vh;
   margin-right: 15px;
   font-weight: 600;
   text-align: right;
@@ -34,33 +34,9 @@
 
 .bottom {
   font-weight: 300;
-  font-size: 2rem;
+  font-size: 3vh;
   padding-right: 15px;
   text-align: right;
-}
-
-@media only screen and (max-width: 1440px) {
-  .bottom {
-    font-size: 1.5rem;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  .top {
-    font-size: 2rem;
-  }
-  .bottom {
-    font-size: 1rem;
-  }
-}
-
-@media only screen and (max-width: 425px) {
-  .top {
-    font-size: 1.5rem;
-  }
-  .bottom {
-    font-size: 0.8rem;
-  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -84,9 +60,11 @@
   .top {
     margin: 0px;
     text-align: left;
+    font-size: 3vh;
   }
   .bottom {
     margin: 0px;
     text-align: left;
+    font-size: 2vh;
   }
 }
