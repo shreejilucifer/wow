@@ -13,6 +13,7 @@ const Card = ({ top, bottom, theme }) => {
     </div>
   );
 };
+
 const Stats = ({ theme }) => {
   const styles = theme ? light : dark;
 

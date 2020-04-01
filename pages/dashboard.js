@@ -6,9 +6,10 @@ import Trade from '../src/components/dashboard/trade';
 import News from '../src/components/dashboard/news';
 import Transactions from '../src/components/dashboard/transactions';
 import UserHoldings from '../src/components/dashboard/userholdings';
+import WatchList from '../src/components/dashboard/watchlist';
 
 const Dashboard = () => {
-  const [active, setActive] = useState('userholdings');
+  const [active, setActive] = useState('trade');
   const [theme, setTheme] = useState(true);
 
   const renderMain = () => {
@@ -21,6 +22,8 @@ const Dashboard = () => {
         return <Transactions theme={theme} />;
       case 'userholdings':
         return <UserHoldings theme={theme} />;
+      case 'watchlist':
+        return <WatchList theme={theme} />;
       default:
         return null;
     }
