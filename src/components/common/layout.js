@@ -20,16 +20,16 @@ const Layout = ({ children, name }) => {
       <div className={styles.horizontalWrapper}>
         <Sidebar />
         <div className={styles.mainContainer}>
-          <Stats theme={theme} />
+          <Stats />
           <div className={styles.main}>
             <div className={styles.childrenContainer}>{children}</div>
             <div className={styles.watchlistContainer}>
-              <WatchList theme={theme} />
+              <WatchList />
             </div>
           </div>
         </div>
       </div>
-      <Stockbar theme={theme} />
+      <Stockbar />
     </div>
   );
 };
