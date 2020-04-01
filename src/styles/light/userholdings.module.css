@@ -220,7 +220,6 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
     text-align: left;
   }
 
@@ -228,7 +227,16 @@
     height: 10%;
   }
 
+  .transactionContainer {
+    justify-content: flex-start;
+  }
+
   .transactionContainer button {
-    height: 4vh;
+    height: 3vh;
+  }
+
+  .transactionContainer input {
+    height: 3vh;
+    margin-left: 10px;
   }
 }

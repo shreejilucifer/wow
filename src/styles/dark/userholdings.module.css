@@ -230,7 +230,16 @@
     height: 10%;
   }
 
+  .transactionContainer {
+    justify-content: flex-start;
+  }
+
   .transactionContainer button {
-    height: 4vh;
+    height: 3vh;
+  }
+
+  .transactionContainer input {
+    height: 3vh;
+    margin-left: 10px;
   }
 }
