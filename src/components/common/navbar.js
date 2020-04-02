@@ -112,27 +112,30 @@ const Hamburger = ({ name }) => {
         onClick={() => setOpen(true)}
       />
       {open ? (
-        <div className={styles.sliderContainer}>
-          <div className={styles.upperContainer}>
-            <div className={styles.branding}>
-              <Logo />
-              <img
-                src='/icons/close_black.svg'
-                onClick={() => setOpen(false)}
-              />
+        <div className={styles.sliderWrapper}>
+          <div className={styles.sliderContainer}>
+            <div className={styles.upperContainer}>
+              <div className={styles.branding}>
+                <Logo />
+                <img
+                  src='/icons/close_black.svg'
+                  onClick={() => setOpen(false)}
+                />
+              </div>
+              <User name={name} img='/test-user.png' />
             </div>
-            <User name={name} img='/test-user.png' />
-          </div>
-          <div className={styles.linksContainer}>
-            <div>leaderboard</div>
-            <div>how to play</div>
-            <div>about us</div>
-            <div onClick={() => setTheme(!theme)}>
-              {theme ? 'dark mode' : 'light mode'}
+            <div className={styles.linksContainer}>
+              <div>leaderboard</div>
+              <div>how to play</div>
+              <div>about us</div>
+              <div onClick={() => setTheme(!theme)}>
+                {theme ? 'dark mode' : 'light mode'}
+              </div>
+              <div>logout</div>
+              <div>change password</div>
             </div>
-            <div>logout</div>
-            <div>change password</div>
           </div>
+          <div className={styles.transparent} onClick={() => setOpen(false)} />
         </div>
       ) : null}
     </div>

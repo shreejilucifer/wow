@@ -104,7 +104,7 @@
 .top {
   margin-top: 10px;
   margin-left: 10px;
-  font-size: 17px;
+  font-size: 2vh;
   color: #707070;
   font-weight: 400;
 }
@@ -112,7 +112,7 @@
 .bottom {
   margin-bottom: 5px;
   margin-left: 10px;
-  font-size: 40px;
+  font-size: 3vh;
   font-weight: 700;
   color: #707070;
 }
@@ -177,14 +177,14 @@
 }
 
 .title span:nth-child(1) {
-  font-size: 1.5rem;
+  font-size: 2.5vh;
   text-align: center;
   font-weight: 500;
   color: #bcbcbc;
 }
 
 .title span:nth-child(2) {
-  font-size: 0.9rem;
+  font-size: 1.5vh;
   font-weight: 400;
   text-align: center;
   color: #bcbcbc;
@@ -215,7 +215,7 @@
   border-radius: 10px;
   font-weight: 800;
   text-align: center;
-  font-size: 25px;
+  font-size: 3vh;
   outline: none;
 }
 
@@ -232,7 +232,7 @@
 .button {
   width: 90%;
   height: 65%;
-  font-size: 20px;
+  font-size: 2.5vh;
   font-weight: 400;
   border: none;
   border-radius: 10px;
@@ -248,21 +248,6 @@
 
 .button:hover {
   cursor: pointer;
-}
-
-@media only screen and (max-width: 1440px) {
-  .top {
-    font-size: 17px;
-  }
-  .bottom {
-    font-size: 1.5rem;
-  }
-  .title span:nth-child(1) {
-    font-size: 1.2rem;
-  }
-  .title span:nth-child(2) {
-    font-size: 0.7rem;
-  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -301,11 +286,11 @@
 
   .top {
     margin-top: 2px;
-    font-size: 15px;
+    font-size: 2vh;
   }
   .bottom {
     margin-bottom: 2px;
-    font-size: 20px;
+    font-size: 2.5vh;
   }
   .mainContainer {
     z-index: 1;
