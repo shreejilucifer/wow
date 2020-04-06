@@ -32,7 +32,7 @@ const Dashboard = () => {
     <div>
       <Head title='Dashboard' />
       <Layout name={'Daenerys'}>
-        <Links active={active} onChangeActive={page => setActive(page)} />
+        <Links active={active} onChangeActive={(page) => setActive(page)} />
         {renderMain(active)}
       </Layout>
     </div>

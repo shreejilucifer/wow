@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/navbar.module.css';
@@ -105,6 +106,7 @@ const Hamburger = ({ name }) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   return (
     <div className={styles.hamburgerContainer}>
       <img
@@ -125,9 +127,10 @@ const Hamburger = ({ name }) => {
               <User name={name} img='/test-user.png' />
             </div>
             <div className={styles.linksContainer}>
-              <div>leaderboard</div>
-              <div>how to play</div>
-              <div>about us</div>
+              <div onClick={() => router.push('/dashboard')}>home</div>
+              <div onClick={() => router.push('/leaderboard')}>leaderboard</div>
+              <div onClick={() => router.push('/howtoplay')}>how to play</div>
+              <div onClick={() => router.push('/aboutus')}>about us</div>
               <div onClick={() => setTheme(!theme)}>
                 {theme ? 'dark mode' : 'light mode'}
               </div>
