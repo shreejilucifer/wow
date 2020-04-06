@@ -8,6 +8,7 @@
 }
 
 .iconWrapper {
+  cursor: pointer;
   width: 100%;
   height: 45px;
   display: flex;
