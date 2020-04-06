@@ -16,10 +16,10 @@ function MyApp({ Component, pageProps }) {
       <ThemeContext.Provider
         value={{
           theme,
-          setTheme: theme => {
+          setTheme: (theme) => {
             setActualTheme(theme);
             Cookies.set('theme', theme);
-          }
+          },
         }}
       >
         <Component {...pageProps} />
