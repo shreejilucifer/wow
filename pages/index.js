@@ -3,24 +3,35 @@ import Head from '../src/components/common/head';
 import Link from 'next/link';
 import { withRouter } from 'next/router';
 import styles from '../src/styles/light/login.module.css';
+import { login } from '../src/utils/login';
 
 const Home = ({ router }) => {
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [user, setUser] = useState({ phone: '', password: '' });
 
-  const handleSubmit = (phone, password) => {
-    if (!phone || !password) return console.error('No Values');
-    router.push('/dashboard');
+  const handleSubmit = async (phone, password) => {
+    setLoading(true);
+    const data = await login(phone, password);
+
+    if (data.status) {
+      setLoading(false);
+      router.push('/dashboard');
+    } else {
+      setLoading(false);
+      setError(data.message);
+    }
   };
 
   const valueChange = (type, val) => {
+    setError('');
     switch (type) {
       case 'phone': {
-        setPhone(val);
+        setUser({ ...user, phone: val });
         break;
       }
       case 'password': {
-        setPassword(val);
+        setUser({ ...user, password: val });
         break;
       }
       default:
@@ -43,26 +54,30 @@ const Home = ({ router }) => {
           </div>
           <div className={styles.inputContainer}>
             <input
+              disabled={loading}
               type='text'
               placeholder='Phone no.'
-              value={phone}
+              value={user.phone}
               onChange={(e) => valueChange('phone', e.target.value)}
             />
           </div>
           <div className={styles.inputContainer}>
             <input
+              disabled={loading}
               type='password'
               placeholder='Password'
-              value={password}
+              value={user.password}
               onChange={(e) => valueChange('password', e.target.value)}
             />
           </div>
+          <div>{error}</div>
           <Link href='/forgotpassword'>
             <a className={styles.forget}>forgot password?</a>
           </Link>
           <button
+            disabled={loading}
             className={styles.loginButton}
-            onClick={() => handleSubmit(phone, password)}
+            onClick={() => handleSubmit(user.phone, user.password)}
           >
             log in
           </button>
