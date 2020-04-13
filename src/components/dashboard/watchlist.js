@@ -8,7 +8,7 @@ const Item = ({ name, stat, percentage, price, stock }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
-  const renderName = name => {
+  const renderName = (name) => {
     let x = name.length > 10 ? name.toString().substring(0, 10) + '....' : name;
     return x;
   };
@@ -19,6 +19,7 @@ const Item = ({ name, stat, percentage, price, stock }) => {
         <div className={styles.nameContainer}>
           <div className={styles.name}>{renderName(name)}</div>
           <img
+            alt='icon-watchlist'
             src={
               theme ? '/icons/heart_fill.svg' : '/icons/heart_fill_white.svg'
             }
@@ -31,9 +32,17 @@ const Item = ({ name, stat, percentage, price, stock }) => {
           </div>
           <div className={stat === 'up' ? styles.up : styles.down}>
             {stat === 'up' ? (
-              <img src='/icons/green_arrow.svg' className={styles.caret} />
+              <img
+                alt='icon-watchlist'
+                src='/icons/green_arrow.svg'
+                className={styles.caret}
+              />
             ) : (
-              <img src='/icons/red_arrow.svg' className={styles.caret} />
+              <img
+                alt='icon-watchlist'
+                src='/icons/red_arrow.svg'
+                className={styles.caret}
+              />
             )}
           </div>
           <div className={stat === 'up' ? styles.up : styles.down}>

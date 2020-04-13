@@ -31,6 +31,7 @@ const SearchBar = () => {
         <div className={styles.searchbar}>
           <input type='text' />
           <img
+            alt='search'
             onClick={() => setSearchVisible(!searchVisible)}
             src={theme ? '/icons/search.svg' : '/icons/search_white.svg'}
             onClick={() => setSearchVisible(!searchVisible)}
@@ -38,6 +39,7 @@ const SearchBar = () => {
         </div>
       ) : (
         <img
+          alt='search'
           src={theme ? '/icons/search.svg' : '/icons/search_white.svg'}
           onClick={() => setSearchVisible(!searchVisible)}
         />

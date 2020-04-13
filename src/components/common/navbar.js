@@ -23,6 +23,7 @@ const Navbar = ({ name }) => {
             onClick={() => setControls(!controls)}
           >
             <img
+              alt='arrow_down'
               src={
                 theme ? '/icons/arrow_down.svg' : '/icons/arrow_down_white.svg'
               }
@@ -42,7 +43,7 @@ const User = ({ img, name }) => {
   return (
     <div className={styles.userMobile}>
       <div className={styles.userContainer}>
-        <img src={img} className={styles.user} />
+        <img alt='user' src={img} className={styles.user} />
       </div>
       <div className={styles.name}>{name}</div>
     </div>
@@ -55,6 +56,7 @@ const Logo = () => {
   return (
     <div className={styles.logoContainer}>
       <img
+        alt='logo'
         src={theme ? '/icons/logo.svg' : '/icons/logo_white.svg'}
         className={styles.logo}
       />
@@ -81,6 +83,7 @@ const Timer = () => {
   return (
     <div className={styles.timerContainer}>
       <img
+        alt='timer'
         src={theme ? '/icons/timer.svg' : '/icons/timer_white.svg'}
         className={styles.timer}
       />
@@ -95,6 +98,7 @@ const Notification = () => {
   return (
     <div className={styles.notificationContainer}>
       <img
+        alt='notification'
         src={theme ? '/icons/notification.svg' : '/icons/bell_white.svg'}
         className={styles.notification}
       />
@@ -110,6 +114,7 @@ const Hamburger = ({ name }) => {
   return (
     <div className={styles.hamburgerContainer}>
       <img
+        alt='hamburger'
         src={theme ? '/icons/hamburger.svg' : '/icons/hamburger_white.svg'}
         onClick={() => setOpen(true)}
       />
@@ -120,6 +125,7 @@ const Hamburger = ({ name }) => {
               <div className={styles.branding}>
                 <Logo />
                 <img
+                  alt='close'
                   src='/icons/close_black.svg'
                   onClick={() => setOpen(false)}
                 />

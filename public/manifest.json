@@ -1,7 +1,9 @@
 {
+  "name": "Wolf of Wallstreet 3.0",
+  "short_name": "WOW3",
   "theme_color": "#2196f3",
   "background_color": "#2196f3",
-  "display": "browser",
+  "display": "fullscreen",
   "Scope": "/",
   "start_url": "/",
   "icons": [

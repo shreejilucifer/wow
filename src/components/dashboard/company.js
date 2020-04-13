@@ -29,7 +29,7 @@ const Company = ({ company }) => {
     availableVolume,
     boughtVolume,
     currentPrice,
-    basePrice
+    basePrice,
   } = company;
   return (
     <React.Fragment>
@@ -48,9 +48,9 @@ const Company = ({ company }) => {
           </div>
           <div className={styles.arrow}>
             {stat === 'up' ? (
-              <img src='/icons/green_arrow.svg' />
+              <img alt='uparrow' src='/icons/green_arrow.svg' />
             ) : (
-              <img src='/icons/red_arrow.svg' />
+              <img alt='downarrow' src='/icons/red_arrow.svg' />
             )}
           </div>
           <div
@@ -65,7 +65,10 @@ const Company = ({ company }) => {
         </div>
 
         <div className={styles.heart}>
-          <img src={theme ? '/icons/heart.svg' : '/icons/heart_white.svg'} />
+          <img
+            alt='heart'
+            src={theme ? '/icons/heart.svg' : '/icons/heart_white.svg'}
+          />
         </div>
       </div>
       <div className={styles.companyCards}>

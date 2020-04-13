@@ -9,7 +9,7 @@ const Links = ({ active, onChangeActive }) => {
 
   return (
     <React.Fragment>
-      <MobileLinks onChangeActive={p => onChangeActive(p)} active={active} />
+      <MobileLinks onChangeActive={(p) => onChangeActive(p)} active={active} />
       <div className={styles.container}>
         <button
           onClick={() => onChangeActive('trade')}
@@ -70,6 +70,7 @@ const MobileLinks = ({ active, onChangeActive }) => {
   return (
     <div className={styles.mobileContainer}>
       <img
+        alt='link-icons'
         className={active === 'transactions' ? styles.activeMobile : null}
         onClick={() => onChangeActive('transactions')}
         src={
@@ -77,21 +78,25 @@ const MobileLinks = ({ active, onChangeActive }) => {
         }
       />
       <img
+        alt='link-icons'
         className={active === 'news' ? styles.activeMobile : null}
         onClick={() => onChangeActive('news')}
         src={theme ? '/icons/news.svg' : '/icons/news_white.svg'}
       />
       <img
+        alt='link-icons'
         className={active === 'trade' ? styles.activeMobile : null}
         onClick={() => onChangeActive('trade')}
         src={theme ? '/icons/home.svg' : '/icons/home_white.svg'}
       />
       <img
+        alt='link-icons'
         className={active === 'userholdings' ? styles.activeMobile : null}
         onClick={() => onChangeActive('userholdings')}
         src={theme ? '/icons/portfolio.svg' : '/icons/portfolio_white.svg'}
       />
       <img
+        alt='link-icons'
         className={active === 'watchlist' ? styles.activeMobile : null}
         onClick={() => onChangeActive('watchlist')}
         src={theme ? '/icons/watchlist.svg' : '/icons/watchlist_white.svg'}

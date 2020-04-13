@@ -48,7 +48,7 @@ const Icon = ({ active, img, click }) => {
         active ? styles.iconWrapper + ' ' + styles.active : styles.iconWrapper
       }
     >
-      <img src={img} className={styles.icon} />
+      <img alt='icon' src={img} className={styles.icon} />
     </div>
   );
 };

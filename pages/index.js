@@ -44,7 +44,7 @@ const Home = ({ router }) => {
       <Head title='Home' />
       <div className={styles.container}>
         <div className={styles.leftContainer}>
-          <img src='/icons/logo.svg' className={styles.logo} />
+          <img src='/icons/logo.svg' className={styles.logo} alt='logo' />
           <div className={styles.sitetitle}>wolf of wall street 3.0</div>
         </div>
         <div className={styles.rightContainer}>
