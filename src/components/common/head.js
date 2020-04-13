@@ -68,13 +68,9 @@ const Head = (props) => (
     />
     <link rel='manifest' href='/manifest.json' />
     <meta name='msapplication-TileColor' content='#ffffff' />
-    <meta name='msapplication-TileImage' content='/ms-icon-144x144.png' />
+    <meta name='msapplication-TileImage' content='/pwa/ms-icon-144x144.png' />
     <meta name='theme-color' content='#ffffff'></meta>
     <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel='icon' sizes='192x192' href='/static/touch-icon.png' />
-    <link rel='apple-touch-icon' href='/static/touch-icon.png' />
-    <link rel='mask-icon' href='/static/favicon-mask.svg' color='#49B882' />
-    <link rel='icon' href='/static/favicon.ico' />
     <meta property='og:url' content={props.url || defaultOGURL} />
     <meta property='og:title' content={props.title || ''} />
     <meta
