@@ -2,11 +2,12 @@ import React from 'react';
 import NextHead from 'next/head';
 import { string } from 'prop-types';
 
-const defaultDescription = '';
+const defaultDescription =
+  'Participants will get virtual money and will have to make a maximum profit by trading shares of different company';
 const defaultOGURL = '';
 const defaultOGImage = '';
 
-const Head = props => (
+const Head = (props) => (
   <NextHead>
     <meta charSet='UTF-8' />
     <title>{props.title || ''}</title>
@@ -38,7 +39,7 @@ Head.propTypes = {
   title: string,
   description: string,
   url: string,
-  ogImage: string
+  ogImage: string,
 };
 
 export default Head;
