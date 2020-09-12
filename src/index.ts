@@ -4,13 +4,16 @@ import { createConnection } from 'typeorm';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import { HelloResolver } from './resolvers/hello';
-import { User } from './entities/User';
-import { UserResolver } from './resolvers/user';
 import cors from 'cors';
 import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
+import { User } from './entities/User';
+import { Company } from './entities/Company';
+import { HelloResolver } from './resolvers/hello';
+import { UserResolver } from './resolvers/user';
+import { CompanyResolver } from './resolvers/company';
+import { PreviousValue } from './entities/PreviousValue';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -18,7 +21,7 @@ const main = async () => {
 		url: process.env.DATABASE_URL,
 		logging: true,
 		synchronize: true,
-		entities: [User],
+		entities: [User, Company, PreviousValue],
 	});
 
 	const app = express();
@@ -54,7 +57,7 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [HelloResolver, UserResolver],
+			resolvers: [HelloResolver, UserResolver, CompanyResolver],
 			validate: false,
 		}),
 		context: ({ req, res }) => ({ em: conn, req, res, redis }),
