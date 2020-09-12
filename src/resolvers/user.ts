@@ -83,4 +83,28 @@ export class UserResolver {
 
 		return { user };
 	}
+
+	@Mutation(() => UserResponse)
+	async login(
+		@Arg('mobile') mobile: string,
+		@Arg('password') password: string,
+		@Ctx() { req }: MyContext
+	): Promise<UserResponse> {
+		const user = await User.findOne({ where: { mobile: mobile } });
+		if (!user)
+			return {
+				errors: [{ field: 'mobile', message: 'Mobile does not exist ' }],
+			};
+
+		const valid = await argon2.verify(user.password, password);
+
+		if (!valid)
+			return {
+				errors: [{ field: 'password', message: 'Invalid Password' }],
+			};
+
+		req.session!.userId = user.id;
+
+		return { user };
+	}
 }
