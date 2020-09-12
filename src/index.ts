@@ -7,6 +7,10 @@ import { buildSchema } from 'type-graphql';
 import { HelloResolver } from './resolvers/hello';
 import { User } from './entities/User';
 import { UserResolver } from './resolvers/user';
+import cors from 'cors';
+import Redis from 'ioredis';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -19,6 +23,31 @@ const main = async () => {
 
 	const app = express();
 
+	const RedisStore = connectRedis(session);
+	const redis = new Redis(process.env.REDIS_URL);
+
+	app.use(
+		cors({
+			origin: process.env.CORS_ORIGIN,
+			credentials: true,
+		})
+	);
+
+	app.use(
+		session({
+			name: 'qid',
+			store: new RedisStore({ client: redis, disableTouch: true }),
+			cookie: {
+				maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 Years
+				httpOnly: true,
+				sameSite: 'lax',
+			},
+			saveUninitialized: false,
+			secret: process.env.SESSION_SECRET,
+			resave: false,
+		})
+	);
+
 	app.get('/', (_, res) => {
 		res.send('Welcome to Wallstreet 3 Backend API');
 	});
@@ -28,7 +57,7 @@ const main = async () => {
 			resolvers: [HelloResolver, UserResolver],
 			validate: false,
 		}),
-		context: () => ({ em: conn }),
+		context: ({ req, res }) => ({ em: conn, req, res, redis }),
 	});
 
 	apolloServer.applyMiddleware({ app });
