@@ -5,6 +5,7 @@ import {
 	InputType,
 	Mutation,
 	ObjectType,
+	Query,
 	Resolver,
 } from 'type-graphql';
 import { User } from '../entities/User';
@@ -106,5 +107,27 @@ export class UserResolver {
 		req.session!.userId = user.id;
 
 		return { user };
+	}
+
+	@Mutation(() => Boolean)
+	logout(@Ctx() { req, res }: MyContext) {
+		return new Promise((resolve) =>
+			req.session!.destroy((err) => {
+				res.clearCookie('qid');
+				if (err) {
+					resolve(false);
+					return;
+				}
+				resolve(true);
+			})
+		);
+	}
+
+	@Query(() => User, { nullable: true })
+	me(@Ctx() { req }: MyContext) {
+		if (!req.session!.userId) {
+			return null;
+		}
+		return User.findOne(req.session!.userId);
 	}
 }
