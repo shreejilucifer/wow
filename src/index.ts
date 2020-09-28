@@ -14,6 +14,8 @@ import { HelloResolver } from './resolvers/hello';
 import { UserResolver } from './resolvers/user';
 import { CompanyResolver } from './resolvers/company';
 import { PreviousValue } from './entities/PreviousValue';
+import { Watchlist } from './entities/Watchlist';
+import { WatchlistResolver } from './resolvers/watchlist';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -21,8 +23,10 @@ const main = async () => {
 		url: process.env.DATABASE_URL,
 		logging: true,
 		synchronize: true,
-		entities: [User, Company, PreviousValue],
+		entities: [User, Company, PreviousValue, Watchlist],
 	});
+
+	await conn.runMigrations();
 
 	const app = express();
 
@@ -57,7 +61,12 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [HelloResolver, UserResolver, CompanyResolver],
+			resolvers: [
+				HelloResolver,
+				UserResolver,
+				CompanyResolver,
+				WatchlistResolver,
+			],
 			validate: false,
 		}),
 		context: ({ req, res }) => ({ em: conn, req, res, redis }),
