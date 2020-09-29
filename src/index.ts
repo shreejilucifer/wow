@@ -72,7 +72,7 @@ const main = async () => {
 		context: ({ req, res }) => ({ em: conn, req, res, redis }),
 	});
 
-	apolloServer.applyMiddleware({ app });
+	apolloServer.applyMiddleware({ app, cors: false });
 
 	app.listen(process.env.PORT, () => {
 		console.log(`Server Started on http://localhost:${process.env.PORT}`);
