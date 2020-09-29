@@ -1,0 +1,5 @@
+mutation Login($mobile: String!, $password: String!) {
+  login(mobile: $mobile, password: $password) {
+    ...RegularUserResponse
+  }
+}

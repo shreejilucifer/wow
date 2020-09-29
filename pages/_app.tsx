@@ -3,6 +3,13 @@ import { ThemeContext } from '../src/utils/theme';
 import Cookies from 'js-cookie';
 
 import '../src/styles/global.css';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include',
+  cache: new InMemoryCache(),
+});
 
 function MyApp({ Component, pageProps }: any) {
   const [theme, setActualTheme] = useState(true);
@@ -12,7 +19,7 @@ function MyApp({ Component, pageProps }: any) {
   }, []);
 
   return (
-    <div>
+    <ApolloProvider client={client}>
       <ThemeContext.Provider
         value={{
           theme,
@@ -24,7 +31,7 @@ function MyApp({ Component, pageProps }: any) {
       >
         <Component {...pageProps} />
       </ThemeContext.Provider>
-    </div>
+    </ApolloProvider>
   );
 }
 
