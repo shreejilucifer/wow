@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react';
 import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/navbar.module.css';
 import dark from '../../styles/dark/navbar.module.css';
+import { useLogoutMutation } from '../../generated/graphql';
+import { useApolloClient } from '@apollo/client';
 
 interface navbarProps {
   name: string;
@@ -13,6 +15,9 @@ const Navbar: React.FC<navbarProps> = ({ name }) => {
   const styles = theme ? light : dark;
   const [controls, setControls] = useState(false);
 
+  const apolloClient = useApolloClient();
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
   return (
     <React.Fragment>
       <MobileNavbar name={name} />
@@ -33,7 +38,15 @@ const Navbar: React.FC<navbarProps> = ({ name }) => {
               }
               className={styles.caret}
             />
-            {controls ? <Controls /> : null}
+            {controls ? (
+              <Controls
+                logout={async () => {
+                  await logout();
+                  await router.push('/');
+                  await apolloClient.resetStore();
+                }}
+              />
+            ) : null}
           </div>
         </div>
       </div>
@@ -73,14 +86,20 @@ const Logo = () => {
   );
 };
 
-const Controls = () => {
+interface controlProps {
+  logout: () => void;
+}
+
+const Controls: React.FC<controlProps> = ({ logout }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   return (
     <div className={styles.controlsDropdownContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.content}>Change Password</div>
-        <div className={styles.content}>Log Out</div>
+        <div className={styles.content} onClick={() => logout()}>
+          Log Out
+        </div>
       </div>
     </div>
   );
