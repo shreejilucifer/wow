@@ -1,12 +1,21 @@
-import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import {
+	Arg,
+	Ctx,
+	Mutation,
+	Query,
+	Resolver,
+	UseMiddleware,
+} from 'type-graphql';
 import { Company } from '../entities/Company';
 import { User } from '../entities/User';
 import { Watchlist } from '../entities/Watchlist';
+import { isAuth } from '../middleware/isAuth';
 import { MyContext } from '../types';
 
 @Resolver(Watchlist)
 export class WatchlistResolver {
 	@Mutation(() => Watchlist, { nullable: true })
+	@UseMiddleware(isAuth)
 	async addWatchlist(
 		@Ctx() { req }: MyContext,
 		@Arg('companyId') companyId: number
@@ -31,6 +40,7 @@ export class WatchlistResolver {
 	}
 
 	@Mutation(() => Boolean, { nullable: true })
+	@UseMiddleware(isAuth)
 	async removeWatchlist(
 		@Arg('watchlistId') watchlistId: number
 	): Promise<Boolean> {
@@ -39,6 +49,7 @@ export class WatchlistResolver {
 	}
 
 	@Query(() => [Watchlist], { nullable: true })
+	@UseMiddleware(isAuth)
 	async watchlist(@Ctx() { req }: MyContext): Promise<Watchlist[] | null> {
 		let user = await User.findOne(req.session!.userId);
 		if (!user) return null;

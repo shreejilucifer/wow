@@ -7,11 +7,13 @@ import {
 	ObjectType,
 	Query,
 	Resolver,
+	UseMiddleware,
 } from 'type-graphql';
 import { User } from '../entities/User';
 import { validateRegister } from '../utils/validateRegister';
 import argon2 from 'argon2';
 import { MyContext } from '../types';
+import { isAuth } from '../middleware/isAuth';
 
 @ObjectType()
 class FieldError {
@@ -110,6 +112,7 @@ export class UserResolver {
 	}
 
 	@Mutation(() => Boolean)
+	@UseMiddleware(isAuth)
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise((resolve) =>
 			req.session!.destroy((err) => {
@@ -124,6 +127,7 @@ export class UserResolver {
 	}
 
 	@Query(() => User, { nullable: true })
+	@UseMiddleware(isAuth)
 	me(@Ctx() { req }: MyContext) {
 		if (!req.session!.userId) {
 			return null;

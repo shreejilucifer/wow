@@ -6,9 +6,11 @@ import {
 	Mutation,
 	Query,
 	Resolver,
+	UseMiddleware,
 } from 'type-graphql';
 import { Company } from '../entities/Company';
 import { PreviousValue } from '../entities/PreviousValue';
+import { isAuth } from '../middleware/isAuth';
 
 @InputType()
 export class CompanyAddInput {
@@ -28,6 +30,7 @@ export class CompanyAddInput {
 @Resolver(Company)
 export class CompanyResolver {
 	@Mutation(() => Company, { nullable: true })
+	@UseMiddleware(isAuth)
 	async addCompany(
 		@Arg('options') options: CompanyAddInput
 	): Promise<Company | undefined> {
@@ -57,6 +60,7 @@ export class CompanyResolver {
 	}
 
 	@Query(() => [Company], { nullable: true })
+	@UseMiddleware(isAuth)
 	async companies(): Promise<Company[] | null> {
 		let companies;
 		try {
