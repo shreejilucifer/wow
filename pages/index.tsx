@@ -7,6 +7,7 @@ import { useLoginMutation } from '../src/generated/graphql';
 import { Form, Formik } from 'formik';
 import { toErrorMap } from '../src/utils/toErrorMap';
 import { InputField } from '../src/components/common/inputfield';
+import { withApollo } from '../src/utils/withApollo';
 
 interface homeProps {}
 
@@ -77,4 +78,4 @@ const Home: React.FC<homeProps> = ({}) => {
   );
 };
 
-export default Home;
+export default withApollo({ ssr: false })(Home);

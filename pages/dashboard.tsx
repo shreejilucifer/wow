@@ -7,9 +7,12 @@ import News from '../src/components/dashboard/news';
 import Transactions from '../src/components/dashboard/transactions';
 import UserHoldings from '../src/components/dashboard/userholdings';
 import WatchList from '../src/components/dashboard/watchlist';
+import { useIsAuth } from '../src/utils/useIsAuth';
+import { withApollo } from '../src/utils/withApollo';
 
 const Dashboard = () => {
   const [active, setActive] = useState('trade');
+  useIsAuth();
 
   const renderMain = (active: string) => {
     switch (active) {
@@ -39,4 +42,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withApollo({ ssr: true })(Dashboard);
