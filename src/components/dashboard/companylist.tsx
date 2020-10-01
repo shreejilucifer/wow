@@ -1,48 +1,21 @@
 import React, { useContext, useState } from 'react';
 import {
-  CompaniesQuery,
+  PreviousValue,
   RegularCompanyFragment,
   useCompaniesQuery,
 } from '../../generated/graphql';
 import dark from '../../styles/dark/companylist.module.css';
 import light from '../../styles/light/companylist.module.css';
-import nc from '../../utils/commanumber';
 import shortName from '../../utils/shortName';
 import { ThemeContext } from '../../utils/theme';
+import SearchBar from './companysearchbar';
 
-interface companyComponentProps {
-  stat: string;
-  onSelect: () => any;
-  name: string;
-  rate: number;
-  amount: number;
+interface companyProps {
+  onSelect: (id: number) => void;
+  data: RegularCompanyFragment;
 }
 
-interface categoryComponentProps {
-  open: boolean;
-  categoryName: string;
-  onSelectCategory: (category: string) => any;
-  onSelectCompany: (company: string) => any;
-  filteredCompanies: RegularCompanyFragment[];
-}
-
-interface companyComponentList {}
-
-interface searchbarProps {
-  onSearch: (str: string) => any;
-}
-
-interface mobileCompanyComponentList {
-  uniqueCategories: string[];
-}
-
-const Company: React.FC<companyComponentProps> = ({
-  stat,
-  onSelect,
-  amount,
-  rate,
-  name,
-}) => {
+const Company: React.FC<companyProps> = ({ onSelect, data }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
@@ -58,23 +31,55 @@ const Company: React.FC<companyComponentProps> = ({
     else return <img src='/icons/red_arrow.svg' />;
   };
 
+  const calculateStat = (previousValues: PreviousValue[]): string => {
+    let len = previousValues.length;
+    let stat: string;
+    if (len === 1) stat = 'up';
+    else
+      stat =
+        previousValues[len].shareValue > previousValues[len - 1].shareValue
+          ? 'up'
+          : 'down';
+
+    return stat;
+  };
+
   return (
-    <div className={styles.companyContainer} onClick={() => onSelect()}>
-      <div className={styles.companyItems}>{shortName(name)}</div>
-      <div className={renderClassName(stat)}>{rate}%</div>
-      <div className={styles.companyItems}>{renderArrow(stat)}</div>
-      <div className={renderClassName(stat)}>₹{nc(amount)}</div>
+    <div className={styles.companyContainer} onClick={() => onSelect(data.id)}>
+      <div className={styles.companyItems}>{shortName(data.name)}</div>
+      <div
+        className={renderClassName(
+          calculateStat(data.previousValues as PreviousValue[])
+        )}
+      >
+        1.5%
+      </div>
+      <div className={styles.companyItems}>
+        {renderArrow(calculateStat(data.previousValues as PreviousValue[]))}
+      </div>
+      <div
+        className={renderClassName(
+          calculateStat(data.previousValues as PreviousValue[])
+        )}
+      >
+        ₹1,240
+      </div>
     </div>
   );
 };
 
-const Category: React.FC<categoryComponentProps> = ({
-  open,
+interface categoryProps {
+  categoryName: string;
+  onSelectCompany: (id: number) => void;
+  companies: RegularCompanyFragment[];
+}
+
+const Category: React.FC<categoryProps> = ({
   categoryName,
-  onSelectCategory,
   onSelectCompany,
-  filteredCompanies,
+  companies,
 }) => {
+  const [open, setOpen] = useState(false);
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
@@ -82,10 +87,7 @@ const Category: React.FC<categoryComponentProps> = ({
     <React.Fragment>
       <div className={styles.categoryContainer}>
         <div className={styles.categoryName}>{categoryName}</div>
-        <div
-          className={styles.caret}
-          onClick={() => onSelectCategory(categoryName)}
-        >
+        <div className={styles.caret} onClick={() => setOpen(!open)}>
           {open ? (
             <img
               src={
@@ -105,115 +107,80 @@ const Category: React.FC<categoryComponentProps> = ({
       </div>
       {open ? (
         <React.Fragment>
-          {filteredCompanies.map((company, index) => {
-            let len = company.previousValues.length;
-            let stat: string;
-            if (len === 1) stat = 'up';
-            else
-              stat =
-                company.previousValues[len].shareValue >
-                company.previousValues[len - 1].shareValue
-                  ? 'up'
-                  : 'down';
-            return (
-              <Company
-                key={index}
-                stat={stat}
-                onSelect={() => onSelectCompany(company.name)}
-                amount={company.shareValue}
-                rate={1.5}
-                name={company.name}
-              />
-            );
-          })}
+          {companies.map((c, i) => (
+            <Company data={c} key={i} onSelect={(id) => onSelectCompany(id)} />
+          ))}
         </React.Fragment>
       ) : null}
     </React.Fragment>
   );
 };
 
-const CompanyList: React.FC<companyComponentList> = ({}) => {
+const CompanyList = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
-  const { data, loading } = useCompaniesQuery();
   const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
 
-  const uniqueCategories = (data: CompaniesQuery): string[] => {
-    if (!data || !data.companies) return [];
+  const { data } = useCompaniesQuery();
 
-    let uniqueCategoriesArr = [
-      ...Array.from(new Set(data.companies.map((item) => item.category))),
-    ];
-
-    return uniqueCategoriesArr;
+  const uniqueCategories = (companies: RegularCompanyFragment[]): string[] => {
+    if (!companies) return [];
+    return [...Array.from(new Set(companies.map((item) => item.category)))];
   };
 
-  const filterCompanies = (
+  const categoryWiseCompanies = (
     companies: RegularCompanyFragment[],
     category: string
   ): RegularCompanyFragment[] => {
     if (!companies) return [];
-    let c = companies.filter((c) => c.category === category);
-    if (search !== '') {
-      c = c.filter((x) => shortName(x.name).toLowerCase().includes(search));
-    }
-    return c;
+    return companies.filter((c) => c.category === category);
   };
 
-  if (loading) return null;
-  else {
-    const uniqueCategoriesStr = uniqueCategories(data!);
-    return (
-      <React.Fragment>
-        <MobileCompanyList uniqueCategories={uniqueCategoriesStr} />
-        <div className={styles.container}>
-          <SearchBar onSearch={(str) => setSearch(str.toLowerCase())} />
-          <div className={styles.listContainer}>
-            {uniqueCategoriesStr.map((category, index) => (
-              <Category
-                onSelectCompany={(company) =>
-                  console.log(`${company} Selected`)
-                }
-                onSelectCategory={() => setSelectedCategory(category)}
-                open={selectedCategory === category || search !== ''}
-                key={index}
-                categoryName={category}
-                filteredCompanies={filterCompanies(
-                  data?.companies as RegularCompanyFragment[],
-                  category
-                )}
-              />
-            ))}
-          </div>
-        </div>
-      </React.Fragment>
+  const searchedCompanies = (
+    companies: RegularCompanyFragment[],
+    search: string
+  ): RegularCompanyFragment[] => {
+    if (!companies) return [];
+    return companies.filter(
+      (c) =>
+        c.name.toLowerCase().includes(search) ||
+        shortName(c.name).toLowerCase().includes(search)
     );
-  }
-};
+  };
 
-const SearchBar: React.FC<searchbarProps> = ({ onSearch }) => {
-  const { theme } = useContext(ThemeContext);
-  const styles = theme ? light : dark;
   return (
-    <div className={styles.searchContainer}>
-      <div className={styles.searchIcon}>
-        <img src={theme ? '/icons/search.svg' : '/icons/search_white.svg'} />
+    <React.Fragment>
+      <MobileCompanyList />
+      <div className={styles.container}>
+        <SearchBar onSearchCompanies={(str) => setSearch(str)} />
+        <div className={styles.listContainer}>
+          {search === ''
+            ? uniqueCategories(
+                data?.companies as RegularCompanyFragment[]
+              ).map((category, i) => (
+                <Category
+                  onSelectCompany={(id) =>
+                    console.log(`Selected Company: ${id}`)
+                  }
+                  categoryName={category}
+                  key={i}
+                  companies={categoryWiseCompanies(data?.companies!, category)}
+                />
+              ))
+            : searchedCompanies(data?.companies!, search).map((company, i) => (
+                <Company
+                  key={i}
+                  data={company}
+                  onSelect={(id) => console.log(`Selected Company: ${id}`)}
+                />
+              ))}
+        </div>
       </div>
-      <input
-        onChange={(e) => onSearch(e.target.value)}
-        placeholder='Search for a Category/Company'
-        className={styles.searchbar}
-        type='text'
-      />
-    </div>
+    </React.Fragment>
   );
 };
 
-//@ts-ignore
-const MobileCompanyList: React.FC<mobileCompanyComponentList> = ({
-  uniqueCategories,
-}) => {
+const MobileCompanyList = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [selected, setSelected] = useState(false);
@@ -228,24 +195,17 @@ const MobileCompanyList: React.FC<mobileCompanyComponentList> = ({
       </div>
       {!selected ? (
         <div className={styles.mobileWrapper}>
-          <SearchBar onSearch={() => console.log('Mobile Search')} />
+          <SearchBar
+            onSearchCompanies={(str) => console.log(`Mobile Search: ${str}`)}
+          />
 
-          <div className={styles.listContainer}></div>
+          <div className={styles.listContainer}>
+            {/* Same as Company List*/}
+          </div>
         </div>
       ) : null}
     </div>
   );
 };
 
-/*
- {uniqueCategories.map((category, index) => (
-              <Category
-                open={false}
-                filteredCompanies={[]}
-                key={index}
-                categoryName={category}
-                onSelect={() => setSelected(!selected)}
-              />
-            ))}
-*/
 export default CompanyList;
