@@ -1,0 +1,12 @@
+fragment RegularCompany on Company {
+  id
+  name
+  category
+  shareCount
+  shareValue
+  previousValues {
+    id
+    shareValue
+    time
+  }
+}

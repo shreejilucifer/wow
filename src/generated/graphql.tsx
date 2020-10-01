@@ -116,6 +116,15 @@ export type CompanyAddInput = {
   shareValue: Scalars['Int'];
 };
 
+export type RegularCompanyFragment = (
+  { __typename?: 'Company' }
+  & Pick<Company, 'id' | 'name' | 'category' | 'shareCount' | 'shareValue'>
+  & { previousValues: Array<(
+    { __typename?: 'PreviousValue' }
+    & Pick<PreviousValue, 'id' | 'shareValue' | 'time'>
+  )> }
+);
+
 export type RegularErrorFragment = (
   { __typename?: 'FieldError' }
   & Pick<FieldError, 'field' | 'message'>
@@ -166,11 +175,7 @@ export type CompaniesQuery = (
   { __typename?: 'Query' }
   & { companies?: Maybe<Array<(
     { __typename?: 'Company' }
-    & Pick<Company, 'id' | 'name' | 'category' | 'shareCount' | 'shareValue'>
-    & { previousValues: Array<(
-      { __typename?: 'PreviousValue' }
-      & Pick<PreviousValue, 'id' | 'shareValue' | 'time'>
-    )> }
+    & RegularCompanyFragment
   )>> }
 );
 
@@ -185,6 +190,20 @@ export type MeQuery = (
   )> }
 );
 
+export const RegularCompanyFragmentDoc = gql`
+    fragment RegularCompany on Company {
+  id
+  name
+  category
+  shareCount
+  shareValue
+  previousValues {
+    id
+    shareValue
+    time
+  }
+}
+    `;
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
   field
@@ -273,19 +292,10 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, L
 export const CompaniesDocument = gql`
     query Companies {
   companies {
-    id
-    name
-    category
-    shareCount
-    shareValue
-    previousValues {
-      id
-      shareValue
-      time
-    }
+    ...RegularCompany
   }
 }
-    `;
+    ${RegularCompanyFragmentDoc}`;
 
 /**
  * __useCompaniesQuery__

@@ -1,14 +1,5 @@
 query Companies {
   companies {
-    id
-    name
-    category
-    shareCount
-    shareValue
-    previousValues {
-      id
-      shareValue
-      time
-    }
+    ...RegularCompany
   }
 }

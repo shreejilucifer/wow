@@ -13,7 +13,7 @@ interface homeProps {}
 
 const Home: React.FC<homeProps> = ({}) => {
   const router = useRouter();
-  const [login] = useLoginMutation();
+  const [login, { error }] = useLoginMutation();
 
   return (
     <div>
@@ -70,6 +70,9 @@ const Home: React.FC<homeProps> = ({}) => {
               >
                 {isSubmitting ? 'loading...' : 'log in'}
               </button>
+              {error && (
+                <div className={styles.error}>Please Try Again Later !</div>
+              )}
             </Form>
           )}
         </Formik>
