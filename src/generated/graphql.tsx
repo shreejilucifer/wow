@@ -15,8 +15,14 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
-  companies?: Maybe<Array<Company>>;
+  companies: Array<Company>;
+  company: Company;
   watchlist?: Maybe<Array<Watchlist>>;
+};
+
+
+export type QueryCompanyArgs = {
+  companyId: Scalars['Float'];
 };
 
 export type User = {
@@ -26,14 +32,6 @@ export type User = {
   email: Scalars['String'];
   mobile: Scalars['String'];
   walletAmount: Scalars['Int'];
-  watchlist: Array<Watchlist>;
-};
-
-export type Watchlist = {
-  __typename?: 'Watchlist';
-  id: Scalars['Int'];
-  user: User;
-  company: Company;
 };
 
 export type Company = {
@@ -51,6 +49,13 @@ export type PreviousValue = {
   id: Scalars['Int'];
   shareValue: Scalars['Int'];
   time: Scalars['String'];
+  company: Company;
+};
+
+export type Watchlist = {
+  __typename?: 'Watchlist';
+  id: Scalars['Int'];
+  user: User;
   company: Company;
 };
 
@@ -173,10 +178,10 @@ export type CompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CompaniesQuery = (
   { __typename?: 'Query' }
-  & { companies?: Maybe<Array<(
+  & { companies: Array<(
     { __typename?: 'Company' }
     & RegularCompanyFragment
-  )>> }
+  )> }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;

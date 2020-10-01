@@ -6,8 +6,12 @@ import {
 } from '../../generated/graphql';
 import dark from '../../styles/dark/companylist.module.css';
 import light from '../../styles/light/companylist.module.css';
+import { categoryWiseCompanies } from '../../utils/categoryWiseCompanies';
+import nc from '../../utils/commanumber';
+import { searchedCompanies } from '../../utils/searchedCompanies';
 import shortName from '../../utils/shortName';
 import { ThemeContext } from '../../utils/theme';
+import { uniqueCategories } from '../../utils/uniqueCategories';
 import SearchBar from './companysearchbar';
 
 interface companyProps {
@@ -44,6 +48,20 @@ const Company: React.FC<companyProps> = ({ onSelect, data }) => {
     return stat;
   };
 
+  const calculateRate = (
+    previousValues: PreviousValue[],
+    currentValue: number
+  ): number => {
+    let len = previousValues.length;
+
+    let previousValue =
+      len === 1 ? previousValues[0].shareValue : previousValues[len].shareValue;
+    let numerator = currentValue - previousValue;
+    let rate = (numerator / previousValue) * 100;
+
+    return rate;
+  };
+
   return (
     <div className={styles.companyContainer} onClick={() => onSelect(data.id)}>
       <div className={styles.companyItems}>{shortName(data.name)}</div>
@@ -52,7 +70,8 @@ const Company: React.FC<companyProps> = ({ onSelect, data }) => {
           calculateStat(data.previousValues as PreviousValue[])
         )}
       >
-        1.5%
+        {calculateRate(data.previousValues as PreviousValue[], data.shareValue)}
+        %
       </div>
       <div className={styles.companyItems}>
         {renderArrow(calculateStat(data.previousValues as PreviousValue[]))}
@@ -62,7 +81,7 @@ const Company: React.FC<companyProps> = ({ onSelect, data }) => {
           calculateStat(data.previousValues as PreviousValue[])
         )}
       >
-        ₹1,240
+        ₹{nc(data.shareValue)}
       </div>
     </div>
   );
@@ -123,31 +142,6 @@ const CompanyList = () => {
 
   const { data } = useCompaniesQuery();
 
-  const uniqueCategories = (companies: RegularCompanyFragment[]): string[] => {
-    if (!companies) return [];
-    return [...Array.from(new Set(companies.map((item) => item.category)))];
-  };
-
-  const categoryWiseCompanies = (
-    companies: RegularCompanyFragment[],
-    category: string
-  ): RegularCompanyFragment[] => {
-    if (!companies) return [];
-    return companies.filter((c) => c.category === category);
-  };
-
-  const searchedCompanies = (
-    companies: RegularCompanyFragment[],
-    search: string
-  ): RegularCompanyFragment[] => {
-    if (!companies) return [];
-    return companies.filter(
-      (c) =>
-        c.name.toLowerCase().includes(search) ||
-        shortName(c.name).toLowerCase().includes(search)
-    );
-  };
-
   return (
     <React.Fragment>
       <MobileCompanyList />
@@ -155,9 +149,7 @@ const CompanyList = () => {
         <SearchBar onSearchCompanies={(str) => setSearch(str)} />
         <div className={styles.listContainer}>
           {search === ''
-            ? uniqueCategories(
-                data?.companies as RegularCompanyFragment[]
-              ).map((category, i) => (
+            ? uniqueCategories(data?.companies!).map((category, i) => (
                 <Category
                   onSelectCompany={(id) =>
                     console.log(`Selected Company: ${id}`)
