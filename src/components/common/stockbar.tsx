@@ -2,12 +2,14 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/stockbar.module.css';
 import dark from '../../styles/dark/stockbar.module.css';
-
-const x = [
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-  { name: 'Tata Motors (TM)', percentage: 46.45, stat: 'up' },
-  { name: 'Reliance (Rel)', percentage: 46.45, stat: 'up' },
-];
+import {
+  PreviousValue,
+  RegularCompanyFragment,
+  useCompaniesQuery,
+} from '../../generated/graphql';
+import shortName from '../../utils/shortName';
+import { calculateStat } from '../../utils/calculateStat';
+import { calculateRate } from '../../utils/calculateRate';
 
 interface stockbaritemProps {
   name: string;
@@ -30,39 +32,41 @@ const StockbarItem: React.FC<stockbaritemProps> = ({ name, stat }) => {
     </div>
   );
 };
-
+// a.name + ' ' + a.percentage
 const Stockbar = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
+  const { data } = useCompaniesQuery();
+
+  const renderCompanies = (companies: RegularCompanyFragment[]) => {
+    return (
+      companies &&
+      companies.map((a, index) => (
+        <StockbarItem
+          name={`${a.name} ${
+            shortName(a.name) === a.name ? '' : '(' + shortName(a.name) + ')'
+          } ${calculateRate(
+            a.previousValues as PreviousValue[],
+            a.shareValue
+          )}%`}
+          stat={calculateStat(a.previousValues as PreviousValue[])}
+          key={index}
+        />
+      ))
+    );
+  };
+
   return (
     <div className={styles.container}>
       <span className={styles.slider1}>
-        {x.map((a, index) => (
-          <StockbarItem
-            name={a.name + ' ' + a.percentage}
-            stat={a.stat}
-            key={index}
-          />
-        ))}
+        {renderCompanies(data?.companies as RegularCompanyFragment[])}
       </span>
       <span className={styles.slider2}>
-        {x.map((a, index) => (
-          <StockbarItem
-            name={a.name + ' ' + a.percentage}
-            stat={a.stat}
-            key={index}
-          />
-        ))}
+        {renderCompanies(data?.companies as RegularCompanyFragment[])}
       </span>
       <span className={styles.slider3}>
-        {x.map((a, index) => (
-          <StockbarItem
-            name={a.name + ' ' + a.percentage}
-            stat={a.stat}
-            key={index}
-          />
-        ))}
+        {renderCompanies(data?.companies as RegularCompanyFragment[])}
       </span>
     </div>
   );

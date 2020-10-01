@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
 import {
+  CompaniesQuery,
   PreviousValue,
   RegularCompanyFragment,
   useCompaniesQuery,
 } from '../../generated/graphql';
 import dark from '../../styles/dark/companylist.module.css';
 import light from '../../styles/light/companylist.module.css';
+import { calculateRate } from '../../utils/calculateRate';
+import { calculateStat } from '../../utils/calculateStat';
 import { categoryWiseCompanies } from '../../utils/categoryWiseCompanies';
 import nc from '../../utils/commanumber';
 import { searchedCompanies } from '../../utils/searchedCompanies';
@@ -33,33 +36,6 @@ const Company: React.FC<companyProps> = ({ onSelect, data }) => {
   const renderArrow = (stat: string) => {
     if (stat === 'up') return <img src='/icons/green_arrow.svg' />;
     else return <img src='/icons/red_arrow.svg' />;
-  };
-
-  const calculateStat = (previousValues: PreviousValue[]): string => {
-    let len = previousValues.length;
-    let stat: string;
-    if (len === 1) stat = 'up';
-    else
-      stat =
-        previousValues[len].shareValue > previousValues[len - 1].shareValue
-          ? 'up'
-          : 'down';
-
-    return stat;
-  };
-
-  const calculateRate = (
-    previousValues: PreviousValue[],
-    currentValue: number
-  ): number => {
-    let len = previousValues.length;
-
-    let previousValue =
-      len === 1 ? previousValues[0].shareValue : previousValues[len].shareValue;
-    let numerator = currentValue - previousValue;
-    let rate = (numerator / previousValue) * 100;
-
-    return rate;
   };
 
   return (
@@ -144,7 +120,11 @@ const CompanyList = () => {
 
   return (
     <React.Fragment>
-      <MobileCompanyList />
+      <MobileCompanyList
+        data={data}
+        search={search}
+        onSearchCompanies={(str) => setSearch(str)}
+      />
       <div className={styles.container}>
         <SearchBar onSearchCompanies={(str) => setSearch(str)} />
         <div className={styles.listContainer}>
@@ -172,7 +152,11 @@ const CompanyList = () => {
   );
 };
 
-const MobileCompanyList = () => {
+const MobileCompanyList: React.FC<{
+  data?: CompaniesQuery;
+  search: string;
+  onSearchCompanies: (str: string) => void;
+}> = ({ data, search, onSearchCompanies }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [selected, setSelected] = useState(false);
@@ -187,12 +171,38 @@ const MobileCompanyList = () => {
       </div>
       {!selected ? (
         <div className={styles.mobileWrapper}>
-          <SearchBar
-            onSearchCompanies={(str) => console.log(`Mobile Search: ${str}`)}
-          />
+          <SearchBar onSearchCompanies={(str) => onSearchCompanies(str)} />
 
           <div className={styles.listContainer}>
-            {/* Same as Company List*/}
+            {search === ''
+              ? uniqueCategories(data?.companies!).map((category, i) => (
+                  <Category
+                    onSelectCompany={(id) => {
+                      onSearchCompanies('');
+                      setSelected(!selected);
+                      console.log(`Selected Company: ${id}`);
+                    }}
+                    categoryName={category}
+                    key={i}
+                    companies={categoryWiseCompanies(
+                      data?.companies!,
+                      category
+                    )}
+                  />
+                ))
+              : searchedCompanies(data?.companies!, search).map(
+                  (company, i) => (
+                    <Company
+                      key={i}
+                      data={company}
+                      onSelect={(id) => {
+                        onSearchCompanies('');
+                        setSelected(!selected);
+                        console.log(`Selected Company: ${id}`);
+                      }}
+                    />
+                  )
+                )}
           </div>
         </div>
       ) : null}
