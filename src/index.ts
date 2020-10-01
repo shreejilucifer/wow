@@ -16,6 +16,9 @@ import { CompanyResolver } from './resolvers/company';
 import { PreviousValue } from './entities/PreviousValue';
 import { Watchlist } from './entities/Watchlist';
 import { WatchlistResolver } from './resolvers/watchlist';
+import { CurrentHolding } from './entities/CurrentHolding';
+import { News } from './entities/News';
+import { Transaction } from './entities/Transaction';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -23,7 +26,15 @@ const main = async () => {
 		url: process.env.DATABASE_URL,
 		logging: true,
 		synchronize: true,
-		entities: [User, Company, PreviousValue, Watchlist],
+		entities: [
+			User,
+			Company,
+			PreviousValue,
+			Watchlist,
+			CurrentHolding,
+			Transaction,
+			News,
+		],
 	});
 
 	await conn.runMigrations();

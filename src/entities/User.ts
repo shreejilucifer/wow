@@ -6,6 +6,8 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CurrentHolding } from './CurrentHolding';
+import { Transaction } from './Transaction';
 import { Watchlist } from './Watchlist';
 
 @ObjectType()
@@ -34,7 +36,12 @@ export class User extends BaseEntity {
 	@Column({ default: process.env.DEFAULT_WALLET_AMOUNT })
 	walletAmount!: number;
 
-	@Field(() => [Watchlist])
 	@OneToMany(() => Watchlist, (watchlist) => watchlist.user)
 	watchlist: Watchlist[];
+
+	@OneToMany(() => CurrentHolding, (currentholding) => currentholding.user)
+	currentholding: CurrentHolding[];
+
+	@OneToMany(() => Transaction, (transaction) => transaction.user)
+	transaction: Transaction[];
 }

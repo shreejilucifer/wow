@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from 'type-graphql';
 import {
 	BaseEntity,
+	Column,
 	Entity,
 	JoinColumn,
 	ManyToOne,
@@ -12,17 +13,25 @@ import { User } from './User';
 
 @ObjectType()
 @Entity()
-export class Watchlist extends BaseEntity {
+export class CurrentHolding extends BaseEntity {
 	@Field(() => Int)
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Field(() => User)
-	@ManyToOne(() => User, (user) => user.watchlist)
-	user!: User;
+	@Field(() => Int)
+	@Column()
+	sharePrice!: number;
+
+	@Field(() => Int)
+	@Column()
+	shareCount!: number;
 
 	@Field(() => Company)
 	@OneToOne(() => Company)
 	@JoinColumn()
 	company!: Company;
+
+	@Field(() => User)
+	@ManyToOne(() => User, (user) => user.currentholding)
+	user!: User;
 }

@@ -33,5 +33,5 @@ export class Company extends BaseEntity {
 
 	@Field(() => [PreviousValue])
 	@OneToMany(() => PreviousValue, (previousValue) => previousValue.company)
-	previousValues: PreviousValue[];
+	previousValues!: PreviousValue[];
 }

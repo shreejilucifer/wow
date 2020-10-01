@@ -1,31 +1,8 @@
-import {
-	Arg,
-	Field,
-	InputType,
-	Int,
-	Mutation,
-	Query,
-	Resolver,
-	UseMiddleware,
-} from 'type-graphql';
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { Company } from '../entities/Company';
 import { PreviousValue } from '../entities/PreviousValue';
 import { isAuth } from '../middleware/isAuth';
-
-@InputType()
-export class CompanyAddInput {
-	@Field()
-	name: string;
-
-	@Field()
-	category: string;
-
-	@Field(() => Int)
-	shareCount: number;
-
-	@Field(() => Int)
-	shareValue: number;
-}
+import { CompanyAddInput } from './modules/CompanyAddInput';
 
 @Resolver(Company)
 export class CompanyResolver {
@@ -59,16 +36,15 @@ export class CompanyResolver {
 		return newCompany;
 	}
 
-	@Query(() => [Company], { nullable: true })
+	@Query(() => [Company])
 	@UseMiddleware(isAuth)
-	async companies(): Promise<Company[] | null> {
-		let companies;
-		try {
-			companies = await Company.find({ relations: ['previousValues'] });
-		} catch (error) {
-			return null;
-		}
+	async companies(): Promise<Company[]> {
+		return await Company.find({ relations: ['previousValues'] });
+	}
 
-		return companies;
+	@Query(() => Company)
+	@UseMiddleware(isAuth)
+	company(@Arg('companyId') companyId: number): Promise<Company> {
+		return Company.findOneOrFail(companyId, { relations: ['previousValues'] });
 	}
 }

@@ -25,5 +25,5 @@ export class PreviousValue extends BaseEntity {
 
 	@Field(() => Company)
 	@ManyToOne(() => Company, (company) => company.previousValues)
-	company: Company;
+	company!: Company;
 }

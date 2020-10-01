@@ -1,52 +1,18 @@
+import argon2 from 'argon2';
 import {
 	Arg,
 	Ctx,
-	Field,
-	InputType,
 	Mutation,
-	ObjectType,
 	Query,
 	Resolver,
 	UseMiddleware,
 } from 'type-graphql';
 import { User } from '../entities/User';
-import { validateRegister } from '../utils/validateRegister';
-import argon2 from 'argon2';
-import { MyContext } from '../types';
 import { isAuth } from '../middleware/isAuth';
-
-@ObjectType()
-class FieldError {
-	@Field()
-	field: string;
-
-	@Field()
-	message: string;
-}
-
-@ObjectType()
-class UserResponse {
-	@Field(() => [FieldError], { nullable: true })
-	errors?: FieldError[];
-
-	@Field(() => User, { nullable: true })
-	user?: User;
-}
-
-@InputType()
-export class UserRegisterInput {
-	@Field()
-	email: string;
-
-	@Field()
-	mobile: string;
-
-	@Field()
-	name: string;
-
-	@Field()
-	password: string;
-}
+import { MyContext } from '../types';
+import { validateRegister } from '../utils/validateRegister';
+import { UserRegisterInput } from './modules/UserRegisterInput';
+import { UserResponse } from './modules/UserResponse';
 
 @Resolver(User)
 export class UserResolver {
