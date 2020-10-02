@@ -5,7 +5,7 @@ const HowToPlay = () => {
   return (
     <div>
       <Head title='How To Play' />
-      <Layout name={'Daenerys'}>How to Play</Layout>
+      <Layout>How to Play</Layout>
     </div>
   );
 };

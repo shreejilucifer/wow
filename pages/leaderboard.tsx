@@ -6,7 +6,7 @@ const Leaderboard = () => {
   return (
     <div>
       <Head title='Leaderboard' />
-      <Layout name={'Daenerys'}>
+      <Layout>
         <LeaderboardTable />
       </Layout>
     </div>

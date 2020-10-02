@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div>
       <Head title='About Us' />
-      <Layout name={'Daenerys'}>
+      <Layout>
         <div>About Us</div>
       </Layout>
     </div>
