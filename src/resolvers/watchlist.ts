@@ -31,7 +31,7 @@ export class WatchlistResolver {
 				user: user,
 			}).save();
 			newWatchlist = await Watchlist.findOne(watchlist.id, {
-				relations: ['company'],
+				relations: ['company', 'company.previousValues'],
 			});
 		} catch (error) {
 			return undefined;
