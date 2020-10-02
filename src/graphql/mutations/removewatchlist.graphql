@@ -1,0 +1,3 @@
+mutation RemoveFromWatchlist($watchlistId: Float!) {
+  removeWatchlist(watchlistId: $watchlistId)
+}

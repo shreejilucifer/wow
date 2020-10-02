@@ -1,0 +1,7 @@
+mutation AddToWatchlist($companyId: Float!) {
+  addWatchlist(companyId: $companyId) {
+    company {
+      ...RegularCompany
+    }
+  }
+}

@@ -5,7 +5,10 @@ import dark from '../../styles/dark/company.module.css';
 
 import nc from '../../utils/commanumber';
 import Graph from './graph';
-import { Company as CObj } from '../../generated/graphql';
+import {
+  Company as CObj,
+  useAddToWatchlistMutation,
+} from '../../generated/graphql';
 import shortName from '../../utils/shortName';
 import { calculateRate } from '../../utils/calculateRate';
 import { calculateStat } from '../../utils/calculateStat';
@@ -33,6 +36,9 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
   if (!company) return <></>;
 
   let stat = calculateStat(company.previousValues);
+
+  const [addToWatchlist, { loading }] = useAddToWatchlistMutation();
+
   return (
     <React.Fragment>
       <div className={styles.companyName}> {shortName(company.name)}</div>
@@ -66,11 +72,23 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
           </div>
         </div>
 
-        <div className={styles.heart}>
-          <img
-            alt='heart'
-            src={theme ? '/icons/heart.svg' : '/icons/heart_white.svg'}
-          />
+        <div
+          className={styles.heart}
+          onClick={async () => {
+            await addToWatchlist({
+              variables: {
+                companyId: company.id,
+              },
+              refetchQueries: ['Watchlist'],
+            });
+          }}
+        >
+          {!loading && (
+            <img
+              alt='heart'
+              src={theme ? '/icons/heart.svg' : '/icons/heart_white.svg'}
+            />
+          )}
         </div>
       </div>
       <div className={styles.companyCards}>

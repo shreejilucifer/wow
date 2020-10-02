@@ -1,0 +1,8 @@
+query Watchlist {
+  watchlist {
+    id
+    company {
+      ...RegularCompany
+    }
+  }
+}

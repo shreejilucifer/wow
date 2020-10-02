@@ -151,6 +151,22 @@ export type RegularUserResponseFragment = (
   )> }
 );
 
+export type AddToWatchlistMutationVariables = Exact<{
+  companyId: Scalars['Float'];
+}>;
+
+
+export type AddToWatchlistMutation = (
+  { __typename?: 'Mutation' }
+  & { addWatchlist?: Maybe<(
+    { __typename?: 'Watchlist' }
+    & { company: (
+      { __typename?: 'Company' }
+      & RegularCompanyFragment
+    ) }
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
   password: Scalars['String'];
@@ -173,6 +189,16 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type RemoveFromWatchlistMutationVariables = Exact<{
+  watchlistId: Scalars['Float'];
+}>;
+
+
+export type RemoveFromWatchlistMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeWatchlist'>
+);
+
 export type CompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -193,6 +219,21 @@ export type MeQuery = (
     { __typename?: 'User' }
     & RegularUserFragment
   )> }
+);
+
+export type WatchlistQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type WatchlistQuery = (
+  { __typename?: 'Query' }
+  & { watchlist?: Maybe<Array<(
+    { __typename?: 'Watchlist' }
+    & Pick<Watchlist, 'id'>
+    & { company: (
+      { __typename?: 'Company' }
+      & RegularCompanyFragment
+    ) }
+  )>> }
 );
 
 export const RegularCompanyFragmentDoc = gql`
@@ -231,6 +272,40 @@ export const RegularUserResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularUserFragmentDoc}`;
+export const AddToWatchlistDocument = gql`
+    mutation AddToWatchlist($companyId: Float!) {
+  addWatchlist(companyId: $companyId) {
+    company {
+      ...RegularCompany
+    }
+  }
+}
+    ${RegularCompanyFragmentDoc}`;
+export type AddToWatchlistMutationFn = Apollo.MutationFunction<AddToWatchlistMutation, AddToWatchlistMutationVariables>;
+
+/**
+ * __useAddToWatchlistMutation__
+ *
+ * To run a mutation, you first call `useAddToWatchlistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToWatchlistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToWatchlistMutation, { data, loading, error }] = useAddToWatchlistMutation({
+ *   variables: {
+ *      companyId: // value for 'companyId'
+ *   },
+ * });
+ */
+export function useAddToWatchlistMutation(baseOptions?: Apollo.MutationHookOptions<AddToWatchlistMutation, AddToWatchlistMutationVariables>) {
+        return Apollo.useMutation<AddToWatchlistMutation, AddToWatchlistMutationVariables>(AddToWatchlistDocument, baseOptions);
+      }
+export type AddToWatchlistMutationHookResult = ReturnType<typeof useAddToWatchlistMutation>;
+export type AddToWatchlistMutationResult = Apollo.MutationResult<AddToWatchlistMutation>;
+export type AddToWatchlistMutationOptions = Apollo.BaseMutationOptions<AddToWatchlistMutation, AddToWatchlistMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($mobile: String!, $password: String!) {
   login(mobile: $mobile, password: $password) {
@@ -293,6 +368,36 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const RemoveFromWatchlistDocument = gql`
+    mutation RemoveFromWatchlist($watchlistId: Float!) {
+  removeWatchlist(watchlistId: $watchlistId)
+}
+    `;
+export type RemoveFromWatchlistMutationFn = Apollo.MutationFunction<RemoveFromWatchlistMutation, RemoveFromWatchlistMutationVariables>;
+
+/**
+ * __useRemoveFromWatchlistMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromWatchlistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromWatchlistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromWatchlistMutation, { data, loading, error }] = useRemoveFromWatchlistMutation({
+ *   variables: {
+ *      watchlistId: // value for 'watchlistId'
+ *   },
+ * });
+ */
+export function useRemoveFromWatchlistMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromWatchlistMutation, RemoveFromWatchlistMutationVariables>) {
+        return Apollo.useMutation<RemoveFromWatchlistMutation, RemoveFromWatchlistMutationVariables>(RemoveFromWatchlistDocument, baseOptions);
+      }
+export type RemoveFromWatchlistMutationHookResult = ReturnType<typeof useRemoveFromWatchlistMutation>;
+export type RemoveFromWatchlistMutationResult = Apollo.MutationResult<RemoveFromWatchlistMutation>;
+export type RemoveFromWatchlistMutationOptions = Apollo.BaseMutationOptions<RemoveFromWatchlistMutation, RemoveFromWatchlistMutationVariables>;
 export const CompaniesDocument = gql`
     query Companies {
   companies {
@@ -357,3 +462,38 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const WatchlistDocument = gql`
+    query Watchlist {
+  watchlist {
+    id
+    company {
+      ...RegularCompany
+    }
+  }
+}
+    ${RegularCompanyFragmentDoc}`;
+
+/**
+ * __useWatchlistQuery__
+ *
+ * To run a query within a React component, call `useWatchlistQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWatchlistQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWatchlistQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWatchlistQuery(baseOptions?: Apollo.QueryHookOptions<WatchlistQuery, WatchlistQueryVariables>) {
+        return Apollo.useQuery<WatchlistQuery, WatchlistQueryVariables>(WatchlistDocument, baseOptions);
+      }
+export function useWatchlistLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WatchlistQuery, WatchlistQueryVariables>) {
+          return Apollo.useLazyQuery<WatchlistQuery, WatchlistQueryVariables>(WatchlistDocument, baseOptions);
+        }
+export type WatchlistQueryHookResult = ReturnType<typeof useWatchlistQuery>;
+export type WatchlistLazyQueryHookResult = ReturnType<typeof useWatchlistLazyQuery>;
+export type WatchlistQueryResult = Apollo.QueryResult<WatchlistQuery, WatchlistQueryVariables>;

@@ -3,8 +3,17 @@ import { ThemeContext } from '../../utils/theme';
 import light from '../../styles/light/watchlist.module.css';
 import dark from '../../styles/dark/watchlist.module.css';
 import nc from '../../utils/commanumber';
+import {
+  PreviousValue,
+  useRemoveFromWatchlistMutation,
+  useWatchlistQuery,
+} from '../../generated/graphql';
+import { calculateStat } from '../../utils/calculateStat';
+import { calculateRate } from '../../utils/calculateRate';
+import shortName from '../../utils/shortName';
 
 interface itemProps {
+  id: number;
   name: string;
   stat: string;
   percentage: string;
@@ -13,6 +22,7 @@ interface itemProps {
 }
 
 const Item: React.FC<itemProps> = ({
+  id,
   name,
   stat,
   percentage,
@@ -27,12 +37,24 @@ const Item: React.FC<itemProps> = ({
     return x;
   };
 
+  const [remove] = useRemoveFromWatchlistMutation();
+
   return (
     <div className={styles.itemContainer}>
       <div className={styles.leftContainer}>
         <div className={styles.nameContainer}>
           <div className={styles.name}>{renderName(name)}</div>
           <img
+            onClick={async () => {
+              await remove({
+                variables: {
+                  watchlistId: id,
+                },
+                update: (cache) => {
+                  cache.evict({ id: 'Watchlist:' + id });
+                },
+              });
+            }}
             alt='icon-watchlist'
             src={
               theme ? '/icons/heart_fill.svg' : '/icons/heart_fill_white.svg'
@@ -82,82 +104,31 @@ const Item: React.FC<itemProps> = ({
 const WatchList = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
+
+  const { data } = useWatchlistQuery();
+
   return (
     <React.Fragment>
       <div className={styles.mobileTitle}>Watchlist</div>
       <div className={styles.container}>
         <div className={styles.title}>Watchlist</div>
         <div className={styles.items}>
-          <Item
-            name='Info'
-            stat='up'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='up'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
-          <Item
-            name='Info'
-            stat='down'
-            percentage='90%'
-            price={1000}
-            stock={14300}
-          />
+          {data?.watchlist?.map((watchlist) => (
+            <Item
+              id={watchlist.id}
+              key={watchlist.id}
+              name={shortName(watchlist.company.name)}
+              stat={calculateStat(
+                watchlist.company.previousValues as PreviousValue[]
+              )}
+              percentage={`${calculateRate(
+                watchlist.company.previousValues as PreviousValue[],
+                watchlist.company.shareValue
+              )}`}
+              price={watchlist.company.shareValue}
+              stock={watchlist.company.shareCount}
+            />
+          ))}
         </div>
       </div>
     </React.Fragment>
