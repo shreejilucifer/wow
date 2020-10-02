@@ -3,7 +3,6 @@ import {
   CompaniesQuery,
   PreviousValue,
   RegularCompanyFragment,
-  useCompaniesQuery,
 } from '../../generated/graphql';
 import dark from '../../styles/dark/companylist.module.css';
 import light from '../../styles/light/companylist.module.css';
@@ -111,12 +110,13 @@ const Category: React.FC<categoryProps> = ({
   );
 };
 
-const CompanyList = () => {
+const CompanyList: React.FC<{
+  data: CompaniesQuery | undefined;
+  onSelectCompany: (id: number) => void;
+}> = ({ onSelectCompany, data }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
   const [search, setSearch] = useState('');
-
-  const { data } = useCompaniesQuery();
 
   return (
     <React.Fragment>
@@ -131,9 +131,7 @@ const CompanyList = () => {
           {search === ''
             ? uniqueCategories(data?.companies!).map((category, i) => (
                 <Category
-                  onSelectCompany={(id) =>
-                    console.log(`Selected Company: ${id}`)
-                  }
+                  onSelectCompany={(id) => onSelectCompany(id)}
                   categoryName={category}
                   key={i}
                   companies={categoryWiseCompanies(data?.companies!, category)}
@@ -143,7 +141,7 @@ const CompanyList = () => {
                 <Company
                   key={i}
                   data={company}
-                  onSelect={(id) => console.log(`Selected Company: ${id}`)}
+                  onSelect={(id) => onSelectCompany(id)}
                 />
               ))}
         </div>

@@ -11,17 +11,18 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { graphData } from '../../utils/fakedata';
+import { PreviousValue } from '../../generated/graphql';
 
-const Graph = () => {
+const Graph: React.FC<{ data: PreviousValue[] }> = ({ data }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
+
   return (
     <div className={styles.graphContainer}>
       <div className={styles.graph}>
         <ResponsiveContainer>
           <LineChart
-            data={graphData}
+            data={data}
             margin={{
               top: 20,
               right: 20,
@@ -29,7 +30,7 @@ const Graph = () => {
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis
-              dataKey='name'
+              dataKey='time'
               axisLine={
                 theme
                   ? { stroke: '#404040', strokeWidth: 2 }
@@ -54,7 +55,7 @@ const Graph = () => {
               }
             />
             <Tooltip />
-            <Line type='monotone' dataKey='pv' stroke='#6FB353' />
+            <Line type='monotone' dataKey='shareValue' stroke='#6FB353' />
           </LineChart>
         </ResponsiveContainer>
       </div>

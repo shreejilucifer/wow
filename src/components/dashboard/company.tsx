@@ -5,6 +5,10 @@ import dark from '../../styles/dark/company.module.css';
 
 import nc from '../../utils/commanumber';
 import Graph from './graph';
+import { Company as CObj } from '../../generated/graphql';
+import shortName from '../../utils/shortName';
+import { calculateRate } from '../../utils/calculateRate';
+import { calculateStat } from '../../utils/calculateStat';
 
 interface cardProps {
   top: number | string;
@@ -22,40 +26,19 @@ const Card: React.FC<cardProps> = ({ top, bottom }) => {
   );
 };
 
-interface companyProps {
-  company: {
-    short: string;
-    name: string;
-    rate: string;
-    stat: string;
-    price: number;
-    availableVolume: number;
-    boughtVolume: number;
-    currentPrice: number;
-    basePrice: number;
-  };
-}
-
-const Company: React.FC<companyProps> = ({ company }) => {
+const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
-  const {
-    short,
-    name,
-    rate,
-    stat,
-    price,
-    availableVolume,
-    boughtVolume,
-    currentPrice,
-    basePrice,
-  } = company;
+
+  if (!company) return <></>;
+
+  let stat = calculateStat(company.previousValues);
   return (
     <React.Fragment>
-      <div className={styles.companyName}> {short}</div>
+      <div className={styles.companyName}> {shortName(company.name)}</div>
       <div className={styles.companyDetails}>
         <div className={styles.companyDetailsLeft}>
-          <div className={styles.name}>{name}</div>
+          <div className={styles.name}>{company.name}</div>
           <div
             className={
               stat === 'up'
@@ -63,7 +46,7 @@ const Company: React.FC<companyProps> = ({ company }) => {
                 : styles.rate + ' ' + styles.down
             }
           >
-            {rate}%
+            {calculateRate(company.previousValues, company.shareValue)}%
           </div>
           <div className={styles.arrow}>
             {stat === 'up' ? (
@@ -79,7 +62,7 @@ const Company: React.FC<companyProps> = ({ company }) => {
                 : styles.rate + ' ' + styles.down
             }
           >
-            ₹{nc(price)}
+            ₹{nc(company.shareValue)}
           </div>
         </div>
 
@@ -91,14 +74,17 @@ const Company: React.FC<companyProps> = ({ company }) => {
         </div>
       </div>
       <div className={styles.companyCards}>
-        <Card top='Available Volume' bottom={nc(availableVolume)} />
-        <Card top='Bought Volume' bottom={boughtVolume} />
-        <Card top='Current Price' bottom={'₹' + nc(currentPrice)} />
-        <Card top='Base Price' bottom={'₹' + nc(basePrice)} />
+        <Card top='Available Volume' bottom={nc(company.shareCount)} />
+        <Card top='Bought Volume' bottom='000' />
+        <Card top='Current Price' bottom={'₹' + nc(company.shareValue)} />
+        <Card
+          top='Base Price'
+          bottom={'₹' + nc(company.previousValues[0].shareValue)}
+        />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.wrapperLeft}>
-          <Graph />
+          <Graph data={company.previousValues} />
         </div>
         <div className={styles.wrapperRight}>
           <div className={styles.formContainer}>
