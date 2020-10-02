@@ -17,12 +17,24 @@ const Graph: React.FC<{ data: PreviousValue[] }> = ({ data }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
+  const generateGraphData = (
+    previousValues: PreviousValue[]
+  ): { time: string; shareValue: number }[] => {
+    return previousValues.map((d) => {
+      let date = new Date(parseInt(d.time));
+      return {
+        time: `${date.getHours()}:${date.getMinutes()}`,
+        shareValue: d.shareValue,
+      };
+    });
+  };
+
   return (
     <div className={styles.graphContainer}>
       <div className={styles.graph}>
         <ResponsiveContainer>
           <LineChart
-            data={data}
+            data={generateGraphData(data)}
             margin={{
               top: 20,
               right: 20,
