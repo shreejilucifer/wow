@@ -40,6 +40,9 @@ export class TransactionResolver {
 				user: user,
 			},
 			relations: ['user', 'company'],
+			order: {
+				id: 'DESC',
+			},
 		});
 	}
 
@@ -55,16 +58,11 @@ export class TransactionResolver {
 
 		const calculatedAmount = company.shareValue * options.noOfShares;
 
-		console.log('User WalletAmount: ', user.walletAmount);
-		console.log('Company Share Value: ', company.shareValue);
-		console.log('No. of Shares: ', options.noOfShares);
-		console.log('Calculated Amount: ', calculatedAmount);
-
 		if (options.noOfShares < 1) {
 			return {
 				errors: [
 					{
-						field: 'transaction',
+						field: 'buy',
 						message: 'Invalid No of Shares!',
 					},
 				],
@@ -73,17 +71,13 @@ export class TransactionResolver {
 
 		if (calculatedAmount > user.walletAmount) {
 			return {
-				errors: [
-					{ field: 'transaction', message: 'Wallet Amount Not Enough!' },
-				],
+				errors: [{ field: 'buy', message: 'Wallet Amount Not Enough!' }],
 			};
 		}
 
 		if (company.shareCount < options.noOfShares) {
 			return {
-				errors: [
-					{ field: 'transaction', message: 'Not Enough Shares to Buy!' },
-				],
+				errors: [{ field: 'buy', message: 'Not Enough Shares to Buy!' }],
 			};
 		}
 
@@ -93,6 +87,7 @@ export class TransactionResolver {
 			type: options.type,
 			noOfShares: options.noOfShares,
 			shareAmount: company.shareValue,
+			time: new Date(),
 		}).save();
 
 		await User.update(user.id, {
@@ -109,7 +104,7 @@ export class TransactionResolver {
 				company,
 			},
 		});
-		console.log(!existingCurrentHolding);
+
 		if (!existingCurrentHolding) {
 			await CurrentHolding.create({
 				company,

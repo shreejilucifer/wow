@@ -28,6 +28,10 @@ export class Transaction extends BaseEntity {
 	@Column()
 	shareAmount!: number;
 
+	@Field(() => String)
+	@Column()
+	time!: Date;
+
 	@Field(() => User)
 	@ManyToOne(() => User, (user) => user.transaction)
 	user: User;
