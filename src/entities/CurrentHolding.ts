@@ -3,9 +3,7 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	JoinColumn,
 	ManyToOne,
-	OneToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Company } from './Company';
@@ -27,8 +25,7 @@ export class CurrentHolding extends BaseEntity {
 	shareCount!: number;
 
 	@Field(() => Company)
-	@OneToOne(() => Company)
-	@JoinColumn()
+	@ManyToOne(() => Company, (company) => company.currentholding)
 	company!: Company;
 
 	@Field(() => User)

@@ -6,7 +6,9 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CurrentHolding } from './CurrentHolding';
 import { PreviousValue } from './PreviousValue';
+import { Transaction } from './Transaction';
 
 @ObjectType()
 @Entity()
@@ -34,4 +36,10 @@ export class Company extends BaseEntity {
 	@Field(() => [PreviousValue])
 	@OneToMany(() => PreviousValue, (previousValue) => previousValue.company)
 	previousValues!: PreviousValue[];
+
+	@OneToMany(() => Transaction, (transaction) => transaction.company)
+	transaction: Transaction[];
+
+	@OneToMany(() => CurrentHolding, (currentholding) => currentholding.company)
+	currentholding: CurrentHolding[];
 }

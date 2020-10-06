@@ -3,9 +3,7 @@ import {
 	BaseEntity,
 	Column,
 	Entity,
-	JoinColumn,
 	ManyToOne,
-	OneToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Company } from './Company';
@@ -19,7 +17,7 @@ export class Transaction extends BaseEntity {
 	id!: number;
 
 	@Field()
-	@Column()
+	@Column({ type: 'enum', enum: ['buy', 'sell'] })
 	type!: string;
 
 	@Field()
@@ -32,10 +30,9 @@ export class Transaction extends BaseEntity {
 
 	@Field(() => User)
 	@ManyToOne(() => User, (user) => user.transaction)
-	user!: User;
+	user: User;
 
 	@Field(() => Company)
-	@OneToOne(() => Company)
-	@JoinColumn()
-	company!: Company;
+	@ManyToOne(() => Company, (company) => company.transaction)
+	company: Company;
 }

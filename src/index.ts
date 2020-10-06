@@ -19,6 +19,7 @@ import { WatchlistResolver } from './resolvers/watchlist';
 import { CurrentHolding } from './entities/CurrentHolding';
 import { News } from './entities/News';
 import { Transaction } from './entities/Transaction';
+import { TransactionResolver } from './resolvers/transaction';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -77,6 +78,7 @@ const main = async () => {
 				UserResolver,
 				CompanyResolver,
 				WatchlistResolver,
+				TransactionResolver,
 			],
 			validate: false,
 		}),
