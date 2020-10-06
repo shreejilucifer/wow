@@ -1,13 +1,12 @@
-import { useContext, useEffect } from 'react';
-import { ThemeContext } from '../../utils/theme';
-import light from '../../styles/light/transactions.module.css';
-import dark from '../../styles/dark/transactions.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Transaction, useTransactionsQuery } from '../../generated/graphql';
+import dark from '../../styles/dark/transactions.module.css';
+import light from '../../styles/light/transactions.module.css';
+import { ThemeContext } from '../../utils/theme';
 
 interface transactionItemProps {
   type: string;
-  id: string;
+  id: number;
   companyName: string;
   price: number;
   quantity: number;
@@ -71,11 +70,7 @@ const SearchBar: React.FC<searchbarProps> = ({ onSearch }) => {
 const Transactions = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
-  const { data, refetch, loading } = useTransactionsQuery();
-
-  useEffect(() => {
-    refetch();
-  }, [data?.transactions]);
+  const { data, loading } = useTransactionsQuery();
 
   const [search, setSearch] = useState('');
 
@@ -118,10 +113,14 @@ const Transactions = () => {
                   type={transaction.type}
                   key={transaction.id}
                   companyName={transaction.company.name}
-                  id={transaction.id.toString(16)}
+                  id={transaction.id}
                   price={transaction.shareAmount}
                   quantity={transaction.noOfShares}
-                  time={`8:00`}
+                  time={`${new Date(
+                    parseInt(transaction.time)
+                  ).getHours()}:${new Date(
+                    parseInt(transaction.time)
+                  ).getMinutes()}`}
                 />
               )
             )}

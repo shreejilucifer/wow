@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes } from 'react';
 import { useField } from 'formik';
+import React, { InputHTMLAttributes } from 'react';
 import styles from '../../styles/light/login.module.css';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -21,10 +21,19 @@ export const InputField: React.FC<InputFieldProps> = ({
     InputOrTextarea = TextArea;
   }
   const [field, { error }] = useField(props);
-  return (
-    <div className={styles.inputContainer}>
-      <InputOrTextarea {...field} {...props} id={field.name} />
-      {error ? <div className={styles.error}>{error}</div> : null}
-    </div>
-  );
+
+  if (props.className)
+    return (
+      <React.Fragment>
+        <InputOrTextarea {...field} {...props} id={field.name} />
+        {/* {error ? <div className={styles.error}>{error}</div> : null} */}
+      </React.Fragment>
+    );
+  else
+    return (
+      <div className={styles.inputContainer}>
+        <InputOrTextarea {...field} {...props} id={field.name} />
+        {error ? <div className={styles.error}>{error}</div> : null}
+      </div>
+    );
 };

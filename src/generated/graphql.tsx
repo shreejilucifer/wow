@@ -66,6 +66,7 @@ export type Transaction = {
   type: Scalars['String'];
   noOfShares: Scalars['Float'];
   shareAmount: Scalars['Float'];
+  time: Scalars['String'];
   user: User;
   company: Company;
 };
@@ -196,6 +197,27 @@ export type AddToWatchlistMutation = (
   )> }
 );
 
+export type BuyMutationVariables = Exact<{
+  companyId: Scalars['Int'];
+  type: Scalars['String'];
+  noOfShares: Scalars['Int'];
+}>;
+
+
+export type BuyMutation = (
+  { __typename?: 'Mutation' }
+  & { buy: (
+    { __typename?: 'TransactionResponse' }
+    & { errors?: Maybe<Array<(
+      { __typename?: 'FieldError' }
+      & Pick<FieldError, 'field' | 'message'>
+    )>>, transaction?: Maybe<(
+      { __typename?: 'Transaction' }
+      & Pick<Transaction, 'id' | 'type' | 'noOfShares' | 'shareAmount'>
+    )> }
+  ) }
+);
+
 export type LoginMutationVariables = Exact<{
   mobile: Scalars['String'];
   password: Scalars['String'];
@@ -257,7 +279,7 @@ export type TransactionsQuery = (
   { __typename?: 'Query' }
   & { transactions: Array<(
     { __typename?: 'Transaction' }
-    & Pick<Transaction, 'id' | 'type' | 'noOfShares' | 'shareAmount'>
+    & Pick<Transaction, 'id' | 'type' | 'noOfShares' | 'shareAmount' | 'time'>
     & { company: (
       { __typename?: 'Company' }
       & Pick<Company, 'name' | 'category'>
@@ -350,6 +372,49 @@ export function useAddToWatchlistMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddToWatchlistMutationHookResult = ReturnType<typeof useAddToWatchlistMutation>;
 export type AddToWatchlistMutationResult = Apollo.MutationResult<AddToWatchlistMutation>;
 export type AddToWatchlistMutationOptions = Apollo.BaseMutationOptions<AddToWatchlistMutation, AddToWatchlistMutationVariables>;
+export const BuyDocument = gql`
+    mutation Buy($companyId: Int!, $type: String!, $noOfShares: Int!) {
+  buy(options: {type: $type, noOfShares: $noOfShares, companyId: $companyId}) {
+    errors {
+      field
+      message
+    }
+    transaction {
+      id
+      type
+      noOfShares
+      shareAmount
+    }
+  }
+}
+    `;
+export type BuyMutationFn = Apollo.MutationFunction<BuyMutation, BuyMutationVariables>;
+
+/**
+ * __useBuyMutation__
+ *
+ * To run a mutation, you first call `useBuyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBuyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [buyMutation, { data, loading, error }] = useBuyMutation({
+ *   variables: {
+ *      companyId: // value for 'companyId'
+ *      type: // value for 'type'
+ *      noOfShares: // value for 'noOfShares'
+ *   },
+ * });
+ */
+export function useBuyMutation(baseOptions?: Apollo.MutationHookOptions<BuyMutation, BuyMutationVariables>) {
+        return Apollo.useMutation<BuyMutation, BuyMutationVariables>(BuyDocument, baseOptions);
+      }
+export type BuyMutationHookResult = ReturnType<typeof useBuyMutation>;
+export type BuyMutationResult = Apollo.MutationResult<BuyMutation>;
+export type BuyMutationOptions = Apollo.BaseMutationOptions<BuyMutation, BuyMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($mobile: String!, $password: String!) {
   login(mobile: $mobile, password: $password) {
@@ -513,6 +578,7 @@ export const TransactionsDocument = gql`
     type
     noOfShares
     shareAmount
+    time
     company {
       name
       category

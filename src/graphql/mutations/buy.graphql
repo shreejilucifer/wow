@@ -1,0 +1,16 @@
+mutation Buy($companyId: Int!, $type: String!, $noOfShares: Int!) {
+  buy(
+    options: { type: $type, noOfShares: $noOfShares, companyId: $companyId }
+  ) {
+    errors {
+      field
+      message
+    }
+    transaction {
+      id
+      type
+      noOfShares
+      shareAmount
+    }
+  }
+}

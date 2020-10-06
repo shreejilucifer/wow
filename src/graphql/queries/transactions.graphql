@@ -4,6 +4,7 @@ query Transactions {
     type
     noOfShares
     shareAmount
+    time
     company {
       name
       category
