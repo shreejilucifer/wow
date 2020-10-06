@@ -11,8 +11,23 @@ import { User } from '../entities/User';
 import { isAuth } from '../middleware/isAuth';
 import { MyContext } from '../types';
 import { validateRegister } from '../utils/validateRegister';
-import { UserRegisterInput } from './modules/UserRegisterInput';
 import { UserResponse } from './modules/UserResponse';
+import { InputType, Field } from 'type-graphql';
+
+@InputType()
+export class UserRegisterInput {
+	@Field()
+	email: string;
+
+	@Field()
+	mobile: string;
+
+	@Field()
+	name: string;
+
+	@Field()
+	password: string;
+}
 
 @Resolver(User)
 export class UserResolver {
