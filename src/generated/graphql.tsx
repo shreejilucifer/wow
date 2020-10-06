@@ -18,6 +18,7 @@ export type Query = {
   companies: Array<Company>;
   company: Company;
   watchlist?: Maybe<Array<Watchlist>>;
+  transactions: Array<Transaction>;
 };
 
 
@@ -59,6 +60,16 @@ export type Watchlist = {
   company: Company;
 };
 
+export type Transaction = {
+  __typename?: 'Transaction';
+  id: Scalars['Int'];
+  type: Scalars['String'];
+  noOfShares: Scalars['Float'];
+  shareAmount: Scalars['Float'];
+  user: User;
+  company: Company;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   register: UserResponse;
@@ -67,6 +78,7 @@ export type Mutation = {
   addCompany?: Maybe<Company>;
   addWatchlist?: Maybe<Watchlist>;
   removeWatchlist?: Maybe<Scalars['Boolean']>;
+  buy: TransactionResponse;
 };
 
 
@@ -95,6 +107,11 @@ export type MutationRemoveWatchlistArgs = {
   watchlistId: Scalars['Float'];
 };
 
+
+export type MutationBuyArgs = {
+  options: TransactionInput;
+};
+
 export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
@@ -119,6 +136,18 @@ export type CompanyAddInput = {
   category: Scalars['String'];
   shareCount: Scalars['Int'];
   shareValue: Scalars['Int'];
+};
+
+export type TransactionResponse = {
+  __typename?: 'TransactionResponse';
+  errors?: Maybe<Array<FieldError>>;
+  transaction?: Maybe<Transaction>;
+};
+
+export type TransactionInput = {
+  type: Scalars['String'];
+  noOfShares: Scalars['Int'];
+  companyId: Scalars['Int'];
 };
 
 export type RegularCompanyFragment = (
@@ -218,6 +247,21 @@ export type MeQuery = (
   & { me?: Maybe<(
     { __typename?: 'User' }
     & RegularUserFragment
+  )> }
+);
+
+export type TransactionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TransactionsQuery = (
+  { __typename?: 'Query' }
+  & { transactions: Array<(
+    { __typename?: 'Transaction' }
+    & Pick<Transaction, 'id' | 'type' | 'noOfShares' | 'shareAmount'>
+    & { company: (
+      { __typename?: 'Company' }
+      & Pick<Company, 'name' | 'category'>
+    ) }
   )> }
 );
 
@@ -462,6 +506,45 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const TransactionsDocument = gql`
+    query Transactions {
+  transactions {
+    id
+    type
+    noOfShares
+    shareAmount
+    company {
+      name
+      category
+    }
+  }
+}
+    `;
+
+/**
+ * __useTransactionsQuery__
+ *
+ * To run a query within a React component, call `useTransactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTransactionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTransactionsQuery(baseOptions?: Apollo.QueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
+        return Apollo.useQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, baseOptions);
+      }
+export function useTransactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
+          return Apollo.useLazyQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, baseOptions);
+        }
+export type TransactionsQueryHookResult = ReturnType<typeof useTransactionsQuery>;
+export type TransactionsLazyQueryHookResult = ReturnType<typeof useTransactionsLazyQuery>;
+export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, TransactionsQueryVariables>;
 export const WatchlistDocument = gql`
     query Watchlist {
   watchlist {

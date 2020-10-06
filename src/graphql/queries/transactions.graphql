@@ -1,0 +1,12 @@
+query Transactions {
+  transactions {
+    id
+    type
+    noOfShares
+    shareAmount
+    company {
+      name
+      category
+    }
+  }
+}

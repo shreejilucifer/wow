@@ -33,7 +33,13 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
-  if (!company) return <></>;
+  if (!company)
+    return (
+      <div className={styles.loading}>
+        <h3>Nothing Selected</h3>
+        <p>please select something to play :)</p>
+      </div>
+    );
 
   let stat = calculateStat(company.previousValues);
 
