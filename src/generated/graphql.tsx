@@ -250,6 +250,22 @@ export type RemoveFromWatchlistMutation = (
   & Pick<Mutation, 'removeWatchlist'>
 );
 
+export type SignupMutationVariables = Exact<{
+  mobile: Scalars['String'];
+  password: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type SignupMutation = (
+  { __typename?: 'Mutation' }
+  & { register: (
+    { __typename?: 'UserResponse' }
+    & RegularUserResponseFragment
+  ) }
+);
+
 export type CompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -507,6 +523,41 @@ export function useRemoveFromWatchlistMutation(baseOptions?: Apollo.MutationHook
 export type RemoveFromWatchlistMutationHookResult = ReturnType<typeof useRemoveFromWatchlistMutation>;
 export type RemoveFromWatchlistMutationResult = Apollo.MutationResult<RemoveFromWatchlistMutation>;
 export type RemoveFromWatchlistMutationOptions = Apollo.BaseMutationOptions<RemoveFromWatchlistMutation, RemoveFromWatchlistMutationVariables>;
+export const SignupDocument = gql`
+    mutation Signup($mobile: String!, $password: String!, $email: String!, $name: String!) {
+  register(options: {email: $email, mobile: $mobile, name: $name, password: $password}) {
+    ...RegularUserResponse
+  }
+}
+    ${RegularUserResponseFragmentDoc}`;
+export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      mobile: // value for 'mobile'
+ *      password: // value for 'password'
+ *      email: // value for 'email'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<SignupMutation, SignupMutationVariables>) {
+        return Apollo.useMutation<SignupMutation, SignupMutationVariables>(SignupDocument, baseOptions);
+      }
+export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
+export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
+export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
 export const CompaniesDocument = gql`
     query Companies {
   companies {

@@ -2,7 +2,7 @@ import React from 'react';
 import Head from '../src/components/common/head';
 import { useRouter } from 'next/router';
 import styles from '../src/styles/light/login.module.css';
-import { useLoginMutation } from '../src/generated/graphql';
+import { useSignupMutation } from '../src/generated/graphql';
 import { Form, Formik } from 'formik';
 import { toErrorMap } from '../src/utils/toErrorMap';
 import { InputField } from '../src/components/common/inputfield';
@@ -12,7 +12,7 @@ interface signupProps {}
 
 const Signup: React.FC<signupProps> = ({}) => {
   const router = useRouter();
-  const [login, { error }] = useLoginMutation();
+  const [signup, { error }] = useSignupMutation();
 
   return (
     <div>
@@ -24,15 +24,15 @@ const Signup: React.FC<signupProps> = ({}) => {
         </div>
 
         <Formik
-          initialValues={{ mobile: '', password: '' }}
+          initialValues={{ mobile: '', password: '', name: '', email: '' }}
           onSubmit={async (values, { setErrors }) => {
-            const response = await login({
+            const response = await signup({
               variables: values,
             });
 
-            if (response.data?.login.errors) {
-              setErrors(toErrorMap(response.data.login.errors));
-            } else if (response.data?.login.user) {
+            if (response.data?.register.errors) {
+              setErrors(toErrorMap(response.data.register.errors));
+            } else if (response.data?.register.user) {
               if (typeof router.query.next === 'string') {
                 router.push(router.query.next);
               } else {
