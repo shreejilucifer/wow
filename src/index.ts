@@ -82,6 +82,7 @@ const main = async () => {
 			],
 			validate: false,
 		}),
+		playground: true,
 		context: ({ req, res }) => ({ em: conn, req, res, redis }),
 	});
 
