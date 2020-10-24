@@ -1,0 +1,8 @@
+query News {
+  news {
+    id
+    title
+    description
+    time
+  }
+}

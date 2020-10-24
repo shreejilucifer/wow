@@ -327,6 +327,17 @@ export type MeQuery = (
   )> }
 );
 
+export type NewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewsQuery = (
+  { __typename?: 'Query' }
+  & { news: Array<(
+    { __typename?: 'News' }
+    & Pick<News, 'id' | 'title' | 'description' | 'time'>
+  )> }
+);
+
 export type TransactionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -696,6 +707,41 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const NewsDocument = gql`
+    query News {
+  news {
+    id
+    title
+    description
+    time
+  }
+}
+    `;
+
+/**
+ * __useNewsQuery__
+ *
+ * To run a query within a React component, call `useNewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewsQuery(baseOptions?: Apollo.QueryHookOptions<NewsQuery, NewsQueryVariables>) {
+        return Apollo.useQuery<NewsQuery, NewsQueryVariables>(NewsDocument, baseOptions);
+      }
+export function useNewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NewsQuery, NewsQueryVariables>) {
+          return Apollo.useLazyQuery<NewsQuery, NewsQueryVariables>(NewsDocument, baseOptions);
+        }
+export type NewsQueryHookResult = ReturnType<typeof useNewsQuery>;
+export type NewsLazyQueryHookResult = ReturnType<typeof useNewsLazyQuery>;
+export type NewsQueryResult = Apollo.QueryResult<NewsQuery, NewsQueryVariables>;
 export const TransactionsDocument = gql`
     query Transactions {
   transactions {
