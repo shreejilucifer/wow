@@ -1,0 +1,8 @@
+query Dashboard {
+  dashboard {
+    grossingCompany
+    leaderboardTopper
+    sharesOwn
+    balance
+  }
+}

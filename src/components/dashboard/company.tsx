@@ -127,6 +127,7 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
                         noOfShares: parseInt(values.buy),
                         type: 'buy',
                       },
+                      refetchQueries: ['Dashboard'],
                     });
 
                     if (response.data?.buy.errors) {

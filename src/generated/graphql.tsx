@@ -19,6 +19,9 @@ export type Query = {
   company: Company;
   watchlist?: Maybe<Array<Watchlist>>;
   transactions: Array<Transaction>;
+  dashboard: Dashboard;
+  news: Array<News>;
+  currentholding: Array<CurrentHolding>;
 };
 
 
@@ -69,6 +72,31 @@ export type Transaction = {
   time: Scalars['String'];
   user: User;
   company: Company;
+};
+
+export type Dashboard = {
+  __typename?: 'Dashboard';
+  grossingCompany: Scalars['String'];
+  leaderboardTopper: Scalars['Int'];
+  sharesOwn: Scalars['Int'];
+  balance: Scalars['Int'];
+};
+
+export type News = {
+  __typename?: 'News';
+  id: Scalars['Int'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  time: Scalars['String'];
+};
+
+export type CurrentHolding = {
+  __typename?: 'CurrentHolding';
+  id: Scalars['Int'];
+  sharePrice: Scalars['Int'];
+  shareCount: Scalars['Int'];
+  company: Company;
+  user: User;
 };
 
 export type Mutation = {
@@ -275,6 +303,17 @@ export type CompaniesQuery = (
     { __typename?: 'Company' }
     & RegularCompanyFragment
   )> }
+);
+
+export type DashboardQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DashboardQuery = (
+  { __typename?: 'Query' }
+  & { dashboard: (
+    { __typename?: 'Dashboard' }
+    & Pick<Dashboard, 'grossingCompany' | 'leaderboardTopper' | 'sharesOwn' | 'balance'>
+  ) }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -590,6 +629,41 @@ export function useCompaniesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type CompaniesQueryHookResult = ReturnType<typeof useCompaniesQuery>;
 export type CompaniesLazyQueryHookResult = ReturnType<typeof useCompaniesLazyQuery>;
 export type CompaniesQueryResult = Apollo.QueryResult<CompaniesQuery, CompaniesQueryVariables>;
+export const DashboardDocument = gql`
+    query Dashboard {
+  dashboard {
+    grossingCompany
+    leaderboardTopper
+    sharesOwn
+    balance
+  }
+}
+    `;
+
+/**
+ * __useDashboardQuery__
+ *
+ * To run a query within a React component, call `useDashboardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDashboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDashboardQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDashboardQuery(baseOptions?: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>) {
+        return Apollo.useQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, baseOptions);
+      }
+export function useDashboardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DashboardQuery, DashboardQueryVariables>) {
+          return Apollo.useLazyQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, baseOptions);
+        }
+export type DashboardQueryHookResult = ReturnType<typeof useDashboardQuery>;
+export type DashboardLazyQueryHookResult = ReturnType<typeof useDashboardLazyQuery>;
+export type DashboardQueryResult = Apollo.QueryResult<DashboardQuery, DashboardQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
