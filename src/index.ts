@@ -20,6 +20,8 @@ import { CurrentHolding } from './entities/CurrentHolding';
 import { News } from './entities/News';
 import { Transaction } from './entities/Transaction';
 import { TransactionResolver } from './resolvers/transaction';
+import { Dashboard } from './entities/Dashboard';
+import { DashboardResolver } from './resolvers/dashboard';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -35,6 +37,7 @@ const main = async () => {
 			CurrentHolding,
 			Transaction,
 			News,
+			Dashboard,
 		],
 	});
 
@@ -79,6 +82,7 @@ const main = async () => {
 				CompanyResolver,
 				WatchlistResolver,
 				TransactionResolver,
+				DashboardResolver,
 			],
 			validate: false,
 		}),
