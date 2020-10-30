@@ -15,3 +15,11 @@ export type NewsType = {
 	description: string;
 	time: Date;
 };
+
+export type CompanyType = {
+	id: number;
+	name: string;
+	category: string;
+	shareCount: number;
+	shareValue: number;
+};
