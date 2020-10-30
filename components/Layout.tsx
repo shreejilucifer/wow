@@ -51,7 +51,9 @@ const Layout: React.FunctionComponent<ILayoutProps> = ({ children }) => {
 					</Button>
 				</Box>
 			</Flex>
-			<Flex px={50}>{children}</Flex>
+			<Flex px={50} flexDirection="column">
+				{children}
+			</Flex>
 		</Stack>
 	);
 };

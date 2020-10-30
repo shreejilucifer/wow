@@ -5,6 +5,13 @@
 // import User from 'path/to/interfaces';
 
 export type User = {
-  id: number
-  name: string
-}
+	id: number;
+	name: string;
+};
+
+export type NewsType = {
+	id: number;
+	title: string;
+	description: string;
+	time: Date;
+};
