@@ -1,29 +1,31 @@
-import 'reflect-metadata';
-import 'dotenv-safe/config';
-import { createConnection } from 'typeorm';
-import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { buildSchema } from 'type-graphql';
-import cors from 'cors';
-import session from 'express-session';
 import connectRedis from 'connect-redis';
-import { User } from './entities/User';
-import { Company } from './entities/Company';
-import { HelloResolver } from './resolvers/hello';
-import { UserResolver } from './resolvers/user';
-import { CompanyResolver } from './resolvers/company';
-import { PreviousValue } from './entities/PreviousValue';
-import { Watchlist } from './entities/Watchlist';
-import { WatchlistResolver } from './resolvers/watchlist';
-import { CurrentHolding } from './entities/CurrentHolding';
-import { News } from './entities/News';
-import { Transaction } from './entities/Transaction';
-import { TransactionResolver } from './resolvers/transaction';
-import { Dashboard } from './entities/Dashboard';
-import { DashboardResolver } from './resolvers/dashboard';
-import { NewsResolver } from './resolvers/news';
-import { CurrentHoldingResolver } from './resolvers/currentholding';
+import cors from 'cors';
+import 'dotenv-safe/config';
+import express from 'express';
+import session from 'express-session';
 import redis from 'redis';
+import 'reflect-metadata';
+import { buildSchema } from 'type-graphql';
+import { createConnection } from 'typeorm';
+import { Admin } from './entities/Admin';
+import { Company } from './entities/Company';
+import { CurrentHolding } from './entities/CurrentHolding';
+import { Dashboard } from './entities/Dashboard';
+import { News } from './entities/News';
+import { PreviousValue } from './entities/PreviousValue';
+import { Transaction } from './entities/Transaction';
+import { User } from './entities/User';
+import { Watchlist } from './entities/Watchlist';
+import { AdminResolver } from './resolvers/admin';
+import { CompanyResolver } from './resolvers/company';
+import { CurrentHoldingResolver } from './resolvers/currentholding';
+import { DashboardResolver } from './resolvers/dashboard';
+import { HelloResolver } from './resolvers/hello';
+import { NewsResolver } from './resolvers/news';
+import { TransactionResolver } from './resolvers/transaction';
+import { UserResolver } from './resolvers/user';
+import { WatchlistResolver } from './resolvers/watchlist';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -40,6 +42,7 @@ const main = async () => {
 			Transaction,
 			News,
 			Dashboard,
+			Admin,
 		],
 	});
 
@@ -90,6 +93,7 @@ const main = async () => {
 				DashboardResolver,
 				NewsResolver,
 				CurrentHoldingResolver,
+				AdminResolver,
 			],
 			validate: false,
 		}),
