@@ -26,9 +26,20 @@ export class AdminRegisterInput {
 export class AdminResolver {
 	@Mutation(() => AdminResponse)
 	async registerAdmin(
+		@Arg('secret') secret: String,
 		@Arg('options') options: AdminRegisterInput,
 		@Ctx() { req }: MyContext
 	): Promise<AdminResponse> {
+		if (secret !== process.env.SESSION_SECRET)
+			return {
+				errors: [
+					{
+						field: 'email',
+						message: 'Stop what u are doing!',
+					},
+				],
+			};
+
 		const hashedPassword = await argon2.hash(options.password);
 
 		let admin;
@@ -43,7 +54,7 @@ export class AdminResolver {
 					errors: [
 						{
 							field: 'email',
-							message: 'Cannot use same mobile or email',
+							message: 'Cannot use same email',
 						},
 					],
 				};
