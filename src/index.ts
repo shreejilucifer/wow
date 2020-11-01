@@ -5,7 +5,6 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import cors from 'cors';
-import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { User } from './entities/User';
@@ -24,6 +23,7 @@ import { Dashboard } from './entities/Dashboard';
 import { DashboardResolver } from './resolvers/dashboard';
 import { NewsResolver } from './resolvers/news';
 import { CurrentHoldingResolver } from './resolvers/currentholding';
+import redis from 'redis';
 
 const main = async () => {
 	const conn = await createConnection({
@@ -48,7 +48,10 @@ const main = async () => {
 	const app = express();
 
 	const RedisStore = connectRedis(session);
-	const redis = new Redis(process.env.REDIS_URL);
+	// const redis = new Redis(process.env.REDIS_URL);
+	const redisClient = redis.createClient({
+		url: process.env.REDIS_URL,
+	});
 
 	app.use(
 		cors({
@@ -60,7 +63,7 @@ const main = async () => {
 	app.use(
 		session({
 			name: 'qid',
-			store: new RedisStore({ client: redis, disableTouch: true }),
+			store: new RedisStore({ client: redisClient, disableTouch: true }),
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 Years
 				httpOnly: true,
@@ -91,7 +94,7 @@ const main = async () => {
 			validate: false,
 		}),
 		playground: true,
-		context: ({ req, res }) => ({ em: conn, req, res, redis }),
+		context: ({ req, res }) => ({ em: conn, req, res, redis: redisClient }),
 	});
 
 	apolloServer.applyMiddleware({ app, cors: false });
