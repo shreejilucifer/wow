@@ -1,13 +1,14 @@
 import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { Company } from '../entities/Company';
 import { PreviousValue } from '../entities/PreviousValue';
+import { isAdmin } from '../middleware/isAdmin';
 import { isAuth } from '../middleware/isAuth';
 import { CompanyAddInput } from './modules/CompanyAddInput';
 
 @Resolver(Company)
 export class CompanyResolver {
 	@Mutation(() => Company, { nullable: true })
-	@UseMiddleware(isAuth)
+	@UseMiddleware(isAdmin)
 	async addCompany(
 		@Arg('options') options: CompanyAddInput
 	): Promise<Company | undefined> {
@@ -46,5 +47,34 @@ export class CompanyResolver {
 	@UseMiddleware(isAuth)
 	company(@Arg('companyId') companyId: number): Promise<Company> {
 		return Company.findOneOrFail(companyId, { relations: ['previousValues'] });
+	}
+
+	@Query(() => [Company])
+	@UseMiddleware(isAdmin)
+	async companiesAdmin(): Promise<Company[]> {
+		return await Company.find();
+	}
+
+	@Mutation(() => Company)
+	@UseMiddleware(isAdmin)
+	async changeShareValueAdmin(
+		@Arg('companyId') companyId: number,
+		@Arg('shareValue') shareValue: number
+	): Promise<Company> {
+		const company = await Company.findOneOrFail(companyId);
+
+		await PreviousValue.create({
+			company,
+			shareValue: company.shareValue,
+			time: new Date(),
+		}).save();
+
+		await Company.update(companyId, {
+			shareValue: shareValue,
+		});
+
+		const newCompany = await Company.findOneOrFail(companyId);
+
+		return newCompany;
 	}
 }
