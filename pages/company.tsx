@@ -2,6 +2,7 @@ import * as React from 'react';
 import AddCompany from '../components/AddCompany';
 import Layout from '../components/Layout';
 import ListCompany from '../components/ListCompany';
+import { withApollo } from '../utils/withApollo';
 
 interface ICompanyPageProps {}
 
@@ -14,4 +15,4 @@ const CompanyPage: React.FunctionComponent<ICompanyPageProps> = () => {
 	);
 };
 
-export default CompanyPage;
+export default withApollo({ ssr: false })(CompanyPage);
