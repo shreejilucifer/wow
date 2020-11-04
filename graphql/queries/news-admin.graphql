@@ -1,0 +1,8 @@
+query NewsAdmin {
+	newsAdmin {
+		id
+		title
+		description
+		time
+	}
+}
