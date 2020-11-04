@@ -2,11 +2,15 @@ import { Box, Button, Flex, Link, Stack } from '@chakra-ui/core';
 import * as React from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/dist/client/router';
+import { useLogoutAdminMutation } from '../generated/graphql';
+import { useApolloClient } from '@apollo/client';
 
 interface ILayoutProps {}
 
 const Layout: React.FunctionComponent<ILayoutProps> = ({ children }) => {
 	const router = useRouter();
+	const apolloClient = useApolloClient();
+	const [logout] = useLogoutAdminMutation();
 	return (
 		<Stack>
 			<Flex
@@ -41,8 +45,10 @@ const Layout: React.FunctionComponent<ILayoutProps> = ({ children }) => {
 				</Flex>
 				<Box px={4}>
 					<Button
-						onClick={() => {
-							router.replace('/');
+						onClick={async () => {
+							await logout();
+							await router.push('/');
+							await apolloClient.resetStore();
 						}}
 						variant="link"
 						color="white"

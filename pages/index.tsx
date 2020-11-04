@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Flex, Heading } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { InputField } from '../components/InputField';
 import { useLoginAdminMutation } from '../generated/graphql';

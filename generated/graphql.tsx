@@ -13,6 +13,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  meAdmin?: Maybe<Admin>;
   companies: Array<Company>;
   company: Company;
   companiesAdmin: Array<Company>;
@@ -29,6 +30,12 @@ export type Query = {
 
 export type QueryCompanyArgs = {
   companyId: Scalars['Float'];
+};
+
+export type Admin = {
+  __typename?: 'Admin';
+  id: Scalars['Int'];
+  email: Scalars['String'];
 };
 
 export type Company = {
@@ -184,12 +191,6 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
-export type Admin = {
-  __typename?: 'Admin';
-  id: Scalars['Int'];
-  email: Scalars['String'];
-};
-
 export type AdminRegisterInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -268,6 +269,17 @@ export type LogoutAdminMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutAdminMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logoutAdmin'>
+);
+
+export type MeAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeAdminQuery = (
+  { __typename?: 'Query' }
+  & { meAdmin?: Maybe<(
+    { __typename?: 'Admin' }
+    & RegularAdminFragment
+  )> }
 );
 
 export type NewsAdminQueryVariables = Exact<{ [key: string]: never; }>;
@@ -365,6 +377,38 @@ export function useLogoutAdminMutation(baseOptions?: Apollo.MutationHookOptions<
 export type LogoutAdminMutationHookResult = ReturnType<typeof useLogoutAdminMutation>;
 export type LogoutAdminMutationResult = Apollo.MutationResult<LogoutAdminMutation>;
 export type LogoutAdminMutationOptions = Apollo.BaseMutationOptions<LogoutAdminMutation, LogoutAdminMutationVariables>;
+export const MeAdminDocument = gql`
+    query MeAdmin {
+  meAdmin {
+    ...RegularAdmin
+  }
+}
+    ${RegularAdminFragmentDoc}`;
+
+/**
+ * __useMeAdminQuery__
+ *
+ * To run a query within a React component, call `useMeAdminQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeAdminQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeAdminQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeAdminQuery(baseOptions?: Apollo.QueryHookOptions<MeAdminQuery, MeAdminQueryVariables>) {
+        return Apollo.useQuery<MeAdminQuery, MeAdminQueryVariables>(MeAdminDocument, baseOptions);
+      }
+export function useMeAdminLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeAdminQuery, MeAdminQueryVariables>) {
+          return Apollo.useLazyQuery<MeAdminQuery, MeAdminQueryVariables>(MeAdminDocument, baseOptions);
+        }
+export type MeAdminQueryHookResult = ReturnType<typeof useMeAdminQuery>;
+export type MeAdminLazyQueryHookResult = ReturnType<typeof useMeAdminLazyQuery>;
+export type MeAdminQueryResult = Apollo.QueryResult<MeAdminQuery, MeAdminQueryVariables>;
 export const NewsAdminDocument = gql`
     query NewsAdmin {
   newsAdmin {
