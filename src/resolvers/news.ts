@@ -14,7 +14,11 @@ export class NewsResolver {
 	@Query(() => [News])
 	@UseMiddleware(isAdmin)
 	async newsAdmin(): Promise<News[]> {
-		return await News.find();
+		return await News.find({
+			order: {
+				time: 'DESC',
+			},
+		});
 	}
 
 	@Mutation(() => News)
