@@ -1,11 +1,13 @@
-import { Box, Button, Flex, Heading } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Spinner } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
 import * as React from 'react';
+import { useAddNewsAdminMutation } from '../generated/graphql';
 import { InputField } from './InputField';
 
 interface IAddNewsProps {}
 
 const AddNews: React.FunctionComponent<IAddNewsProps> = () => {
+	const [addNews, { loading }] = useAddNewsAdminMutation();
 	return (
 		<Flex w="full" justifyContent="center">
 			<Box p={10} w="full" shadow="md">
@@ -14,15 +16,25 @@ const AddNews: React.FunctionComponent<IAddNewsProps> = () => {
 				</Heading>
 				<Formik
 					initialValues={{ title: '', description: '' }}
-					onSubmit={() => {
-						console.log('Submit');
+					onSubmit={async (values, { resetForm }) => {
+						const response = await addNews({
+							variables: values,
+						});
+						if (response.data?.addNewsAdmin) resetForm();
 					}}
 				>
 					{({ isSubmitting }) => (
 						<Form>
-							<InputField name="title" label="Title" placeholder="Title" />
+							<InputField
+								disabled={isSubmitting}
+								type="text"
+								name="title"
+								label="Title"
+								placeholder="Title"
+							/>
 							<Box mt={4}>
 								<InputField
+									disabled={isSubmitting}
 									name="description"
 									label="Description"
 									placeholder="Description...."
@@ -37,6 +49,7 @@ const AddNews: React.FunctionComponent<IAddNewsProps> = () => {
 								>
 									Add
 								</Button>
+								{loading && <Spinner />}
 							</Flex>
 						</Form>
 					)}

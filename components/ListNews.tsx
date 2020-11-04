@@ -1,5 +1,6 @@
-import { Box, Flex, Heading, Stack } from '@chakra-ui/core';
+import { Alert, Box, Flex, Heading, Skeleton, Stack } from '@chakra-ui/core';
 import * as React from 'react';
+import { useNewsAdminQuery } from '../generated/graphql';
 import { NewsType } from '../interfaces';
 
 interface IListNewsProps {}
@@ -27,18 +28,34 @@ const ListItem: React.FunctionComponent<NewsType> = (props) => {
 };
 
 const ListNews: React.FunctionComponent<IListNewsProps> = () => {
+	const { data, loading, error } = useNewsAdminQuery();
+
 	return (
 		<Flex w="full" flexDirection="column">
 			<Heading size="sm" my={4}>
 				News
 			</Heading>
 			<Stack>
-				<ListItem
-					title="Title 01"
-					description="Description 01...."
-					time={new Date()}
-					id={1}
-				/>
+				{error && <Alert>{error.message}</Alert>}
+				{loading && (
+					<>
+						<Skeleton height="20px" my="10px" />
+						<Skeleton height="20px" my="10px" />
+						<Skeleton height="20px" my="10px" />
+					</>
+				)}
+
+				{data?.newsAdmin.length === 0 && <Alert>No News Added</Alert>}
+
+				{data?.newsAdmin.map((news) => (
+					<ListItem
+						key={news.id}
+						title={news.title}
+						description={news.description}
+						time={new Date(parseInt(news.time))}
+						id={news.id}
+					/>
+				))}
 			</Stack>
 		</Flex>
 	);

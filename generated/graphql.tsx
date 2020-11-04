@@ -249,6 +249,20 @@ export type RegularErrorFragment = (
   & Pick<FieldError, 'field' | 'message'>
 );
 
+export type AddNewsAdminMutationVariables = Exact<{
+  title: Scalars['String'];
+  description: Scalars['String'];
+}>;
+
+
+export type AddNewsAdminMutation = (
+  { __typename?: 'Mutation' }
+  & { addNewsAdmin: (
+    { __typename?: 'News' }
+    & Pick<News, 'id' | 'title' | 'description' | 'time'>
+  ) }
+);
+
 export type LoginAdminMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -315,6 +329,42 @@ export const RegularAdminResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularAdminFragmentDoc}`;
+export const AddNewsAdminDocument = gql`
+    mutation AddNewsAdmin($title: String!, $description: String!) {
+  addNewsAdmin(title: $title, description: $description) {
+    id
+    title
+    description
+    time
+  }
+}
+    `;
+export type AddNewsAdminMutationFn = Apollo.MutationFunction<AddNewsAdminMutation, AddNewsAdminMutationVariables>;
+
+/**
+ * __useAddNewsAdminMutation__
+ *
+ * To run a mutation, you first call `useAddNewsAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddNewsAdminMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addNewsAdminMutation, { data, loading, error }] = useAddNewsAdminMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      description: // value for 'description'
+ *   },
+ * });
+ */
+export function useAddNewsAdminMutation(baseOptions?: Apollo.MutationHookOptions<AddNewsAdminMutation, AddNewsAdminMutationVariables>) {
+        return Apollo.useMutation<AddNewsAdminMutation, AddNewsAdminMutationVariables>(AddNewsAdminDocument, baseOptions);
+      }
+export type AddNewsAdminMutationHookResult = ReturnType<typeof useAddNewsAdminMutation>;
+export type AddNewsAdminMutationResult = Apollo.MutationResult<AddNewsAdminMutation>;
+export type AddNewsAdminMutationOptions = Apollo.BaseMutationOptions<AddNewsAdminMutation, AddNewsAdminMutationVariables>;
 export const LoginAdminDocument = gql`
     mutation LoginAdmin($email: String!, $password: String!) {
   loginAdmin(email: $email, password: $password) {
