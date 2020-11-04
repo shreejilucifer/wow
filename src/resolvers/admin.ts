@@ -5,6 +5,7 @@ import {
 	Field,
 	InputType,
 	Mutation,
+	Query,
 	Resolver,
 	UseMiddleware,
 } from 'type-graphql';
@@ -107,5 +108,14 @@ export class AdminResolver {
 				resolve(true);
 			})
 		);
+	}
+
+	@Query(() => Admin, { nullable: true })
+	@UseMiddleware(isAdmin)
+	meAdmin(@Ctx() { req }: MyContext) {
+		if (!req.session!.adminId) {
+			return null;
+		}
+		return Admin.findOne(req.session!.adminId);
 	}
 }
