@@ -58,7 +58,11 @@ const main = async () => {
 
 	app.use(
 		cors({
-			origin: process.env.CORS_ORIGIN,
+			origin: [
+				'http://localhost:3000',
+				'https://wow-admin.shreejipedhadiya.in',
+				'https://wow.shreejipedhadiya.in',
+			],
 			credentials: true,
 		})
 	);
