@@ -1,0 +1,9 @@
+query CompaniesAdmin {
+	companiesAdmin {
+		id
+		name
+		category
+		shareCount
+		shareValue
+	}
+}

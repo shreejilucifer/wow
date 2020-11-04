@@ -1,11 +1,14 @@
-import { Flex, Box, Heading, Button } from '@chakra-ui/core';
+import { Flex, Box, Heading, Button, Spinner } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import * as React from 'react';
+import { useAddCompanyMutation } from '../generated/graphql';
 import { InputField } from './InputField';
 
 interface IAddCompanyProps {}
 
 const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
+	const [addCompany, { loading }] = useAddCompanyMutation();
+
 	return (
 		<Flex w="full" justifyContent="center">
 			<Box p={10} w="full" shadow="md">
@@ -19,8 +22,17 @@ const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
 						shareCount: '',
 						shareValue: '',
 					}}
-					onSubmit={() => {
-						console.log('Submit');
+					onSubmit={async (values, { resetForm }) => {
+						const response = await addCompany({
+							variables: {
+								category: values.category,
+								name: values.name,
+								shareCount: parseInt(values.shareCount),
+								shareValue: parseInt(values.shareValue),
+							},
+							refetchQueries: ['CompaniesAdmin'],
+						});
+						if (response.data?.addCompany) resetForm();
 					}}
 				>
 					{({ isSubmitting }) => (
@@ -28,6 +40,7 @@ const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
 							<InputField name="name" label="Name" placeholder="Company Name" />
 							<Box mt={4}>
 								<InputField
+									disabled={isSubmitting}
 									name="category"
 									label="Category"
 									placeholder="Company Category"
@@ -35,6 +48,7 @@ const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
 							</Box>
 							<Box mt={4}>
 								<InputField
+									disabled={isSubmitting}
 									name="shareCount"
 									label="Share Count"
 									placeholder="Company Share Count"
@@ -43,6 +57,7 @@ const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
 							</Box>
 							<Box mt={4}>
 								<InputField
+									disabled={isSubmitting}
 									name="shareValue"
 									label="Share Value"
 									placeholder="Company Share Value"
@@ -57,6 +72,7 @@ const AddCompany: React.FunctionComponent<IAddCompanyProps> = () => {
 								>
 									Add
 								</Button>
+								{loading && <Spinner />}
 							</Flex>
 						</Form>
 					)}

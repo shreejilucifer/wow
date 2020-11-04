@@ -1,14 +1,17 @@
 import {
+	Alert,
 	Box,
 	Divider,
 	Flex,
 	Heading,
 	IconButton,
 	SimpleGrid,
+	Skeleton,
 	Text,
 } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import * as React from 'react';
+import { useCompaniesAdminQuery } from '../generated/graphql';
 import { CompanyType } from '../interfaces';
 import { InputField } from './InputField';
 
@@ -89,36 +92,53 @@ const ListItem: React.FunctionComponent<CompanyType> = (props) => {
 };
 
 const ListCompany: React.FunctionComponent<IListCompanyProps> = () => {
+	const { data, loading, error } = useCompaniesAdminQuery();
+
 	return (
 		<Flex w="full" flexDirection="column">
 			<Heading size="sm" my={4}>
 				Companies
 			</Heading>
-			<SimpleGrid columns={5} spacing={1}>
-				<Box>
-					<Text fontWeight="bold">ID</Text>
-				</Box>
-				<Box>
-					<Text fontWeight="bold">Name</Text>
-				</Box>
-				<Box>
-					<Text fontWeight="bold">Category</Text>
-				</Box>
-				<Box>
-					<Text fontWeight="bold">Share Count</Text>
-				</Box>
-				<Box>
-					<Text fontWeight="bold">Share Value</Text>
-				</Box>
-			</SimpleGrid>
+			{error && <Alert>{error.message}</Alert>}
+			{loading && (
+				<>
+					<Skeleton height="20px" my="10px" />
+					<Skeleton height="20px" my="10px" />
+					<Skeleton height="20px" my="10px" />
+				</>
+			)}
+			{data?.companiesAdmin.length === 0 ? (
+				<Alert>No Companies Added</Alert>
+			) : (
+				<SimpleGrid columns={5} spacing={1}>
+					<Box>
+						<Text fontWeight="bold">ID</Text>
+					</Box>
+					<Box>
+						<Text fontWeight="bold">Name</Text>
+					</Box>
+					<Box>
+						<Text fontWeight="bold">Category</Text>
+					</Box>
+					<Box>
+						<Text fontWeight="bold">Share Count</Text>
+					</Box>
+					<Box>
+						<Text fontWeight="bold">Share Value</Text>
+					</Box>
+				</SimpleGrid>
+			)}
 			<Divider />
-			<ListItem
-				id={1}
-				name="Reliance Jio"
-				category="Telecom"
-				shareCount={300}
-				shareValue={30}
-			/>
+			{data?.companiesAdmin.map((company) => (
+				<ListItem
+					key={company.id}
+					id={company.id}
+					name={company.name}
+					category={company.category}
+					shareCount={company.shareCount}
+					shareValue={company.shareValue}
+				/>
+			))}
 		</Flex>
 	);
 };

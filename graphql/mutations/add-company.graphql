@@ -1,0 +1,21 @@
+mutation AddCompany(
+	$name: String!
+	$category: String!
+	$shareValue: Int!
+	$shareCount: Int!
+) {
+	addCompany(
+		options: {
+			name: $name
+			category: $category
+			shareCount: $shareCount
+			shareValue: $shareValue
+		}
+	) {
+		id
+		name
+		category
+		shareCount
+		shareValue
+	}
+}

@@ -249,6 +249,22 @@ export type RegularErrorFragment = (
   & Pick<FieldError, 'field' | 'message'>
 );
 
+export type AddCompanyMutationVariables = Exact<{
+  name: Scalars['String'];
+  category: Scalars['String'];
+  shareValue: Scalars['Int'];
+  shareCount: Scalars['Int'];
+}>;
+
+
+export type AddCompanyMutation = (
+  { __typename?: 'Mutation' }
+  & { addCompany?: Maybe<(
+    { __typename?: 'Company' }
+    & Pick<Company, 'id' | 'name' | 'category' | 'shareCount' | 'shareValue'>
+  )> }
+);
+
 export type AddNewsAdminMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
@@ -283,6 +299,17 @@ export type LogoutAdminMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutAdminMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logoutAdmin'>
+);
+
+export type CompaniesAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CompaniesAdminQuery = (
+  { __typename?: 'Query' }
+  & { companiesAdmin: Array<(
+    { __typename?: 'Company' }
+    & Pick<Company, 'id' | 'name' | 'category' | 'shareCount' | 'shareValue'>
+  )> }
 );
 
 export type MeAdminQueryVariables = Exact<{ [key: string]: never; }>;
@@ -329,6 +356,47 @@ export const RegularAdminResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularAdminFragmentDoc}`;
+export const AddCompanyDocument = gql`
+    mutation AddCompany($name: String!, $category: String!, $shareValue: Int!, $shareCount: Int!) {
+  addCompany(
+    options: {name: $name, category: $category, shareCount: $shareCount, shareValue: $shareValue}
+  ) {
+    id
+    name
+    category
+    shareCount
+    shareValue
+  }
+}
+    `;
+export type AddCompanyMutationFn = Apollo.MutationFunction<AddCompanyMutation, AddCompanyMutationVariables>;
+
+/**
+ * __useAddCompanyMutation__
+ *
+ * To run a mutation, you first call `useAddCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCompanyMutation, { data, loading, error }] = useAddCompanyMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      category: // value for 'category'
+ *      shareValue: // value for 'shareValue'
+ *      shareCount: // value for 'shareCount'
+ *   },
+ * });
+ */
+export function useAddCompanyMutation(baseOptions?: Apollo.MutationHookOptions<AddCompanyMutation, AddCompanyMutationVariables>) {
+        return Apollo.useMutation<AddCompanyMutation, AddCompanyMutationVariables>(AddCompanyDocument, baseOptions);
+      }
+export type AddCompanyMutationHookResult = ReturnType<typeof useAddCompanyMutation>;
+export type AddCompanyMutationResult = Apollo.MutationResult<AddCompanyMutation>;
+export type AddCompanyMutationOptions = Apollo.BaseMutationOptions<AddCompanyMutation, AddCompanyMutationVariables>;
 export const AddNewsAdminDocument = gql`
     mutation AddNewsAdmin($title: String!, $description: String!) {
   addNewsAdmin(title: $title, description: $description) {
@@ -427,6 +495,42 @@ export function useLogoutAdminMutation(baseOptions?: Apollo.MutationHookOptions<
 export type LogoutAdminMutationHookResult = ReturnType<typeof useLogoutAdminMutation>;
 export type LogoutAdminMutationResult = Apollo.MutationResult<LogoutAdminMutation>;
 export type LogoutAdminMutationOptions = Apollo.BaseMutationOptions<LogoutAdminMutation, LogoutAdminMutationVariables>;
+export const CompaniesAdminDocument = gql`
+    query CompaniesAdmin {
+  companiesAdmin {
+    id
+    name
+    category
+    shareCount
+    shareValue
+  }
+}
+    `;
+
+/**
+ * __useCompaniesAdminQuery__
+ *
+ * To run a query within a React component, call `useCompaniesAdminQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCompaniesAdminQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCompaniesAdminQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCompaniesAdminQuery(baseOptions?: Apollo.QueryHookOptions<CompaniesAdminQuery, CompaniesAdminQueryVariables>) {
+        return Apollo.useQuery<CompaniesAdminQuery, CompaniesAdminQueryVariables>(CompaniesAdminDocument, baseOptions);
+      }
+export function useCompaniesAdminLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CompaniesAdminQuery, CompaniesAdminQueryVariables>) {
+          return Apollo.useLazyQuery<CompaniesAdminQuery, CompaniesAdminQueryVariables>(CompaniesAdminDocument, baseOptions);
+        }
+export type CompaniesAdminQueryHookResult = ReturnType<typeof useCompaniesAdminQuery>;
+export type CompaniesAdminLazyQueryHookResult = ReturnType<typeof useCompaniesAdminLazyQuery>;
+export type CompaniesAdminQueryResult = Apollo.QueryResult<CompaniesAdminQuery, CompaniesAdminQueryVariables>;
 export const MeAdminDocument = gql`
     query MeAdmin {
   meAdmin {
