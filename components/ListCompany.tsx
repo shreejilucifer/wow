@@ -22,7 +22,7 @@ interface IListCompanyProps {}
 
 const ListItem: React.FunctionComponent<CompanyType> = (props) => {
 	const [editable, setEditable] = React.useState(false);
-	const [changeShareValue, { loading }] = useChangeShareValueAdminMutation();
+	const [changeShareValue] = useChangeShareValueAdminMutation();
 	return (
 		<SimpleGrid
 			columns={5}
