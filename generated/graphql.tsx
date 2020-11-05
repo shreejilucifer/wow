@@ -143,8 +143,7 @@ export type MutationAddCompanyArgs = {
 
 
 export type MutationChangeShareValueAdminArgs = {
-  shareValue: Scalars['Float'];
-  companyId: Scalars['Float'];
+  options: CompanyChangeInput;
 };
 
 
@@ -200,6 +199,11 @@ export type CompanyAddInput = {
   name: Scalars['String'];
   category: Scalars['String'];
   shareCount: Scalars['Int'];
+  shareValue: Scalars['Int'];
+};
+
+export type CompanyChangeInput = {
+  companyId: Scalars['Int'];
   shareValue: Scalars['Int'];
 };
 
@@ -276,6 +280,20 @@ export type AddNewsAdminMutation = (
   & { addNewsAdmin: (
     { __typename?: 'News' }
     & Pick<News, 'id' | 'title' | 'description' | 'time'>
+  ) }
+);
+
+export type ChangeShareValueAdminMutationVariables = Exact<{
+  companyId: Scalars['Int'];
+  shareValue: Scalars['Int'];
+}>;
+
+
+export type ChangeShareValueAdminMutation = (
+  { __typename?: 'Mutation' }
+  & { changeShareValueAdmin: (
+    { __typename?: 'Company' }
+    & Pick<Company, 'id' | 'name' | 'category' | 'shareCount' | 'shareValue'>
   ) }
 );
 
@@ -433,6 +451,43 @@ export function useAddNewsAdminMutation(baseOptions?: Apollo.MutationHookOptions
 export type AddNewsAdminMutationHookResult = ReturnType<typeof useAddNewsAdminMutation>;
 export type AddNewsAdminMutationResult = Apollo.MutationResult<AddNewsAdminMutation>;
 export type AddNewsAdminMutationOptions = Apollo.BaseMutationOptions<AddNewsAdminMutation, AddNewsAdminMutationVariables>;
+export const ChangeShareValueAdminDocument = gql`
+    mutation ChangeShareValueAdmin($companyId: Int!, $shareValue: Int!) {
+  changeShareValueAdmin(options: {companyId: $companyId, shareValue: $shareValue}) {
+    id
+    name
+    category
+    shareCount
+    shareValue
+  }
+}
+    `;
+export type ChangeShareValueAdminMutationFn = Apollo.MutationFunction<ChangeShareValueAdminMutation, ChangeShareValueAdminMutationVariables>;
+
+/**
+ * __useChangeShareValueAdminMutation__
+ *
+ * To run a mutation, you first call `useChangeShareValueAdminMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeShareValueAdminMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeShareValueAdminMutation, { data, loading, error }] = useChangeShareValueAdminMutation({
+ *   variables: {
+ *      companyId: // value for 'companyId'
+ *      shareValue: // value for 'shareValue'
+ *   },
+ * });
+ */
+export function useChangeShareValueAdminMutation(baseOptions?: Apollo.MutationHookOptions<ChangeShareValueAdminMutation, ChangeShareValueAdminMutationVariables>) {
+        return Apollo.useMutation<ChangeShareValueAdminMutation, ChangeShareValueAdminMutationVariables>(ChangeShareValueAdminDocument, baseOptions);
+      }
+export type ChangeShareValueAdminMutationHookResult = ReturnType<typeof useChangeShareValueAdminMutation>;
+export type ChangeShareValueAdminMutationResult = Apollo.MutationResult<ChangeShareValueAdminMutation>;
+export type ChangeShareValueAdminMutationOptions = Apollo.BaseMutationOptions<ChangeShareValueAdminMutation, ChangeShareValueAdminMutationVariables>;
 export const LoginAdminDocument = gql`
     mutation LoginAdmin($email: String!, $password: String!) {
   loginAdmin(email: $email, password: $password) {

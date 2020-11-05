@@ -11,7 +11,10 @@ import {
 } from '@chakra-ui/core';
 import { Formik, Form } from 'formik';
 import * as React from 'react';
-import { useCompaniesAdminQuery } from '../generated/graphql';
+import {
+	useChangeShareValueAdminMutation,
+	useCompaniesAdminQuery,
+} from '../generated/graphql';
 import { CompanyType } from '../interfaces';
 import { InputField } from './InputField';
 
@@ -19,7 +22,7 @@ interface IListCompanyProps {}
 
 const ListItem: React.FunctionComponent<CompanyType> = (props) => {
 	const [editable, setEditable] = React.useState(false);
-
+	const [changeShareValue, { loading }] = useChangeShareValueAdminMutation();
 	return (
 		<SimpleGrid
 			columns={5}
@@ -43,8 +46,14 @@ const ListItem: React.FunctionComponent<CompanyType> = (props) => {
 				{editable ? (
 					<Formik
 						initialValues={{ shareValue: '' }}
-						onSubmit={() => {
-							console.log('Submit');
+						onSubmit={async (values, { resetForm }) => {
+							const response = await changeShareValue({
+								variables: {
+									companyId: props.id,
+									shareValue: parseInt(values.shareValue),
+								},
+							});
+							if (response.data?.changeShareValueAdmin) resetForm();
 							setEditable(false);
 						}}
 					>
@@ -52,6 +61,7 @@ const ListItem: React.FunctionComponent<CompanyType> = (props) => {
 							<Form>
 								<Flex w="full" flexDirection="row">
 									<InputField
+										disabled={isSubmitting}
 										type="number"
 										name="shareValue"
 										placeholder="Share Value"
