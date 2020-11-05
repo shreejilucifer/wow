@@ -4,6 +4,7 @@ import { PreviousValue } from '../entities/PreviousValue';
 import { isAdmin } from '../middleware/isAdmin';
 import { isAuth } from '../middleware/isAuth';
 import { CompanyAddInput } from './modules/CompanyAddInput';
+import { CompanyChangeInput } from './modules/CompanyChangeInput';
 
 @Resolver(Company)
 export class CompanyResolver {
@@ -58,10 +59,9 @@ export class CompanyResolver {
 	@Mutation(() => Company)
 	@UseMiddleware(isAdmin)
 	async changeShareValueAdmin(
-		@Arg('companyId') companyId: number,
-		@Arg('shareValue') shareValue: number
+		@Arg('options') options: CompanyChangeInput
 	): Promise<Company> {
-		const company = await Company.findOneOrFail(companyId);
+		const company = await Company.findOneOrFail(options.companyId);
 
 		await PreviousValue.create({
 			company,
@@ -69,11 +69,11 @@ export class CompanyResolver {
 			time: new Date(),
 		}).save();
 
-		await Company.update(companyId, {
-			shareValue: shareValue,
+		await Company.update(options.companyId, {
+			shareValue: options.shareValue,
 		});
 
-		const newCompany = await Company.findOneOrFail(companyId);
+		const newCompany = await Company.findOneOrFail(options.companyId);
 
 		return newCompany;
 	}

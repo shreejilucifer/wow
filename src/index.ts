@@ -51,7 +51,7 @@ const main = async () => {
 	const app = express();
 
 	const RedisStore = connectRedis(session);
-	// const redis = new Redis(process.env.REDIS_URL);
+
 	const redisClient = redis.createClient({
 		url: process.env.REDIS_URL,
 	});
