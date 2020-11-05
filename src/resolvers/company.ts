@@ -53,7 +53,11 @@ export class CompanyResolver {
 	@Query(() => [Company])
 	@UseMiddleware(isAdmin)
 	async companiesAdmin(): Promise<Company[]> {
-		return await Company.find();
+		return await Company.find({
+			order: {
+				id: 'ASC',
+			},
+		});
 	}
 
 	@Mutation(() => Company)
