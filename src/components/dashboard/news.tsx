@@ -66,6 +66,12 @@ const News = () => {
               ))}
           </>
         )}
+        {data?.news.length === 0 && (
+          <div className={styles.loading}>
+            <h3>No News</h3>
+            <p>please wait for market to go live :)</p>
+          </div>
+        )}
       </div>
     </React.Fragment>
   );
