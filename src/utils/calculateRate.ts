@@ -10,8 +10,7 @@ export const calculateRate = (
     len === 1
       ? previousValues[0].shareValue
       : previousValues[len - 1].shareValue;
-  let numerator = currentValue - previousValue;
+  let numerator = previousValue - currentValue;
   let rate = (numerator / previousValue) * 100;
-
-  return rate;
+  return parseInt(rate.toFixed(2));
 };

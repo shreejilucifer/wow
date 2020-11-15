@@ -7,8 +7,8 @@ export const calculateStat = (previousValues: PreviousValue[]): string => {
   else
     stat =
       previousValues[len - 2].shareValue > previousValues[len - 1].shareValue
-        ? 'up'
-        : 'down';
+        ? 'down'
+        : 'up';
 
   return stat;
 };

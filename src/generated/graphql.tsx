@@ -13,15 +13,18 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  hello: Scalars['String'];
-  me?: Maybe<User>;
+  meAdmin?: Maybe<Admin>;
   companies: Array<Company>;
   company: Company;
-  watchlist?: Maybe<Array<Watchlist>>;
-  transactions: Array<Transaction>;
-  dashboard: Dashboard;
-  news: Array<News>;
+  companiesAdmin: Array<Company>;
   currentholding: Array<CurrentHolding>;
+  dashboard: Dashboard;
+  hello: Scalars['String'];
+  news: Array<News>;
+  newsAdmin: Array<News>;
+  transactions: Array<Transaction>;
+  me?: Maybe<User>;
+  watchlist?: Maybe<Array<Watchlist>>;
 };
 
 
@@ -29,13 +32,10 @@ export type QueryCompanyArgs = {
   companyId: Scalars['Float'];
 };
 
-export type User = {
-  __typename?: 'User';
+export type Admin = {
+  __typename?: 'Admin';
   id: Scalars['Int'];
-  name: Scalars['String'];
   email: Scalars['String'];
-  mobile: Scalars['String'];
-  walletAmount: Scalars['Int'];
 };
 
 export type Company = {
@@ -56,22 +56,22 @@ export type PreviousValue = {
   company: Company;
 };
 
-export type Watchlist = {
-  __typename?: 'Watchlist';
+export type CurrentHolding = {
+  __typename?: 'CurrentHolding';
   id: Scalars['Int'];
-  user: User;
+  sharePrice: Scalars['Int'];
+  shareCount: Scalars['Int'];
   company: Company;
+  user: User;
 };
 
-export type Transaction = {
-  __typename?: 'Transaction';
+export type User = {
+  __typename?: 'User';
   id: Scalars['Int'];
-  type: Scalars['String'];
-  noOfShares: Scalars['Float'];
-  shareAmount: Scalars['Float'];
-  time: Scalars['String'];
-  user: User;
-  company: Company;
+  name: Scalars['String'];
+  email: Scalars['String'];
+  mobile: Scalars['String'];
+  walletAmount: Scalars['Int'];
 };
 
 export type Dashboard = {
@@ -90,24 +90,71 @@ export type News = {
   time: Scalars['String'];
 };
 
-export type CurrentHolding = {
-  __typename?: 'CurrentHolding';
+export type Transaction = {
+  __typename?: 'Transaction';
   id: Scalars['Int'];
-  sharePrice: Scalars['Int'];
-  shareCount: Scalars['Int'];
-  company: Company;
+  type: Scalars['String'];
+  noOfShares: Scalars['Float'];
+  shareAmount: Scalars['Float'];
+  time: Scalars['String'];
   user: User;
+  company: Company;
+};
+
+export type Watchlist = {
+  __typename?: 'Watchlist';
+  id: Scalars['Int'];
+  user: User;
+  company: Company;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  registerAdmin: AdminResponse;
+  loginAdmin: AdminResponse;
+  logoutAdmin: Scalars['Boolean'];
+  addCompany?: Maybe<Company>;
+  changeShareValueAdmin: Company;
+  addNewsAdmin: News;
+  buy: TransactionResponse;
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
-  addCompany?: Maybe<Company>;
   addWatchlist?: Maybe<Watchlist>;
   removeWatchlist?: Maybe<Scalars['Boolean']>;
-  buy: TransactionResponse;
+};
+
+
+export type MutationRegisterAdminArgs = {
+  options: AdminRegisterInput;
+  secret: Scalars['String'];
+};
+
+
+export type MutationLoginAdminArgs = {
+  password: Scalars['String'];
+  email: Scalars['String'];
+};
+
+
+export type MutationAddCompanyArgs = {
+  options: CompanyAddInput;
+};
+
+
+export type MutationChangeShareValueAdminArgs = {
+  options: CompanyChangeInput;
+};
+
+
+export type MutationAddNewsAdminArgs = {
+  description: Scalars['String'];
+  title: Scalars['String'];
+};
+
+
+export type MutationBuyArgs = {
+  options: TransactionInput;
 };
 
 
@@ -122,11 +169,6 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationAddCompanyArgs = {
-  options: CompanyAddInput;
-};
-
-
 export type MutationAddWatchlistArgs = {
   companyId: Scalars['Float'];
 };
@@ -136,15 +178,10 @@ export type MutationRemoveWatchlistArgs = {
   watchlistId: Scalars['Float'];
 };
 
-
-export type MutationBuyArgs = {
-  options: TransactionInput;
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
+export type AdminResponse = {
+  __typename?: 'AdminResponse';
   errors?: Maybe<Array<FieldError>>;
-  user?: Maybe<User>;
+  admin?: Maybe<Admin>;
 };
 
 export type FieldError = {
@@ -153,10 +190,8 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
-export type UserRegisterInput = {
+export type AdminRegisterInput = {
   email: Scalars['String'];
-  mobile: Scalars['String'];
-  name: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -164,6 +199,11 @@ export type CompanyAddInput = {
   name: Scalars['String'];
   category: Scalars['String'];
   shareCount: Scalars['Int'];
+  shareValue: Scalars['Int'];
+};
+
+export type CompanyChangeInput = {
+  companyId: Scalars['Int'];
   shareValue: Scalars['Int'];
 };
 
@@ -177,6 +217,19 @@ export type TransactionInput = {
   type: Scalars['String'];
   noOfShares: Scalars['Int'];
   companyId: Scalars['Int'];
+};
+
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  user?: Maybe<User>;
+};
+
+export type UserRegisterInput = {
+  email: Scalars['String'];
+  mobile: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type RegularCompanyFragment = (
@@ -302,6 +355,21 @@ export type CompaniesQuery = (
   & { companies: Array<(
     { __typename?: 'Company' }
     & RegularCompanyFragment
+  )> }
+);
+
+export type CurrentHoldingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentHoldingsQuery = (
+  { __typename?: 'Query' }
+  & { currentholding: Array<(
+    { __typename?: 'CurrentHolding' }
+    & Pick<CurrentHolding, 'id' | 'sharePrice' | 'shareCount'>
+    & { company: (
+      { __typename?: 'Company' }
+      & Pick<Company, 'id' | 'name'>
+    ) }
   )> }
 );
 
@@ -640,6 +708,44 @@ export function useCompaniesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type CompaniesQueryHookResult = ReturnType<typeof useCompaniesQuery>;
 export type CompaniesLazyQueryHookResult = ReturnType<typeof useCompaniesLazyQuery>;
 export type CompaniesQueryResult = Apollo.QueryResult<CompaniesQuery, CompaniesQueryVariables>;
+export const CurrentHoldingsDocument = gql`
+    query CurrentHoldings {
+  currentholding {
+    id
+    sharePrice
+    shareCount
+    company {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentHoldingsQuery__
+ *
+ * To run a query within a React component, call `useCurrentHoldingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentHoldingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentHoldingsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentHoldingsQuery(baseOptions?: Apollo.QueryHookOptions<CurrentHoldingsQuery, CurrentHoldingsQueryVariables>) {
+        return Apollo.useQuery<CurrentHoldingsQuery, CurrentHoldingsQueryVariables>(CurrentHoldingsDocument, baseOptions);
+      }
+export function useCurrentHoldingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentHoldingsQuery, CurrentHoldingsQueryVariables>) {
+          return Apollo.useLazyQuery<CurrentHoldingsQuery, CurrentHoldingsQueryVariables>(CurrentHoldingsDocument, baseOptions);
+        }
+export type CurrentHoldingsQueryHookResult = ReturnType<typeof useCurrentHoldingsQuery>;
+export type CurrentHoldingsLazyQueryHookResult = ReturnType<typeof useCurrentHoldingsLazyQuery>;
+export type CurrentHoldingsQueryResult = Apollo.QueryResult<CurrentHoldingsQuery, CurrentHoldingsQueryVariables>;
 export const DashboardDocument = gql`
     query Dashboard {
   dashboard {

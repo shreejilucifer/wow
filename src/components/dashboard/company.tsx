@@ -2,8 +2,10 @@ import { Form, Formik } from 'formik';
 import React, { useContext } from 'react';
 import {
   Company as CObj,
+  CurrentHolding,
   useAddToWatchlistMutation,
   useBuyMutation,
+  useCurrentHoldingsQuery,
 } from '../../generated/graphql';
 import dark from '../../styles/dark/company.module.css';
 import light from '../../styles/light/company.module.css';
@@ -38,6 +40,18 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
 
   const [addToWatchlist, { loading }] = useAddToWatchlistMutation();
   const [buy, { loading: buyLoading }] = useBuyMutation();
+  const { data, loading: currLoading } = useCurrentHoldingsQuery();
+
+  const currentCompanyHolding = (currentHoldings: [CurrentHolding]): string => {
+    const comp = currentHoldings.findIndex(
+      (c: CurrentHolding) => c.company.id === company?.id
+    );
+    if (comp == -1) {
+      return '000';
+    }
+
+    return currentHoldings[comp].shareCount.toString();
+  };
 
   return (
     <React.Fragment>
@@ -100,7 +114,16 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
           </div>
           <div className={styles.companyCards}>
             <Card top='Available Volume' bottom={nc(company.shareCount)} />
-            <Card top='Bought Volume' bottom='000' />
+            <Card
+              top='Bought Volume'
+              bottom={
+                currLoading
+                  ? '•••'
+                  : currentCompanyHolding(
+                      data?.currentholding as [CurrentHolding]
+                    )
+              }
+            />
             <Card top='Current Price' bottom={'₹' + nc(company.shareValue)} />
             <Card
               top='Base Price'
@@ -127,7 +150,11 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
                         noOfShares: parseInt(values.buy),
                         type: 'buy',
                       },
-                      refetchQueries: ['Dashboard'],
+                      refetchQueries: [
+                        'Dashboard',
+                        'CurrentHoldings',
+                        'Companies',
+                      ],
                     });
 
                     if (response.data?.buy.errors) {
@@ -153,7 +180,7 @@ const Company: React.FC<{ company: CObj | undefined }> = ({ company }) => {
                           className={styles.button}
                           disabled={isSubmitting}
                         >
-                          {buyLoading ? '...' : 'BUY'}
+                          {buyLoading ? '•••' : 'BUY'}
                         </button>
                       </div>
                     </Form>

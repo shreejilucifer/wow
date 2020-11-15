@@ -1,0 +1,11 @@
+query CurrentHoldings {
+  currentholding {
+    id
+    sharePrice
+    shareCount
+    company {
+      id
+      name
+    }
+  }
+}
