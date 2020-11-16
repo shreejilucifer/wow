@@ -106,6 +106,15 @@
   background: #bcbcbc;
 }
 
+@media only screen and (max-width: 1440px) {
+  .logo {
+    height: 70vh;
+  }
+  .sitetitle {
+    width: 70vh;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     display: flex;
