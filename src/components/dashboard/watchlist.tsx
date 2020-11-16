@@ -7,6 +7,7 @@ import {
   PreviousValue,
   useRemoveFromWatchlistMutation,
   useWatchlistQuery,
+  WatchlistQuery,
 } from '../../generated/graphql';
 import { calculateStat } from '../../utils/calculateStat';
 import { calculateRate } from '../../utils/calculateRate';
@@ -105,31 +106,46 @@ const WatchList = () => {
   const { theme } = useContext(ThemeContext);
   const styles = theme ? light : dark;
 
-  const { data } = useWatchlistQuery();
+  const { data, loading, error } = useWatchlistQuery();
+
+  const renderWatchlists = (data: WatchlistQuery | undefined) => {
+    if (!data?.watchlist) return null;
+
+    if (data.watchlist.length === 0)
+      return <div className={styles.title}>•l•</div>;
+
+    return data.watchlist.map((watchlist) => (
+      <Item
+        id={watchlist.id}
+        key={watchlist.id}
+        name={shortName(watchlist.company.name)}
+        stat={calculateStat(
+          watchlist.company.previousValues as PreviousValue[]
+        )}
+        percentage={`${calculateRate(
+          watchlist.company.previousValues as PreviousValue[],
+          watchlist.company.shareValue
+        )}`}
+        price={watchlist.company.shareValue}
+        stock={watchlist.company.shareCount}
+      />
+    ));
+  };
+
+  if (error) {
+    return null;
+  }
 
   return (
     <React.Fragment>
       <div className={styles.mobileTitle}>Watchlist</div>
       <div className={styles.container}>
         <div className={styles.title}>Watchlist</div>
-        <div className={styles.items}>
-          {data?.watchlist?.map((watchlist) => (
-            <Item
-              id={watchlist.id}
-              key={watchlist.id}
-              name={shortName(watchlist.company.name)}
-              stat={calculateStat(
-                watchlist.company.previousValues as PreviousValue[]
-              )}
-              percentage={`${calculateRate(
-                watchlist.company.previousValues as PreviousValue[],
-                watchlist.company.shareValue
-              )}`}
-              price={watchlist.company.shareValue}
-              stock={watchlist.company.shareCount}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div>••••</div>
+        ) : (
+          <div className={styles.items}>{renderWatchlists(data)}</div>
+        )}
       </div>
     </React.Fragment>
   );

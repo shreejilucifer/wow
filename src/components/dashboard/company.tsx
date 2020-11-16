@@ -6,6 +6,7 @@ import {
   useAddToWatchlistMutation,
   useBuyMutation,
   useCurrentHoldingsQuery,
+  WatchlistQuery,
 } from '../../generated/graphql';
 import dark from '../../styles/dark/company.module.css';
 import light from '../../styles/light/company.module.css';
@@ -17,6 +18,7 @@ import { ThemeContext } from '../../utils/theme';
 import { toErrorMap } from '../../utils/toErrorMap';
 import { InputField } from '../common/inputfield';
 import Graph from './graph';
+import WatchList from './watchlist';
 
 interface cardProps {
   top: number | string;

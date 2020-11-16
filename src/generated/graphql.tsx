@@ -19,6 +19,7 @@ export type Query = {
   companiesAdmin: Array<Company>;
   currentholding: Array<CurrentHolding>;
   dashboard: Dashboard;
+  leaderboard: Array<User>;
   hello: Scalars['String'];
   news: Array<News>;
   newsAdmin: Array<News>;
@@ -271,6 +272,7 @@ export type AddToWatchlistMutation = (
   { __typename?: 'Mutation' }
   & { addWatchlist?: Maybe<(
     { __typename?: 'Watchlist' }
+    & Pick<Watchlist, 'id'>
     & { company: (
       { __typename?: 'Company' }
       & RegularCompanyFragment
@@ -475,6 +477,7 @@ ${RegularUserFragmentDoc}`;
 export const AddToWatchlistDocument = gql`
     mutation AddToWatchlist($companyId: Float!) {
   addWatchlist(companyId: $companyId) {
+    id
     company {
       ...RegularCompany
     }
