@@ -1,0 +1,8 @@
+mutation AddNewsAdmin($title: String!, $description: String!) {
+	addNewsAdmin(title: $title, description: $description) {
+		id
+		title
+		description
+		time
+	}
+}

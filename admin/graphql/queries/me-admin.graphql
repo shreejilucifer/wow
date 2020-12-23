@@ -1,0 +1,5 @@
+query MeAdmin {
+	meAdmin {
+		...RegularAdmin
+	}
+}

@@ -1,0 +1,8 @@
+fragment RegularAdminResponse on AdminResponse {
+	errors {
+		...RegularError
+	}
+	admin {
+		...RegularAdmin
+	}
+}

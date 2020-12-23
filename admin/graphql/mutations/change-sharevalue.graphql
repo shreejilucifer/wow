@@ -1,0 +1,11 @@
+mutation ChangeShareValueAdmin($companyId: Int!, $shareValue: Int!) {
+	changeShareValueAdmin(
+		options: { companyId: $companyId, shareValue: $shareValue }
+	) {
+		id
+		name
+		category
+		shareCount
+		shareValue
+	}
+}
