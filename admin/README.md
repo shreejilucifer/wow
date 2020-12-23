@@ -1,4 +1,4 @@
-# Wolf Of Wallstreet - Frontend
+# Wolf Of Wallstreet - Admin
 
 ## Development
 
@@ -6,7 +6,7 @@
 
 ```bash
   git clone https://github.com/shreejilucifer/wow.git
-  cd wow/frontend/
+  cd wow/admin/
   yarn install
   yarn dev
 ```
